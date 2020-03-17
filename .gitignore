@@ -1,0 +1,6 @@
+node_modules
+@quercia/**/*.js
+@quercia/**/*.d.ts
+@quercia/**/*.map
+@quercia/**/tsconfig.tsbuildinfo
+__quercia

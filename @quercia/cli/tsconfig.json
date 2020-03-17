@@ -1,0 +1,9 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "module": "commonjs",
+    "lib": [
+      "ES2019.Array"
+    ]
+  }
+}

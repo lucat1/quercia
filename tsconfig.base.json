@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "moduleResolution": "node",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strictNullChecks": true,
+    "downlevelIteration": true,
+    "strictPropertyInitialization": true,
+    "jsx": "react",
+  }
+}

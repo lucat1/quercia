@@ -1,0 +1,11 @@
+{
+  // exclude build files from the editor
+  "files.exclude": {
+    "**/.git": true,
+    "**/.DS_Store": true,
+    "@quercia/**/*.d.ts": true,
+    "@quercia/**/*.map": true,
+    "@quercia/**/*.js": true,
+    "@quercia/*/tsconfig.tsbuildinfo": true,
+  }
+}

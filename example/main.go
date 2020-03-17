@@ -1,0 +1,18 @@
+package main
+
+import (
+	"fmt"
+	"net/http"
+
+	"github.com/lucat1/quercia"
+)
+
+func main() {
+	quercia.Init("__quercia", false)
+	f := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte(quercia.Render(w, r, "index", quercia.Props{})))
+	})
+
+	fmt.Println("Listening on :8080")
+	http.ListenAndServe(":8080", quercia.Middleware(f))
+}
