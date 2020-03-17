@@ -2,7 +2,11 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "module": "commonjs",
+    "types": [
+      "node"
+    ],
     "lib": [
+      "DOM", 
       "ES2019.Array"
     ]
   }

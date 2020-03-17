@@ -2,16 +2,16 @@ import * as webpack from 'webpack'
 import { join, extname } from 'path'
 import { promises as fs } from 'fs'
 
-import ManifestPlugin from './manifest-plugin'
+import { config } from './config'
 
-const root = process.cwd()
+export const root = process.cwd()
 export const pages = join(root, 'pages')
-const quercia = join(root, '__quercia')
+export const quercia = join(root, '__quercia')
 
 // webpack compiler related variables
-const entry = require.resolve('@quercia/quercia')
-const loader = require.resolve('./page-loader.js')
-const entries: { [key: string]: string } = {}
+export const entry = require.resolve('@quercia/quercia')
+export const loader = require.resolve('./page-loader.js')
+export const entries: { [key: string]: string } = {}
 
 // mkdir creates a folder at the given path if ti does
 // not exist. Erorrs if the path is a file
@@ -64,7 +64,6 @@ async function setupEntries() {
 
       entries[key] = loader + '!' + path
     })
-
   } catch(err) {
     console.log('Could not fetch pages:\n' + err)
     process.exit(1)
@@ -83,43 +82,6 @@ function build(): Promise<webpack.Stats> {
       res(stats)
     })
   })
-}
-
-// config configures the webpack bundler
-function config(): webpack.Configuration {
-  return {
-    mode: 'production', // 'development',
-    entry: {
-      ...entries,
-      runtime: entry
-    },
-    output: {
-      path: quercia,
-      filename: '[name]-[contenthash].js',
-      publicPath: '/__quercia/'
-    },
-    plugins: [
-      new ManifestPlugin()
-    ],
-    optimization: {
-      splitChunks: {
-        chunks: 'all',
-        cacheGroups: {
-          runtime: {
-            test: /node_modules/,
-            name: 'vendor',
-            reuseExistingChunk: true,
-            priority: -10
-          },
-          default: {
-            minChunks: 2,
-            priority: -20,
-            reuseExistingChunk: true
-          }
-        }
-      }
-    }
-  }
 }
 
 async function main() {

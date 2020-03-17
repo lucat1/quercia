@@ -37,7 +37,7 @@ export const App: React.FunctionComponent = () => {
 
     return Page
   }, [ctx.page])
-
+  
   return(
     <Context.Provider value={[ctx, setCtx]}>
       <Page {...ctx.props} />

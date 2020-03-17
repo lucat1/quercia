@@ -3,6 +3,7 @@ import * as React from 'react'
 export interface ContextData {
   loading: boolean
   page: string
+  script?: string
   props: Object
 }
 

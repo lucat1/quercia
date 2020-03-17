@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "The quercia api",
   "main": "index.js",
+  "module": "index.js",
   "author": "LucaT",
   "license": "MIT",
   "scripts": {
