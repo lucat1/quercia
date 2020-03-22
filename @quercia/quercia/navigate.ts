@@ -24,12 +24,12 @@ function load(src: string): Promise<void> {
   })
 }
 
-export const navigate = async (url: string, [ctx, setCtx]: ContextValue) => {
+export const navigate = async (url: string, [ctx, setCtx]: ContextValue, replace = false) => {
   if(process.env.NODE_ENV === 'development') {
     console.log(`navigating to: ${url}`)
   }
 
-  history.pushState(null, '', url)
+  history[`${replace ? 'replace' : 'push'}State`](null, '', url)
   setCtx({
     ...ctx,
     loading: true

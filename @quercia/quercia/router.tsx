@@ -31,7 +31,8 @@ if(process.env.NODE_ENV === 'development') {
 export const Router = (props: React.ProviderProps<ContextValue>) => {
   React.useEffect(() => {
     const handler = () => {
-      navigate(window.location.pathname, props.value)
+      window.history.replaceState
+      navigate(window.location.pathname, props.value, true)
     }
 
     window.addEventListener('popstate', handler)
