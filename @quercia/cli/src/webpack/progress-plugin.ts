@@ -1,7 +1,7 @@
 import { Plugin, Compiler } from 'webpack'
 import { sep } from 'path'
 
-import { root } from '..'
+import Quercia from '..'
 
 export default class ProgressPlugin implements Plugin {
   apply(compiler: Compiler) {
@@ -27,7 +27,7 @@ export default class ProgressPlugin implements Plugin {
           // module outside of the node_modules folder
           file = {
             type: 'src',
-            path: path.replace(root + '/', '')
+            path: path.replace(Quercia.root + '/', '')
           }
         }
 

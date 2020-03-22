@@ -2,24 +2,22 @@ import * as webpack from 'webpack'
 import { sync as resolve } from 'enhanced-resolve'
 
 import ManifestPlugin from './webpack/manifest-plugin'
-import ProgressPlugin from './webpack/progress-plugin'
 
-import { entries, entry, quercia } from '.'
+import Quercia from '.'
 
 // config configures the webpack bundler
-export function config(): webpack.Configuration {
-  const mode = 'development'
-
+export function config(mode: 'production' | 'development'): webpack.Configuration {
   return {
     mode,
+    devtool: mode == 'development' ? 'source-map' : false,
     output: {
-      path: quercia,
+      path: Quercia.quercia,
       filename: '[name]-[contenthash].js',
       publicPath: '/__quercia/'
     },
     entry: {
-      runtime: entry,
-      ...entries
+      runtime: Quercia.runtime,
+      ...Quercia.entries
     },
     resolve: {
       alias: {
@@ -29,8 +27,7 @@ export function config(): webpack.Configuration {
       }
     },
     plugins: [
-      new ManifestPlugin(),
-      new ProgressPlugin()
+      new ManifestPlugin()
     ],
     optimization: {
       runtimeChunk: {
