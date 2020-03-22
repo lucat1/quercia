@@ -1,16 +1,17 @@
+#!/usr/bin/env node
+
 import * as webpack from 'webpack'
 import { join, extname } from 'path'
 import { promises as fs } from 'fs'
 
 import { config } from './config'
-
 export const root = process.cwd()
 export const pages = join(root, 'pages')
 export const quercia = join(root, '__quercia')
 
 // webpack compiler related variables
 export const entry = require.resolve('@quercia/quercia')
-export const loader = require.resolve('./page-loader.js')
+export const loader = require.resolve('./webpack/page-loader.js')
 export const entries: { [key: string]: string } = {}
 
 // mkdir creates a folder at the given path if ti does
@@ -50,7 +51,6 @@ async function readdir(folder: string): Promise<string[]> {
 // setupFolders creates the output folders for the quercia bundler
 async function setupFolders() {
   await mkdir(quercia)
-  console.info('Setup folders')
 }
 
 // setupEntries fetches the pages to be compiled with webpack
@@ -71,9 +71,10 @@ async function setupEntries() {
 }
 
 // build builds the webpack bundle
-function build(): Promise<webpack.Stats> {
+export function build(config: webpack.Configuration): Promise<webpack.Stats> {
+  console.log('building')
   return new Promise((res, rej) => {
-    const compiler = webpack(config())
+    const compiler = webpack(config)
     compiler.run((err, stats) => {
       if(err || stats.hasErrors()) {
         return rej(err || stats.compilation.errors)
@@ -84,12 +85,27 @@ function build(): Promise<webpack.Stats> {
   })
 }
 
+async function watch() {
+  console.log('watching')
+  const compiler = webpack(config())
+  compiler.watch({}, (err, stats) => {
+    if(err || stats.hasErrors()) {
+      console.log(err ? [err] : stats.compilation.errors)
+    }
+  })
+}
+
 async function main() {
   await setupFolders()
   await setupEntries()
-  try {
-    await build()
-  } catch(err) { console.error(err) }
+  // TODO: real if
+  if(process.argv.length > 5) {
+    try {
+      //await build(config())
+    } catch(err) { console.error(err) }
+  } else {
+    watch()
+  }
 }
 
 // execute the program

@@ -18,7 +18,7 @@ export default class ManifestPlugin implements Plugin {
         }
 
         // handle normal chunks
-        if(['vendor', 'runtime'].includes(chunk.name)) {
+        if(['webpack-runtime', 'vendor', 'runtime'].includes(chunk.name)) {
           assets[chunk.name] = chunk.name + '-' +chunk.contentHash['javascript'] + '.js'
         }
       }

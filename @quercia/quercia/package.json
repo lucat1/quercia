@@ -20,5 +20,8 @@
   "peerDependencies": {
     "react": "16.13.0",
     "react-dom": "16.13.0"
+  },
+  "dependencies": {
+    "enhanced-resolve": "4.1.1"
   }
 }

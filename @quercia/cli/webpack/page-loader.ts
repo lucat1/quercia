@@ -1,7 +1,7 @@
 import { loader } from 'webpack'
 import { extname } from 'path'
 
-import { pages } from '.'
+import { pages } from '..'
 
 const pageLoader: loader.Loader = function() {
   const ext = extname(this.resourcePath)
@@ -10,8 +10,8 @@ const pageLoader: loader.Loader = function() {
   
   return `
     (window.__P = window.__P || {})[${pageName}] = function() {
-      return require(${pagePath})
-    };
+      return require(${pagePath});
+    }
   `
 }
 

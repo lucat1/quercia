@@ -4,7 +4,8 @@
   "version": "0.0.1",
   "description": "An opinionated react monolith toolkit",
   "workspaces": [
-    "@quercia/*"
+    "@quercia/*",
+    "example"
   ],
   "author": "LucaT",
   "license": "MIT",
@@ -15,20 +16,14 @@
   "scripts": {
     "postinstall": "manypkg check",
     "fix": "manypkg fix",
-
     "dev": "tsc -b ./tsconfig.workspaces.json -w"
   },
   "dependencies": {
     "@manypkg/cli": "0.11.1",
-    "@types/node": "13.9.0",
     "@types/react": "16.9.23",
     "@types/react-dom": "16.9.5",
-    "@types/webpack": "4.41.7",
-    "bolt": "0.24.5",
     "react": "16.13.0",
     "react-dom": "16.13.0",
-    "typescript": "3.8.3",
-    "webpack": "4.42.0",
-    "webpack-sources": "1.4.3"
+    "typescript": "3.8.3"
   }
 }

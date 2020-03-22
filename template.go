@@ -11,10 +11,11 @@ const template = `
   <div id="__quercia"></div>
   <script id="__QUERCIA_DATA__" type="application/json" crossorigin="anonymous">
     __INSERT_QUERCIA_DATA__
-  </script>
-  <script src="/__quercia/__INSERT_QUERCIA_VENDOR__"></script>
-  <script src="/__quercia/__INSERT_QUERCIA_PAGE__"></script>
-  <script src="/__quercia/__INSERT_QUERCIA_RUNTIME__"></script>
+	</script>
+	<script>__INSERT_QUERCIA_WEBPACK_RUNTIME__</script>
+	<script src="/__quercia/__INSERT_QUERCIA_VENDOR__"></script>
+	<script src="/__quercia/__INSERT_QUERCIA_PAGE__"></script>
+	<script src="/__quercia/__INSERT_QUERCIA_RUNTIME__"></script>
 </body>
 </html>
 `

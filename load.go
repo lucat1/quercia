@@ -10,6 +10,7 @@ import (
 // Manifest is a go struct mimiking `__quercia/manifest.json`
 type Manifest struct {
 	Pages   map[string]string `json:"pages"`
+	Webpack string            `json:"webpack-runtime"`
 	Runtime string            `json:"runtime"`
 	Vendor  string            `json:"vendor"`
 }
@@ -62,6 +63,12 @@ func parseManifest() error {
 }
 
 func loadInMemory() error {
+	webpack, err := read(path.Join(Path, LoadedManifest.Webpack))
+	if err != nil {
+		return err
+	}
+	Cache[LoadedManifest.Webpack] = webpack
+
 	runtime, err := read(path.Join(Path, LoadedManifest.Runtime))
 	if err != nil {
 		return err

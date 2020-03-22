@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "description": "The quercia cli",
   "main": "index.js",
+  "bin": {
+    "quercia": "index.js"
+  },
   "author": "LucaT",
   "license": "MIT",
   "scripts": {
@@ -12,11 +15,17 @@
   "devDependencies": {
     "@types/node": "13.9.0",
     "@types/webpack": "4.41.7",
+    "react": "16.13.0",
+    "react-dom": "16.13.0",
     "typescript": "3.8.3"
   },
   "dependencies": {
     "@quercia/quercia": "0.0.1",
     "webpack": "4.42.0",
     "webpack-sources": "1.4.3"
+  },
+  "peerDependencies": {
+    "react": "16.13.0",
+    "react-dom": "16.13.0"
   }
 }

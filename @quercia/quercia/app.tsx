@@ -1,16 +1,6 @@
 import * as React from 'react'
 
-import { Context, ContextData } from './router'
-
-declare global {
-  interface Window {
-    __P: { 
-      [key: string]: () => {
-        default: React.FunctionComponent<any>
-      } 
-    }
-  }
-}
+import { ContextData, Context } from './router'
 
 function load(): ContextData {
   const element = document.getElementById('__QUERCIA_DATA__')
