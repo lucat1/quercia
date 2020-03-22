@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { ContextData, Context } from './router'
+import { ContextData, Router } from './router'
 
 function load(): ContextData {
   const element = document.getElementById('__QUERCIA_DATA__')
@@ -29,8 +29,8 @@ export const App: React.FunctionComponent = () => {
   }, [ctx.page])
   
   return(
-    <Context.Provider value={[ctx, setCtx]}>
+    <Router value={[ctx, setCtx]}>
       <Page {...ctx.props} />
-    </Context.Provider>
+    </Router>
   )
 }

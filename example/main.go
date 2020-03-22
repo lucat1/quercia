@@ -10,7 +10,17 @@ import (
 func main() {
 	quercia.Init("__quercia", false)
 	f := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte(quercia.Render(w, r, "index", quercia.Props{})))
+		switch r.URL.Path {
+		case "/":
+			quercia.Render(w, r, "index", quercia.Props{})
+		case "/test":
+			quercia.Render(w, r, "nested/test", quercia.Props{})
+
+		default:
+			quercia.Render(w, r, "404", quercia.Props{
+				"path": r.URL.Path,
+			})
+		}
 	})
 
 	fmt.Println("Listening on :8080")

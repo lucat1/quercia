@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 import navigate from './navigate'
-import { Context } from './router'
+import { useRouter } from './router'
 
 type AnchorProps = React.DetailedHTMLProps<
   React.AnchorHTMLAttributes<HTMLAnchorElement>, 
@@ -13,11 +13,11 @@ export interface LinkProps extends AnchorProps {
 }
 
 export const Link: React.FunctionComponent<LinkProps> = ({ to, children, ...props }) => {
-  const ctx = React.useContext(Context)
-  
+  const [router, setRouter] = useRouter()
+
   const onClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     e.preventDefault()
-    navigate(to, ctx)
+    navigate(to, [router, setRouter])
   }
   
   return <a {...props} onClick={onClick} href={to}>{children}</a>

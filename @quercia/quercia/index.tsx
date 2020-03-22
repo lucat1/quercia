@@ -9,6 +9,6 @@ declare global {
 }
 
 export { App } from './app'
-export { Context as RouterContext } from './router'
+export { Context as RouterContext, useRouter, Router } from './router'
 export { Link } from './link'
 export { navigate } from './navigate'

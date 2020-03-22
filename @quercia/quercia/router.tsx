@@ -1,4 +1,5 @@
 import * as React from 'react'
+import navigate from './navigate'
 
 export interface ContextData {
   loading: boolean
@@ -20,7 +21,24 @@ export const Context = React.createContext<ContextValue>([
     : null as any
 ])
 
+export const useRouter = () => React.useContext(Context)
+
 // give a name to the context only during development
 if(process.env.NODE_ENV === 'development') {
   Context.displayName = 'RotuerContext'
+}
+
+export const Router = (props: React.ProviderProps<ContextValue>) => {
+  React.useEffect(() => {
+    const handler = () => {
+      navigate(window.location.pathname, props.value)
+    }
+
+    window.addEventListener('popstate', handler)
+    return () => window.removeEventListener('popstate', handler)
+  })
+
+  return(
+    <Context.Provider {...props} />
+  )
 }

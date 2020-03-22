@@ -20,6 +20,7 @@ function load(src: string): Promise<void> {
     script.src = src
     script.onload = () => res()
     script.onerror = () => rej()
+    document.body.appendChild(script)
   })
 }
 
@@ -39,7 +40,7 @@ export const navigate = async (url: string, [ctx, setCtx]: ContextValue) => {
 
     if(data.script && !isLoaded(data.script)) {
       // TODO: bump progress
-      await load(url)
+      await load(data.script)
     }
 
     setCtx({
