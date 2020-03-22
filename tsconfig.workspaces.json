@@ -6,6 +6,9 @@
     },
     {
       "path": "./@quercia/quercia"
+    },
+    {
+      "path": "./@quercia/runtime"
     }
   ]
 }

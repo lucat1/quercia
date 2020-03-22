@@ -16,6 +16,7 @@
   "scripts": {
     "postinstall": "manypkg check",
     "fix": "manypkg fix",
+    "clean": "rm @quercia/**/*.{js,d.ts*,tsbuildinfo}",
     "dev": "tsc -b ./tsconfig.workspaces.json -w"
   },
   "dependencies": {

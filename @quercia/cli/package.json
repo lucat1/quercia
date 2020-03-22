@@ -8,10 +8,6 @@
   },
   "author": "LucaT",
   "license": "MIT",
-  "scripts": {
-    "build": "tsc",
-    "watch": "tsc -w"
-  },
   "devDependencies": {
     "@types/node": "13.9.0",
     "@types/webpack": "4.41.7",
@@ -20,7 +16,7 @@
     "typescript": "3.8.3"
   },
   "dependencies": {
-    "@quercia/quercia": "0.0.1",
+    "@quercia/runtime": "0.0.1",
     "webpack": "4.42.0",
     "webpack-sources": "1.4.3"
   },

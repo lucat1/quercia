@@ -1,5 +1,6 @@
 {
   "extends": "../../tsconfig.base.json",
+  "include": ["**/*"],
   "compilerOptions": {
     "module": "commonjs",
     "resolveJsonModule": true,
@@ -10,11 +11,5 @@
       "DOM", 
       "ES2019.Array"
     ]
-  },
-  "files": [
-    "package.json"
-  ],
-  "include": [
-    "."
-  ]
+  }
 }

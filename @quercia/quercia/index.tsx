@@ -1,8 +1,3 @@
-import * as React from 'react'
-import { render } from 'react-dom'
-
-import { App } from './app'
-
 declare global {
   interface Window {
     __P: { 
@@ -13,7 +8,7 @@ declare global {
   }
 }
 
-render(
-  <App />,
-  document.getElementById('__quercia')
-)
+export { App } from './app'
+export { Context as RouterContext } from './router'
+export { Link } from './link'
+export { navigate } from './navigate'
