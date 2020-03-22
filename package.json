@@ -31,7 +31,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --pattern '*.{ts,json}' --staged"
+      "pre-commit": "pretty-quick --pattern '*.json */*.{ts,json} @quercia/**/*.{ts,json} @quercia/**/**/*.{ts,json}' --staged"
     }
   },
   "dependencies": {
