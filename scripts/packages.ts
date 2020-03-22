@@ -1,6 +1,6 @@
 import { getPackages as get, Package } from '@manypkg/get-packages'
 
-let cache: Package[] = null
+let cache: Package[] | null = null
 
 export async function getPackages(): Promise<Package[]> {
   if(cache != null) {
