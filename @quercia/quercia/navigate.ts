@@ -38,7 +38,7 @@ export const navigate = async (url: string, [ctx, setCtx]: ContextValue) => {
   try {
     const data = await req(url)
 
-    if(data.script && !isLoaded(data.script)) {
+    if(data.script && !isLoaded(data.page)) {
       // TODO: bump progress
       await load(data.script)
     }
