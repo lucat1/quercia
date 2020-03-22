@@ -3,15 +3,6 @@
   "include": ["**/*"],
   "compilerOptions": {
     "module": "esnext",
-    "target": "es2020",
-    "types": [
-      "react",
-      "react-dom",
-      "node"
-    ],
-    "lib": [
-      "DOM",
-      "ESNext"
-    ]
+    "target": "es2020"
   }
 }

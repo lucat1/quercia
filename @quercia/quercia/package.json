@@ -6,6 +6,10 @@
   "module": "index.js",
   "author": "LucaT",
   "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc -w --preserveWatchOutput"
+  },
   "devDependencies": {
     "@types/react": "16.9.23",
     "@types/react-dom": "16.9.5",

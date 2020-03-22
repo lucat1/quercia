@@ -3,6 +3,10 @@
   "version": "0.0.1",
   "description": "The quercia cli",
   "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc -w --preserveWatchOutput"
+  },
   "bin": {
     "quercia": "./bin/run"
   },
