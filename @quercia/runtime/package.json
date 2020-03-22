@@ -1,7 +1,7 @@
 {
-  "name": "@quercia/quercia",
+  "name": "@quercia/runtime",
   "version": "0.0.1",
-  "description": "The quercia api",
+  "description": "The quercia runtime",
   "main": "index.js",
   "module": "index.js",
   "author": "LucaT",
@@ -16,5 +16,8 @@
   "peerDependencies": {
     "react": "16.13.0",
     "react-dom": "16.13.0"
+  },
+  "dependencies": {
+    "@quercia/quercia": "0.0.1"
   }
 }

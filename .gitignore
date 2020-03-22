@@ -4,3 +4,4 @@ node_modules
 @quercia/**/*.map
 @quercia/**/tsconfig.tsbuildinfo
 __quercia
+yarn-error.log

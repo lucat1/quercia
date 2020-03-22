@@ -10,7 +10,7 @@ export const pages = join(root, 'pages')
 export const quercia = join(root, '__quercia')
 
 // webpack compiler related variables
-export const entry = require.resolve('@quercia/quercia')
+export const entry = require.resolve('@quercia/runtime')
 export const loader = require.resolve('./webpack/page-loader.js')
 export const entries: { [key: string]: string } = {}
 

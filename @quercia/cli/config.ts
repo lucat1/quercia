@@ -3,6 +3,7 @@ import { sync as resolve } from 'enhanced-resolve'
 
 import ManifestPlugin from './webpack/manifest-plugin'
 import ProgressPlugin from './webpack/progress-plugin'
+
 import { entries, entry, quercia } from '.'
 
 // config configures the webpack bundler
@@ -39,7 +40,7 @@ export function config(): webpack.Configuration {
         chunks: 'all',
         cacheGroups: {
           runtime: {
-            test: /node_modules/,
+            test: /(node_modules|@quercia\/quercia)/,
             name: 'vendor',
             priority: -10
           },
