@@ -5,13 +5,8 @@
     "module": "commonjs",
     "resolveJsonModule": true,
     "target": "es2017",
-    "types": [
-      "node"
-    ],
-    "lib": [
-      "DOM", 
-      "ES2019.Array"
-    ],
+    "types": ["node"],
+    "lib": ["DOM", "ES2019.Array"],
     "rootDir": "src",
     "outDir": "lib"
   }

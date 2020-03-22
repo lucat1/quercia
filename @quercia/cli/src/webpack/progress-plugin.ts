@@ -8,13 +8,13 @@ export default class ProgressPlugin implements Plugin {
     compiler.hooks.normalModuleFactory.tap('QuerciaProgress', factory => {
       factory.hooks.module.tap('QuerciaProgressFactory', module => {
         const path: string = module.resource
-        let file: { type: 'src' | 'module', path: string }
+        let file: { type: 'src' | 'module'; path: string }
 
-        if(/node_modules/.test(path)) {
+        if (/node_modules/.test(path)) {
           let final // the processed path
           // node_modules module
           const module = path.replace(/^(.*?)\/node_modules\//, '')
-          if(module.startsWith('@')) {
+          if (module.startsWith('@')) {
             // scoped module
             const parts = module.split(sep)
             final = parts[0] + '/' + parts[1]
@@ -27,7 +27,7 @@ export default class ProgressPlugin implements Plugin {
           // module outside of the node_modules folder
           file = {
             type: 'src',
-            path: path.replace(Quercia.root + '/', '')
+            path: path.replace(Quercia.root + '/', ''),
           }
         }
 

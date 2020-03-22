@@ -2,15 +2,8 @@
   "compilerOptions": {
     "resolveJsonModule": true,
     "target": "es2017",
-    "types": [
-      "react",
-      "react-dom",
-      "node"
-    ],
-    "lib": [
-      "DOM",
-      "ESNext"
-    ],
+    "types": ["react", "react-dom", "node"],
+    "lib": ["DOM", "ESNext"],
     "allowSyntheticDefaultImports": true,
     "composite": true,
     "sourceMap": true,
@@ -22,6 +15,6 @@
     "strictNullChecks": true,
     "downlevelIteration": true,
     "strictPropertyInitialization": true,
-    "jsx": "react",
+    "jsx": "react"
   }
 }

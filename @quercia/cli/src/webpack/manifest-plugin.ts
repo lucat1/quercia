@@ -9,17 +9,19 @@ export default class ManifestPlugin implements Plugin {
         pages: {},
       }
 
-      for(const chunk of chunks) {
+      for (const chunk of chunks) {
         // handle pages chunks
-        if(chunk.name.startsWith('pages/')) {
+        if (chunk.name.startsWith('pages/')) {
           const key = chunk.name.replace('pages/', '')
-          assets.pages[key] = chunk.name + '-' +chunk.contentHash['javascript'] + '.js'
+          assets.pages[key] =
+            chunk.name + '-' + chunk.contentHash['javascript'] + '.js'
           continue
         }
 
         // handle normal chunks
-        if(['webpack-runtime', 'vendor', 'runtime'].includes(chunk.name)) {
-          assets[chunk.name] = chunk.name + '-' +chunk.contentHash['javascript'] + '.js'
+        if (['webpack-runtime', 'vendor', 'runtime'].includes(chunk.name)) {
+          assets[chunk.name] =
+            chunk.name + '-' + chunk.contentHash['javascript'] + '.js'
         }
       }
 

@@ -6,11 +6,11 @@ import { promises as fs } from 'fs'
 export async function mkdir(path: string) {
   try {
     const stat = await fs.stat(path)
-    if(stat.isFile()) {
+    if (stat.isFile()) {
       console.error('File at `' + path + '` should be a folder!')
       process.exit(1)
     }
-  } catch(_) {
+  } catch (_) {
     await fs.mkdir(path)
   }
 }
@@ -18,14 +18,16 @@ export async function mkdir(path: string) {
 // readdir reads a directory recursively
 export async function readdir(folder: string): Promise<string[]> {
   const files = await fs.readdir(folder)
-  const result = await Promise.all(files.map(async file => {
-    const path = join(folder, file)
-    if(!(await fs.stat(path)).isFile()) {
-      return await readdir(path)
-    }
-    
-    return path
-  }))
+  const result = await Promise.all(
+    files.map(async file => {
+      const path = join(folder, file)
+      if (!(await fs.stat(path)).isFile()) {
+        return await readdir(path)
+      }
+
+      return path
+    })
+  )
 
   return result.flat()
 }

@@ -11,18 +11,18 @@ export default class Quercia extends Command {
   public static args = []
 
   public static flags = {
-    version: flags.version({char: 'v'}),
-    help: flags.help({char: 'h'}),
-    watch: flags.boolean({ 
+    version: flags.version({ char: 'v' }),
+    help: flags.help({ char: 'h' }),
+    watch: flags.boolean({
       char: 'w',
-      default: true
+      default: true,
     }),
     mode: flags.enum<'production' | 'development'>({
       char: 'm',
       options: ['production', 'development'],
       default: 'development',
-      description: 'the webpack compilation mode'
-    })
+      description: 'the webpack compilation mode',
+    }),
   }
 
   public static root = process.cwd()
@@ -37,7 +37,7 @@ export default class Quercia extends Command {
 
   async run() {
     const { flags } = this.parse(Quercia)
-    
+
     await mkdir(Quercia.quercia)
 
     await loadPages(Quercia.pages)
@@ -45,7 +45,7 @@ export default class Quercia extends Command {
     this.log(`running in ${flags.watch ? 'watch' : 'build'}/${flags.mode}`)
 
     const cfg = config(flags.mode)
-    if(flags.watch) {
+    if (flags.watch) {
       watch(cfg)
     } else {
       build(cfg)

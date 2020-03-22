@@ -4,17 +4,17 @@ import { Package } from '@manypkg/get-packages'
 export async function spawn(script: string, pkg: Package) {
   const child = childSpawn('yarn', [script], { cwd: pkg.dir })
 
-  for(const pipe of ['stdout', 'stderr']) {
+  for (const pipe of ['stdout', 'stderr']) {
     // whether the previous data ended with a \n
     let nl = true
     child[pipe].on('data', (_data: Buffer) => {
       const data = _data.toString()
-      if(nl) {
+      if (nl) {
         process[pipe].write(`${pkg.packageJson.name} ~ ${data}`)
         nl = false
       } else {
         process[pipe].write(data)
-        if(data.endsWith('\n')) {
+        if (data.endsWith('\n')) {
           nl = true
         }
       }

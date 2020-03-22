@@ -18,13 +18,29 @@
     "fix": "manypkg fix",
     "build": "ts-node scripts/build",
     "clean": "ts-node scripts/clean",
-    "dev": "ts-node scripts/dev"
+    "dev": "ts-node scripts/dev",
+    "pretty": "prettier --write **/**/*.{ts,json}"
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": false,
+    "singleQuote": true,
+    "jsxSingleQuote": true,
+    "arrowParens": "avoid"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --pattern '**/**/*.{ts,json}' --staged"
+    }
   },
   "dependencies": {
     "@manypkg/cli": "0.11.1",
     "@manypkg/get-packages": "1.0.0",
     "@types/react": "16.9.23",
     "@types/react-dom": "16.9.5",
+    "husky": "4.2.3",
+    "prettier": "2.0.1",
+    "pretty-quick": "^2.0.1",
     "react": "16.13.0",
     "react-dom": "16.13.0",
     "ts-node": "8.8.1",

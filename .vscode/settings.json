@@ -6,6 +6,6 @@
     "@quercia/**/*.d.ts": true,
     "@quercia/**/*.map": true,
     "@quercia/**/*.js": true,
-    "@quercia/*/tsconfig.tsbuildinfo": true,
+    "@quercia/*/tsconfig.tsbuildinfo": true
   }
 }

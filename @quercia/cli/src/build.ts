@@ -8,7 +8,7 @@ export function build(config: webpack.Configuration): Promise<webpack.Stats> {
   return new Promise((res, rej) => {
     const compiler = webpack(config)
     compiler.run((err, stats) => {
-      if(err || stats.hasErrors()) {
+      if (err || stats.hasErrors()) {
         return rej(err || stats.compilation.errors)
       }
 
@@ -20,7 +20,7 @@ export function build(config: webpack.Configuration): Promise<webpack.Stats> {
 export async function watch(config: webpack.Configuration) {
   const compiler = webpack(config)
   compiler.watch({}, (err, stats) => {
-    if(err || stats.hasErrors()) {
+    if (err || stats.hasErrors()) {
       console.log(err ? [err] : stats.compilation.errors)
     }
   })

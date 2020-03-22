@@ -1,9 +1,9 @@
 declare global {
   interface Window {
-    __P: { 
+    __P: {
       [key: string]: () => {
         default: React.FunctionComponent<any>
-      } 
+      }
     }
   }
 }

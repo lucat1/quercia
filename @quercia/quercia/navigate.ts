@@ -3,10 +3,10 @@ import { ContextData, ContextValue } from './router'
 async function req(url: string) {
   const req = await fetch(url, {
     headers: {
-      'X-Quercia': '1'
-    }
+      'X-Quercia': '1',
+    },
   })
-  return await req.json() as ContextData
+  return (await req.json()) as ContextData
 }
 
 function isLoaded(page: string) {
@@ -24,30 +24,34 @@ function load(src: string): Promise<void> {
   })
 }
 
-export const navigate = async (url: string, [ctx, setCtx]: ContextValue, replace = false) => {
-  if(process.env.NODE_ENV === 'development') {
+export const navigate = async (
+  url: string,
+  [ctx, setCtx]: ContextValue,
+  replace = false
+) => {
+  if (process.env.NODE_ENV === 'development') {
     console.log(`navigating to: ${url}`)
   }
 
   history[`${replace ? 'replace' : 'push'}State`](null, '', url)
   setCtx({
     ...ctx,
-    loading: true
+    loading: true,
   })
 
   try {
     const data = await req(url)
 
-    if(data.script && !isLoaded(data.page)) {
+    if (data.script && !isLoaded(data.page)) {
       // TODO: bump progress
       await load(data.script)
     }
 
     setCtx({
       ...data,
-      loading: false
+      loading: false,
     })
-  } catch(err) {
+  } catch (err) {
     console.error(`Could not route to '${url}': ${err}`)
   }
 }

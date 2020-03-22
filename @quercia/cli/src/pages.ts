@@ -9,9 +9,8 @@ export const loader = require.resolve('./webpack/page-loader.js')
 export async function loadPages(root: string) {
   const paths = await readdir(root)
   paths.forEach(path => {
-    const key = 'pages/' + path
-      .replace(root + '/', '')
-      .replace(extname(path), '')
+    const key =
+      'pages/' + path.replace(root + '/', '').replace(extname(path), '')
 
     Quercia.entries[key] = loader + '!' + path
   })

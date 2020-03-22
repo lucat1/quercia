@@ -8,10 +8,10 @@ async function main() {
   const pkgs = await getPackages()
 
   let count = 0
-  for(const pkg of pkgs) {
-    for(const ext of ['js', 'd.ts', 'map', 'tsbuildinfo']) {
+  for (const pkg of pkgs) {
+    for (const ext of ['js', 'd.ts', 'map', 'tsbuildinfo']) {
       const matches = await glob(join(pkg.dir, `**/*.${ext}`))
-      for(const match of matches) {
+      for (const match of matches) {
         await fs.unlink(match)
         count++
         console.log(`removed ${match.replace(pkg.dir + '/', '')}`)
