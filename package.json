@@ -16,6 +16,7 @@
   "scripts": {
     "postinstall": "manypkg check",
     "fix": "manypkg fix",
+    "build": "ts-node scripts/build",
     "clean": "ts-node scripts/clean",
     "dev": "ts-node scripts/dev"
   },
