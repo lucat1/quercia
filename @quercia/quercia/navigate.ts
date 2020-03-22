@@ -3,8 +3,8 @@ import { ContextData, ContextValue } from './router'
 async function req(url: string) {
   const req = await fetch(url, {
     headers: {
-      'X-Quercia': '1',
-    },
+      'X-Quercia': '1'
+    }
   })
   return (await req.json()) as ContextData
 }
@@ -36,7 +36,7 @@ export const navigate = async (
   history[`${replace ? 'replace' : 'push'}State`](null, '', url)
   setCtx({
     ...ctx,
-    loading: true,
+    loading: true
   })
 
   try {
@@ -49,7 +49,7 @@ export const navigate = async (
 
     setCtx({
       ...data,
-      loading: false,
+      loading: false
     })
   } catch (err) {
     console.error(`Could not route to '${url}': ${err}`)

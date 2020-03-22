@@ -19,7 +19,7 @@
     "build": "ts-node scripts/build",
     "clean": "ts-node scripts/clean",
     "dev": "ts-node scripts/dev",
-    "pretty": "prettier --write **/**/*.{ts,json}"
+    "pretty": "prettier --write *.json */*.{ts,json} @quercia/**/*.{ts,json} @quercia/**/**/*.{ts,json}"
   },
   "prettier": {
     "printWidth": 80,
@@ -31,7 +31,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --pattern '**/**/*.{ts,json}' --staged"
+      "pre-commit": "pretty-quick --pattern '*.{ts,json}' --staged"
     }
   },
   "dependencies": {

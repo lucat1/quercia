@@ -6,7 +6,7 @@ export default class ManifestPlugin implements Plugin {
     compiler.hooks.emit.tap('QuerciaManifest', compilation => {
       const chunks: compilation.Chunk[] = compilation.chunks
       const assets = {
-        pages: {},
+        pages: {}
       }
 
       for (const chunk of chunks) {

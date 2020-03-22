@@ -15,14 +15,14 @@ export default class Quercia extends Command {
     help: flags.help({ char: 'h' }),
     watch: flags.boolean({
       char: 'w',
-      default: true,
+      default: true
     }),
     mode: flags.enum<'production' | 'development'>({
       char: 'm',
       options: ['production', 'development'],
       default: 'development',
-      description: 'the webpack compilation mode',
-    }),
+      description: 'the webpack compilation mode'
+    })
   }
 
   public static root = process.cwd()

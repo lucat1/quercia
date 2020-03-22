@@ -15,23 +15,23 @@ export function config(
     output: {
       path: Quercia.quercia,
       filename: '[name]-[contenthash].js',
-      publicPath: '/__quercia/',
+      publicPath: '/__quercia/'
     },
     entry: {
       runtime: Quercia.runtime,
-      ...Quercia.entries,
+      ...Quercia.entries
     },
     resolve: {
       alias: {
         // prevent duplicate react versions
         react: resolve(process.cwd(), 'react'),
-        'react-dom': resolve(process.cwd(), 'react-dom'),
-      },
+        'react-dom': resolve(process.cwd(), 'react-dom')
+      }
     },
     plugins: [new ManifestPlugin()],
     optimization: {
       runtimeChunk: {
-        name: _ => `webpack-runtime`,
+        name: _ => `webpack-runtime`
       },
       splitChunks: {
         chunks: 'all',
@@ -39,15 +39,15 @@ export function config(
           runtime: {
             test: /(node_modules|@quercia\/quercia)/,
             name: 'vendor',
-            priority: -10,
+            priority: -10
           },
           default: {
             minChunks: 2,
             priority: -20,
-            reuseExistingChunk: true,
-          },
-        },
-      },
-    },
+            reuseExistingChunk: true
+          }
+        }
+      }
+    }
   }
 }

@@ -27,7 +27,7 @@ export default class ProgressPlugin implements Plugin {
           // module outside of the node_modules folder
           file = {
             type: 'src',
-            path: path.replace(Quercia.root + '/', ''),
+            path: path.replace(Quercia.root + '/', '')
           }
         }
 
