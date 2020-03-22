@@ -2,20 +2,13 @@
   "name": "@quercia/runtime",
   "version": "0.0.1",
   "description": "The quercia runtime",
+  "license": "MIT",
+  "author": "LucaT",
   "main": "index.js",
   "module": "index.js",
-  "author": "LucaT",
-  "license": "MIT",
   "scripts": {
     "build": "tsc",
     "dev": "tsc -w --preserveWatchOutput"
-  },
-  "devDependencies": {
-    "@types/react": "16.9.23",
-    "@types/react-dom": "16.9.5",
-    "react": "16.13.0",
-    "react-dom": "16.13.0",
-    "typescript": "3.8.3"
   },
   "peerDependencies": {
     "react": "16.13.0",
@@ -23,5 +16,12 @@
   },
   "dependencies": {
     "@quercia/quercia": "0.0.1"
+  },
+  "devDependencies": {
+    "@types/react": "16.9.23",
+    "@types/react-dom": "16.9.5",
+    "react": "16.13.0",
+    "react-dom": "16.13.0",
+    "typescript": "3.8.3"
   }
 }

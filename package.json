@@ -1,25 +1,36 @@
 {
-  "private": true,
   "name": "quercia",
   "version": "0.0.1",
+  "private": true,
   "description": "An opinionated react monolith toolkit",
-  "workspaces": [
-    "@quercia/*",
-    "example"
-  ],
-  "author": "LucaT",
   "license": "MIT",
-  "volta": {
-    "node": "12.16.1",
-    "yarn": "1.22.4"
-  },
+  "author": "LucaT",
   "scripts": {
-    "postinstall": "manypkg check",
-    "fix": "manypkg fix",
     "build": "ts-node scripts/build",
     "clean": "ts-node scripts/clean",
     "dev": "ts-node scripts/dev",
+    "fix": "manypkg fix",
+    "postinstall": "manypkg check",
     "pretty": "prettier --write *.json */*.{ts,json} @quercia/**/*.{ts,json} @quercia/**/**/*.{ts,json}"
+  },
+  "dependencies": {
+    "@manypkg/cli": "0.11.1",
+    "@manypkg/get-packages": "1.0.0",
+    "@types/react": "16.9.23",
+    "@types/react-dom": "16.9.5",
+    "husky": "4.2.3",
+    "prettier": "2.0.1",
+    "prettier-plugin-package": "https://github.com/leaumar/prettier-plugin-package#patch-1",
+    "pretty-quick": "^2.0.1",
+    "react": "16.13.0",
+    "react-dom": "16.13.0",
+    "ts-node": "8.8.1",
+    "typescript": "3.8.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --pattern '*.json */*.{ts,json} @quercia/**/*.{ts,json} @quercia/**/**/*.{ts,json}' --staged"
+    }
   },
   "prettier": {
     "printWidth": 80,
@@ -29,22 +40,12 @@
     "arrowParens": "avoid",
     "trailingComma": "none"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --pattern '*.json */*.{ts,json} @quercia/**/*.{ts,json} @quercia/**/**/*.{ts,json}' --staged"
-    }
+  "volta": {
+    "node": "12.16.1",
+    "yarn": "1.22.4"
   },
-  "dependencies": {
-    "@manypkg/cli": "0.11.1",
-    "@manypkg/get-packages": "1.0.0",
-    "@types/react": "16.9.23",
-    "@types/react-dom": "16.9.5",
-    "husky": "4.2.3",
-    "prettier": "2.0.1",
-    "pretty-quick": "^2.0.1",
-    "react": "16.13.0",
-    "react-dom": "16.13.0",
-    "ts-node": "8.8.1",
-    "typescript": "3.8.3"
-  }
+  "workspaces": [
+    "@quercia/*",
+    "example"
+  ]
 }

@@ -2,19 +2,24 @@
   "name": "@quercia/cli",
   "version": "0.0.1",
   "description": "The quercia cli",
+  "license": "MIT",
+  "author": "LucaT",
   "main": "index.js",
+  "bin": {
+    "quercia": "./bin/run"
+  },
   "scripts": {
     "build": "tsc",
     "dev": "tsc -w --preserveWatchOutput"
   },
-  "bin": {
-    "quercia": "./bin/run"
+  "files": [
+    "/bin",
+    "/lib"
+  ],
+  "peerDependencies": {
+    "react": "16.13.0",
+    "react-dom": "16.13.0"
   },
-  "oclif": {
-    "bin": "quercia"
-  },
-  "author": "LucaT",
-  "license": "MIT",
   "dependencies": {
     "@oclif/command": "1.5.19",
     "@oclif/config": "1.14.0",
@@ -23,10 +28,6 @@
     "webpack": "4.42.0",
     "webpack-sources": "1.4.3"
   },
-  "peerDependencies": {
-    "react": "16.13.0",
-    "react-dom": "16.13.0"
-  },
   "devDependencies": {
     "@types/node": "13.9.0",
     "@types/webpack": "4.41.7",
@@ -34,8 +35,7 @@
     "react-dom": "16.13.0",
     "typescript": "3.8.3"
   },
-  "files": [
-    "/bin",
-    "/lib"
-  ]
+  "oclif": {
+    "bin": "quercia"
+  }
 }

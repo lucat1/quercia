@@ -2709,6 +2709,10 @@ posix-character-classes@^0.1.0:
   resolved "https://registry.yarnpkg.com/posix-character-classes/-/posix-character-classes-0.1.1.tgz#01eac0fe3b5af71a2a6c02feabb8c1fef7e00eab"
   integrity sha1-AerA/jta9xoqbAL+q7jB/vfgDqs=
 
+"prettier-plugin-package@https://github.com/leaumar/prettier-plugin-package#patch-1":
+  version "0.3.1"
+  resolved "https://github.com/leaumar/prettier-plugin-package#b64808378292a89fd84c1fd63b1d90a2d2893c84"
+
 prettier@2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.0.1.tgz#3f00ac71263be34684b2b2c8d7e7f63737592dac"

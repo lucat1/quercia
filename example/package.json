@@ -1,11 +1,11 @@
 {
-  "private": true,
   "name": "example",
   "version": "0.0.1",
+  "private": true,
   "license": "MIT",
   "scripts": {
-    "clean": "rm -rf __quercia",
-    "build": "quercia"
+    "build": "quercia",
+    "clean": "rm -rf __quercia"
   },
   "dependencies": {
     "@quercia/cli": "0.0.1",
