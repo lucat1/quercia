@@ -46,9 +46,9 @@ export default class Quercia extends Command {
 
     const cfg = config(flags.mode)
     if (flags.watch) {
-      watch(cfg)
+      await watch(cfg)
     } else {
-      build(cfg)
+      await build(cfg)
     }
   }
 

@@ -33,7 +33,12 @@ export const navigate = async (
     console.log(`navigating to: ${url}`)
   }
 
-  history[`${replace ? 'replace' : 'push'}State`](null, '', url)
+  if(replace) {
+    history.replaceState(null, '', url)
+  } else {
+    history.pushState(null, '', url)
+  }
+
   setCtx({
     ...ctx,
     loading: true

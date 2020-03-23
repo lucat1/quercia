@@ -1,24 +1,36 @@
 {
   "name": "@quercia/quercia",
   "version": "0.0.1",
-  "description": "The quercia api",
   "license": "MIT",
-  "author": "LucaT",
-  "main": "index.js",
-  "module": "index.js",
-  "scripts": {
-    "build": "tsc",
-    "dev": "tsc -w --preserveWatchOutput"
+  "author": "luca",
+  "main": "dist/index.js",
+  "module": "dist/quercia.esm.js",
+  "engines": {
+    "node": ">=10"
   },
+  "scripts": {
+    "build": "tsdx build",
+    "dev": "tsdx watch --verbose",
+    "prepare": "tsdx build",
+    "test": "tsdx test"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
   "peerDependencies": {
-    "react": "16.13.0",
-    "react-dom": "16.13.0"
+    "react": ">=16",
+    "react-dom": ">=16"
   },
   "devDependencies": {
-    "@types/react": "16.9.23",
-    "@types/react-dom": "16.9.5",
-    "react": "16.13.0",
-    "react-dom": "16.13.0",
-    "typescript": "3.8.3"
-  }
+    "@types/react": "^16.9.25",
+    "@types/react-dom": "^16.9.5",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "typescript": "^3.8.3",
+    "@types/jest": "^25.1.4",
+    "tsdx": "^0.13.0",
+    "tslib": "^1.11.1"
+  },
+  "typings": "dist/index.d.ts"
 }

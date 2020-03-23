@@ -11,8 +11,8 @@
     "dev": "tsc -w --preserveWatchOutput"
   },
   "peerDependencies": {
-    "react": "16.13.0",
-    "react-dom": "16.13.0"
+    "react": ">=16",
+    "react-dom": ">=16"
   },
   "dependencies": {
     "@quercia/quercia": "0.0.1"

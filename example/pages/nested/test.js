@@ -1,5 +1,5 @@
 import * as React from 'react'
-import Link from '@quercia/quercia/link'
+import { Link } from '@quercia/quercia'
 
 export default () =>
   React.createElement(

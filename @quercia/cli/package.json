@@ -17,8 +17,8 @@
     "/lib"
   ],
   "peerDependencies": {
-    "react": "16.13.0",
-    "react-dom": "16.13.0"
+    "react": ">=16",
+    "react-dom": ">=16"
   },
   "dependencies": {
     "@oclif/command": "1.5.19",
