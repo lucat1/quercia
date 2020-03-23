@@ -1,6 +1,7 @@
 package quercia
 
-const template = `
+// Template is the default html template for page rendering
+const Template = `
 <!DOCTYPE html>
 <html lang="en">
 <head>

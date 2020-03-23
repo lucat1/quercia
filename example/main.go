@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/lucat1/quercia"
+	quercia "github.com/lucat1/quercia/prod"
 )
 
 func main() {

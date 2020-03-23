@@ -15,7 +15,7 @@ export default class Quercia extends Command {
     help: flags.help({ char: 'h' }),
     watch: flags.boolean({
       char: 'w',
-      default: true
+      default: false
     }),
     mode: flags.enum<'production' | 'development'>({
       char: 'm',

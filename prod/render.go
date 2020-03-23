@@ -1,4 +1,4 @@
-package quercia
+package prod
 
 import (
 	"encoding/json"
@@ -50,7 +50,7 @@ func renderTemplate(w http.ResponseWriter, r *http.Request, page string, props P
 	webpack := Cache[LoadedManifest.Webpack]
 	vendor, runtime := LoadedManifest.Vendor, LoadedManifest.Runtime
 
-	res := strings.Replace(template, "__INSERT_QUERCIA_DATA__", string(data), 1)
+	res := strings.Replace(shared.template, "__INSERT_QUERCIA_DATA__", string(data), 1)
 	res = strings.Replace(res, "__INSERT_QUERCIA_WEBPACK_RUNTIME__", string(webpack), 1)
 	res = strings.Replace(res, "__INSERT_QUERCIA_VENDOR__", vendor, 1)
 	res = strings.Replace(res, "__INSERT_QUERCIA_PAGE__", pageSrc, 1)

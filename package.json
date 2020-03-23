@@ -20,7 +20,7 @@
     "@types/react-dom": "16.9.5",
     "husky": "4.2.3",
     "prettier": "2.0.1",
-    "prettier-plugin-package": "https://github.com/leaumar/prettier-plugin-package#patch-1",
+    "prettier-plugin-package": "^1.0.0",
     "pretty-quick": "^2.0.1",
     "react": "16.13.0",
     "react-dom": "16.13.0",
