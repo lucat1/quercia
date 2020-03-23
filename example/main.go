@@ -4,11 +4,10 @@ import (
 	"fmt"
 	"net/http"
 
-	quercia "github.com/lucat1/quercia/prod"
+	"github.com/lucat1/quercia"
 )
 
 func main() {
-	quercia.Init("__quercia", false)
 	f := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case "/":

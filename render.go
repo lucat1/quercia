@@ -1,8 +1,9 @@
-package prod
+package quercia
 
 import (
 	"encoding/json"
 	"net/http"
+	"path"
 	"strings"
 )
 
@@ -17,16 +18,23 @@ type pageData struct {
 
 // Render renders a template in react with the given props
 func Render(w http.ResponseWriter, r *http.Request, page string, props Props) {
+	// in production only parse the manifest once
+	// in development on reach render request
+	if !parsed || dev {
+		loadManifest()
+	}
+
 	// render the template if we have a normal request
 	if r.Header.Get("X-Quercia") == "" {
 		renderTemplate(w, r, page, props)
 		return
 	}
 
+	pages := manifest["pages"].(map[string]interface{})
 	data, err := json.Marshal(pageData{
 		Page:   page,
 		Props:  props,
-		Script: "/__quercia/" + LoadedManifest.Pages[page],
+		Script: "/__quercia/" + pages[page].(string),
 	})
 	if err != nil {
 		panic(err)
@@ -46,14 +54,22 @@ func renderTemplate(w http.ResponseWriter, r *http.Request, page string, props P
 		panic(err)
 	}
 
-	pageSrc := LoadedManifest.Pages[page]
-	webpack := Cache[LoadedManifest.Webpack]
-	vendor, runtime := LoadedManifest.Vendor, LoadedManifest.Runtime
+	pages := manifest["pages"].(map[string]interface{})
+	pageSrc := pages[page]
+	webpack := assets[manifest["webpack-runtime"].(string)]
+	vendor, runtime := manifest["vendor"].(string), manifest["runtime"].(string)
 
-	res := strings.Replace(shared.template, "__INSERT_QUERCIA_DATA__", string(data), 1)
+	// during development we should load the webpack
+	// loader on every request
+	if len(webpack) == 0 && dev {
+		file := manifest["webpack-runtime"].(string)
+		webpack = must(read(path.Join(root, file)))
+	}
+
+	res := strings.Replace(template, "__INSERT_QUERCIA_DATA__", string(data), 1)
 	res = strings.Replace(res, "__INSERT_QUERCIA_WEBPACK_RUNTIME__", string(webpack), 1)
 	res = strings.Replace(res, "__INSERT_QUERCIA_VENDOR__", vendor, 1)
-	res = strings.Replace(res, "__INSERT_QUERCIA_PAGE__", pageSrc, 1)
+	res = strings.Replace(res, "__INSERT_QUERCIA_PAGE__", pageSrc.(string), 1)
 	res = strings.Replace(res, "__INSERT_QUERCIA_RUNTIME__", runtime, 1)
 
 	w.Header().Add("Content-Type", "text/html")

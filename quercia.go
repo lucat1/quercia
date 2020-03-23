@@ -1,11 +1,10 @@
-package dev
+package quercia
 
 import (
 	"log"
+	"os"
 	"path"
 	"strings"
-
-	"github.com/lucat1/quercia/shared"
 )
 
 var (
@@ -13,7 +12,7 @@ var (
 	dev = true
 
 	// the html template to render pages
-	template = shared.Template
+	template = defaultTemplate
 
 	// the root of the project, where to fetch
 	// the manifest and all other files
@@ -21,14 +20,22 @@ var (
 )
 
 func init() {
-	cwd, err := os.getwd()
+	cwd, err := os.Getwd()
 	if err != nil {
-		panic(err)
+		log.Fatal("Could not get working directory " + err.Error())
 	}
 
 	root = path.Join(cwd, "__quercia")
 }
 
+// SetRoot sets the root folder for the quercia compiled files
+// by default it's PWD + "/__quercia"
+func SetRoot(path string) {
+	root = path
+}
+
+// SetDev sets the enviroment into development
+// mode based on the given argument
 func SetDev(d bool) {
 	dev = d
 
@@ -43,7 +50,7 @@ func SetDev(d bool) {
 func SetTemplate(tmpl string) {
 	if dev {
 		// do a bunch of checks first
-		checks := []string{shared.QuerciaPage}
+		checks := []string{QuerciaPage}
 		for _, check := range checks {
 			if !strings.Contains(tmpl, check) {
 				log.Println("WARN: the provided templade doesn't include the '" + check + "' placeholder")
@@ -52,8 +59,4 @@ func SetTemplate(tmpl string) {
 	}
 
 	template = tmpl
-}
-
-func parseManifest() {
-
 }
