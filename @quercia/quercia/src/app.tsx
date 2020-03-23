@@ -1,15 +1,7 @@
 import * as React from 'react'
 
 import { ContextData, Router } from './router'
-
-function load(): ContextData {
-  const element = document.getElementById('__QUERCIA_DATA__')
-  if (element == null) {
-    throw new Error('FATAL: Could not load page data')
-  }
-
-  return JSON.parse(element.innerHTML)
-}
+import { load } from './load'
 
 export const App: React.FunctionComponent = () => {
   const [ctx, setCtx] = React.useState<ContextData>({
@@ -21,7 +13,7 @@ export const App: React.FunctionComponent = () => {
     const Page = window.__P[ctx.page]().default
 
     // give a name to the page only during development
-    if (process.env.NODE_ENV === 'development') {
+    if (__DEV__) {
       Page.displayName = `Page<{page: ${ctx.page}}>`
     }
 

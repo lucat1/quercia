@@ -1,4 +1,5 @@
 import * as React from 'react'
+import warning from 'tiny-warning'
 import navigate from './navigate'
 
 export interface ContextData {
@@ -19,19 +20,13 @@ export const Context = React.createContext<ContextValue>([
     page: '',
     props: {},
   },
-  process.env.NODE_ENV === 'development'
-    ? () => {
-        throw new TypeError(
-          'Tried setting the Router context from outside the Context.Provider'
-        )
-      }
-    : (null as any),
+  () => warning(false, 'Tried setting the Router context from outside the Context.Provider')
 ])
 
 export const useRouter = () => React.useContext(Context)
 
 // give a name to the context only during development
-if (process.env.NODE_ENV === 'development') {
+if (__DEV__) {
   Context.displayName = 'RotuerContext'
 }
 

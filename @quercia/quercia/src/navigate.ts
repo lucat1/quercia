@@ -1,3 +1,5 @@
+import invariant from 'tiny-invariant'
+
 import { ContextData, ContextValue } from './router'
 
 async function req(url: string) {
@@ -29,10 +31,6 @@ export const navigate = async (
   [ctx, setCtx]: ContextValue,
   replace = false
 ) => {
-  if (process.env.NODE_ENV === 'development') {
-    console.log(`navigating to: ${url}`)
-  }
-
   if(replace) {
     history.replaceState(null, '', url)
   } else {
@@ -57,7 +55,7 @@ export const navigate = async (
       loading: false
     })
   } catch (err) {
-    console.error(`Could not route to '${url}': ${err}`)
+    invariant(false, `Could not route to '${url}': ${err}`)
   }
 }
 

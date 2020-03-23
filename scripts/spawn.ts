@@ -4,9 +4,10 @@ import { Package } from '@manypkg/get-packages'
 export async function spawn(script: string, pkg: Package) {
   const child = childSpawn('yarn', [script], { cwd: pkg.dir })
 
-  for (const pipe of ['stdout', 'stderr']) {
+  for (const _pipe of ['stdout', 'stderr']) {
     // whether the previous data ended with a \n
     let nl = true
+    const pipe: 'stdout' | 'stderr' = _pipe as any
     child[pipe].on('data', (_data: Buffer) => {
       const data = _data.toString()
       if (nl) {

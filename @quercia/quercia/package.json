@@ -23,14 +23,18 @@
     "react-dom": ">=16"
   },
   "devDependencies": {
+    "@types/jest": "^25.1.4",
     "@types/react": "^16.9.25",
     "@types/react-dom": "^16.9.5",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "typescript": "^3.8.3",
-    "@types/jest": "^25.1.4",
     "tsdx": "^0.13.0",
-    "tslib": "^1.11.1"
+    "tslib": "^1.11.1",
+    "typescript": "^3.8.3"
   },
-  "typings": "dist/index.d.ts"
+  "typings": "dist/index.d.ts",
+  "dependencies": {
+    "tiny-invariant": "^1.1.0",
+    "tiny-warning": "^1.0.3"
+  }
 }

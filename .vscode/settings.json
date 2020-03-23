@@ -3,9 +3,10 @@
   "files.exclude": {
     "**/.git": true,
     "**/.DS_Store": true,
-    "@quercia/**/*.d.ts": true,
     "@quercia/**/*.map": true,
     "@quercia/**/*.js": true,
+    "@quercia/*/lib": true,
+    "@quercia/*/dist": true,
     "@quercia/*/tsconfig.tsbuildinfo": true
   }
 }
