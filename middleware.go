@@ -28,17 +28,21 @@ func Middleware(next http.Handler) http.Handler {
 		}
 
 		// during production serve the assets cached in memory
-		if isQuercia(r.URL.Path) {
-			path := r.URL.Path[11:]
-
-			if len(assets[path]) == 0 {
-				// if it's not a cached file we just go to the next handler
-				next.ServeHTTP(w, r)
-				return
-			}
-
-			writeWithMime(w, assets[path], path)
+		if !isQuercia(r.URL.Path) {
+			// if the url is not a quercia path we just move on
+			next.ServeHTTP(w, r)
+			return
 		}
+
+		path := r.URL.Path[11:]
+
+		if len(assets[path]) == 0 {
+			// if it's not a cached file we just go to the next handler
+			next.ServeHTTP(w, r)
+			return
+		}
+
+		writeWithMime(w, assets[path], path)
 	})
 }
 

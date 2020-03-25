@@ -11,9 +11,10 @@ import (
 type Props = map[string]interface{}
 
 type pageData struct {
-	Page   string `json:"page"`
-	Props  Props  `json:"props"`
-	Script string `json:"script"`
+	Page      string `json:"page"`
+	Props     Props  `json:"props"`
+	Script    string `json:"script"`
+	Prerender string `json:"prerender"`
 }
 
 // Render renders a template in react with the given props
@@ -31,10 +32,12 @@ func Render(w http.ResponseWriter, r *http.Request, page string, props Props) {
 	}
 
 	pages := manifest["pages"].(map[string]interface{})
+	prerenders := manifest["prerender"].(map[string]interface{})
 	data, err := json.Marshal(pageData{
-		Page:   page,
-		Props:  props,
-		Script: "/__quercia/" + pages[page].(string),
+		Page:      page,
+		Props:     props,
+		Script:    "/__quercia/" + pages[page].(string),
+		Prerender: string(assets[prerenders[page].(string)]),
 	})
 	if err != nil {
 		panic(err)

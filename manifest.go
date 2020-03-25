@@ -33,7 +33,7 @@ var (
 
 	// in production we cache all js modules
 	// in memory for faster serving of content
-	assets map[string][]byte
+	assets = map[string][]byte{}
 )
 
 func loadManifest() {
@@ -49,17 +49,22 @@ func loadManifest() {
 		log.Fatal("Could not parse manifest.json " + err.Error())
 	}
 
+	parsed = true
 	if !dev {
 		// cache all webpack outputs in memory
 		for key, value := range manifest {
-			if key == "pages" {
+			if key == "pages" || key == "prerender" {
 				_pages := manifest[key].(map[string]interface{})
-				for k, v := range _pages {
-					assets[k] = must(read(path.Join(root, v.(string))))
+				for _, v := range _pages {
+					val := v.(string)
+					assets[val] = must(read(path.Join(root, val)))
 				}
+
+				continue
 			}
 
-			assets[key] = must(read(path.Join(root, value.(string))))
+			val := value.(string)
+			assets[val] = must(read(path.Join(root, val)))
 		}
 	}
 }
