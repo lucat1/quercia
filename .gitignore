@@ -1,8 +1,44 @@
+lib-cov
+*.seed
+*.log
+*.csv
+*.dat
+*.out
+*.pid
+*.gz
+*.swp
+
+pids
+logs
+results
+tmp
+
+# Build
+public/css/main.css
+
+# Coverage reports
+coverage
+
+# API keys and secrets
+.env
+
+# Dependency directory
 node_modules
-@quercia/**/*.js
-@quercia/**/*.d.ts
-@quercia/**/*.map
-@quercia/**/tsconfig.tsbuildinfo
-@quercia/*/lib
-__quercia
+
+# Editors
+.idea
+*.iml
+
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# Ignore built ts files
+dist
+
+# ignore yarn
+yarn.lock
 yarn-error.log
+
+# quercia specific files
+__quercia
