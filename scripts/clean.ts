@@ -10,7 +10,7 @@ async function main() {
   let count = 0
   for (const pkg of pkgs) {
     for (const ext of ['js', 'd.ts', 'map', 'tsbuildinfo']) {
-      const matches = await glob(join(pkg.dir, `**/*.${ext}`))
+      const matches = await glob(join(pkg.dir, 'dist', `**/*.${ext}`))
       for (const match of matches) {
         await fs.unlink(match)
         count++
