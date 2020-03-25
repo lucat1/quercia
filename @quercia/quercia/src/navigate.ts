@@ -27,11 +27,16 @@ export const navigate = async (
 
   setCtx({
     ...ctx,
-    loading: true
+    loading: true,
+    prerender: ''
   })
 
   try {
     const data = await req(url)
+    setCtx({
+      ...data,
+      loading: true
+    })
 
     if (data.script && !isLoaded(data.page)) {
       // TODO: bump progress
@@ -40,7 +45,8 @@ export const navigate = async (
 
     setCtx({
       ...data,
-      loading: false
+      loading: false,
+      prerender: ''
     })
   } catch (err) {
     invariant(false, `Could not route to '${url}': ${err}`)

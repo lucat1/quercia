@@ -5,8 +5,9 @@ import navigate from './navigate'
 export interface ContextData {
   loading: boolean
   page: string
-  script?: string
   props: Object
+  script?: string
+  prerender?: string
 }
 
 export type ContextValue = [

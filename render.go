@@ -17,6 +17,28 @@ type pageData struct {
 	Prerender string `json:"prerender"`
 }
 
+func getPrerender(page string) string {
+	// only include the prerender value if we have prerendered the page
+	if prerenders := manifest["prerender"]; prerenders == nil {
+		return ""
+	}
+
+	prerenders := manifest["prerender"].(map[string]interface{})
+
+	// during development send the data from the file system
+	if dev {
+		file := path.Join(root, prerenders[page].(string))
+		if bytes, err := read(file); err == nil {
+			return string(bytes)
+		}
+
+		return ""
+	}
+
+	// in production get the data from the in-memory assets
+	return string(assets[prerenders[page].(string)])
+}
+
 // Render renders a template in react with the given props
 func Render(w http.ResponseWriter, r *http.Request, page string, props Props) {
 	// in production only parse the manifest once
@@ -32,12 +54,11 @@ func Render(w http.ResponseWriter, r *http.Request, page string, props Props) {
 	}
 
 	pages := manifest["pages"].(map[string]interface{})
-	prerenders := manifest["prerender"].(map[string]interface{})
 	data, err := json.Marshal(pageData{
 		Page:      page,
 		Props:     props,
 		Script:    "/__quercia/" + pages[page].(string),
-		Prerender: string(assets[prerenders[page].(string)]),
+		Prerender: getPrerender(page),
 	})
 	if err != nil {
 		panic(err)
