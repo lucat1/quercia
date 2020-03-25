@@ -31,3 +31,16 @@ export async function readdir(folder: string): Promise<string[]> {
 
   return result.flat()
 }
+
+// rm removes the given folder/file
+export async function rm(path: string) {
+  const stat = await fs.stat(path)
+  if(stat.isFile()) {
+    return await fs.unlink(path)
+  }
+
+  // recursively remove all child folders/files
+  const children = await fs.readdir(path)
+  await Promise.all(children.map(child => rm(join(path, child))))
+  await fs.rmdir(path)
+}

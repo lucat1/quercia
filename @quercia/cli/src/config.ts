@@ -1,16 +1,20 @@
 import * as webpack from 'webpack'
+import { join } from 'path'
 import { sync as resolve } from 'enhanced-resolve'
 
 import ManifestPlugin from './webpack/manifest-plugin'
+import { loader } from './pages'
 
 import Quercia from '.'
 
 // config configures the webpack bundler
 export function config(
-  mode: 'production' | 'development'
+  mode: 'production' | 'development',
+  target: webpack.Configuration['target']
 ): webpack.Configuration {
   return {
     mode,
+    target,
     devtool: mode == 'development' ? 'source-map' : false,
     output: {
       path: Quercia.quercia,
@@ -50,4 +54,42 @@ export function config(
       }
     }
   }
+}
+
+// pconfig returns a modified version of the configuration
+// with some fields edited to allow for server side rendering
+export function pconfig(
+  mode: 'production' | 'development'
+): webpack.Configuration {
+  const base = config(mode, 'node')
+
+  // change the output path
+  base.output = {
+    ...base.output,
+    libraryTarget: 'commonjs2',
+    libraryExport: 'default',
+    path: join(Quercia.quercia, 'prerender')
+  }
+
+  // remove the runtime entry, its not needed on the server side
+  const entries = base.entry as { [key: string]: string }
+  for(const key in entries) {
+    if(key == 'runtime') {
+      delete entries[key]
+      continue
+    }
+
+    entries[key] = entries[key].replace(loader + '!', '')
+  }
+  base.entry = entries
+
+  // remove any optimization and chunk-splitting option
+  if(base.optimization) base.optimization = {}
+
+  base.externals = {
+    'react': 'commonjs2 react',
+    'react-dom': 'commonjs2 react-dom'
+  }
+
+  return base
 }

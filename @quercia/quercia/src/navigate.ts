@@ -1,19 +1,7 @@
 import invariant from 'tiny-invariant'
 
-import { ContextData, ContextValue } from './router'
-
-async function req(url: string) {
-  const req = await fetch(url, {
-    headers: {
-      'X-Quercia': '1'
-    }
-  })
-  return (await req.json()) as ContextData
-}
-
-function isLoaded(page: string) {
-  return Object.keys(window.__P).includes(page)
-}
+import { ContextValue } from './router'
+import { req, isLoaded } from './load'
 
 // load loads a script for the new page
 function load(src: string): Promise<void> {

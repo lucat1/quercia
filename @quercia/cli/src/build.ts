@@ -1,7 +1,8 @@
 import * as webpack from 'webpack'
+import { sync as resolve } from 'enhanced-resolve'
 
 // webpack compiler related variables
-export const entry = require.resolve('@quercia/runtime')
+export const entry = resolve(process.cwd(), '@quercia/runtime')
 
 // build builds the webpack bundle
 export function build(config: webpack.Configuration): Promise<webpack.Stats> {
