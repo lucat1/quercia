@@ -9,7 +9,7 @@ const defaultTemplate = `
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-  <div id="__quercia"></div>
+	<div id="__quercia">__INSERT_QUERCIA_PRERENDER__</div>
   <script id="__QUERCIA_DATA__" type="application/json" crossorigin="anonymous">
     __INSERT_QUERCIA_DATA__
 	</script>

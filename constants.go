@@ -1,5 +1,8 @@
 package quercia
 
+// QuerciaPrerender is the placeholder for the quercia prerender HTML
+const QuerciaPrerender = "__INSERT_QUERCIA_PRERENDER__"
+
 // QuerciaData is the placeholder for the data section in the template
 const QuerciaData = "__INSERT_QUERCIA_DATA__"
 

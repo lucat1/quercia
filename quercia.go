@@ -38,10 +38,6 @@ func SetRoot(path string) {
 // mode based on the given argument
 func SetDev(d bool) {
 	dev = d
-
-	if dev {
-		log.Println("INFO: running quercia in development mode")
-	}
 }
 
 // SetTemplate sets the HTML template used to render the page
@@ -50,7 +46,14 @@ func SetDev(d bool) {
 func SetTemplate(tmpl string) {
 	if dev {
 		// do a bunch of checks first
-		checks := []string{QuerciaPage}
+		checks := []string{
+			QuerciaPrerender,
+			QuerciaData,
+			QuerciaWebpackRuntime,
+			QuerciaVendor,
+			QuerciaPage,
+			QuerciaRuntime,
+		}
 		for _, check := range checks {
 			if !strings.Contains(tmpl, check) {
 				log.Println("WARN: the provided templade doesn't include the '" + check + "' placeholder")

@@ -90,11 +90,12 @@ func renderTemplate(w http.ResponseWriter, r *http.Request, page string, props P
 		webpack = must(read(path.Join(root, file)))
 	}
 
-	res := strings.Replace(template, "__INSERT_QUERCIA_DATA__", string(data), 1)
-	res = strings.Replace(res, "__INSERT_QUERCIA_WEBPACK_RUNTIME__", string(webpack), 1)
-	res = strings.Replace(res, "__INSERT_QUERCIA_VENDOR__", vendor, 1)
-	res = strings.Replace(res, "__INSERT_QUERCIA_PAGE__", pageSrc.(string), 1)
-	res = strings.Replace(res, "__INSERT_QUERCIA_RUNTIME__", runtime, 1)
+	res := strings.Replace(template, QuerciaPrerender, getPrerender(page), 1)
+	res = strings.Replace(res, QuerciaData, string(data), 1)
+	res = strings.Replace(res, QuerciaWebpackRuntime, string(webpack), 1)
+	res = strings.Replace(res, QuerciaVendor, vendor, 1)
+	res = strings.Replace(res, QuerciaPage, pageSrc.(string), 1)
+	res = strings.Replace(res, QuerciaRuntime, runtime, 1)
 
 	w.Header().Add("Content-Type", "text/html")
 	w.Write([]byte(res))
