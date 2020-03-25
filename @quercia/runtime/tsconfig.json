@@ -3,6 +3,10 @@
   "include": ["**/*"],
   "compilerOptions": {
     "module": "esnext",
-    "target": "es2020"
-  }
+    "target": "es2020",
+    "outDir": "dist"
+  },
+  "files": [
+    "index.tsx"
+  ]
 }
