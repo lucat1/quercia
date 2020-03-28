@@ -2,8 +2,9 @@ import { Command, flags } from '@oclif/command'
 import { sync as resolve } from 'enhanced-resolve'
 import { join } from 'path'
 
-import { mkdir } from './fs'
+import { loadRc } from './rc'
 import { loadPages } from './pages'
+import { mkdir } from './fs'
 import { config, pconfig } from './config'
 import { watch, build } from './build'
 import { prerender } from './prerender'
@@ -40,9 +41,11 @@ export default class Quercia extends Command {
   async run() {
     const { flags } = this.parse(Quercia)
 
-    await mkdir(Quercia.quercia)
+    await loadRc()
 
     await loadPages(Quercia.pages)
+
+    await mkdir(Quercia.quercia)
 
     this.log(`running in ${flags.watch ? 'watch' : 'build'}/${flags.mode}`)
 

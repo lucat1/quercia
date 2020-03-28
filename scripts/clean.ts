@@ -1,4 +1,4 @@
-import { join } from 'path'
+import { join, sep } from 'path'
 import { promises as fs } from 'fs'
 import * as glob from 'fast-glob'
 
@@ -14,7 +14,7 @@ async function main() {
       for (const match of matches) {
         await fs.unlink(match)
         count++
-        console.log(`removed ${match.replace(pkg.dir + '/', '')}`)
+        console.log(`removed ${match.replace(pkg.dir + sep, '')}`)
       }
     }
   }

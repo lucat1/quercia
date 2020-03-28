@@ -1,4 +1,4 @@
-import { extname } from 'path'
+import { sep, extname } from 'path'
 import { sync as resolve } from 'enhanced-resolve'
 
 import Quercia from '.'
@@ -11,7 +11,7 @@ export async function loadPages(root: string) {
   const paths = await readdir(root)
   paths.forEach(path => {
     const key =
-      'pages/' + path.replace(root + '/', '').replace(extname(path), '')
+      'pages/' + path.replace(root + sep, '').replace(extname(path), '')
 
     Quercia.entries[key] = loader + '!' + path
   })

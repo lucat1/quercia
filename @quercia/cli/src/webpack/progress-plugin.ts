@@ -1,5 +1,5 @@
 import { Plugin, Compiler } from 'webpack'
-import { sep } from 'path'
+import { join, sep } from 'path'
 
 import Quercia from '..'
 
@@ -17,7 +17,7 @@ export default class ProgressPlugin implements Plugin {
           if (module.startsWith('@')) {
             // scoped module
             const parts = module.split(sep)
-            final = parts[0] + '/' + parts[1]
+            final = join(parts[0], parts[1])
           } else {
             final = module.split(sep)[0]
           }
@@ -27,7 +27,7 @@ export default class ProgressPlugin implements Plugin {
           // module outside of the node_modules folder
           file = {
             type: 'src',
-            path: path.replace(Quercia.root + '/', '')
+            path: path.replace(Quercia.root + sep, '')
           }
         }
 

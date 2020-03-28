@@ -1,12 +1,12 @@
 import { loader } from 'webpack'
-import { extname } from 'path'
+import { sep as slash, extname } from 'path'
 
 import Quercia from '..'
 
 const pageLoader: loader.Loader = function () {
   const ext = extname(this.resourcePath)
   const pagePath = JSON.stringify(this.resourcePath)
-  const pageName = pagePath.replace(Quercia.pages + '/', '').replace(ext, '')
+  const pageName = pagePath.replace(Quercia.pages + slash, '').replace(ext, '')
 
   return `
     (window.__P = window.__P || {})[${pageName}] = function() {
