@@ -1,9 +1,9 @@
 import * as React from 'react'
 import { usePrerender } from '@quercia/quercia'
 
-export default ({ path }) => {
+export default ({ path }: { path: string }) => {
   const isPrerener = usePrerender()
-  if(isPrerener) {
+  if (isPrerener) {
     return React.createElement('div', null, `pre rendering of a 404 page`)
   }
 
