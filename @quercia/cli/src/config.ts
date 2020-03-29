@@ -3,7 +3,6 @@ import { join } from 'path'
 import { sync as resolve } from 'enhanced-resolve'
 
 import ManifestPlugin from './webpack/manifest-plugin'
-import { loader } from './pages'
 
 import Quercia from '.'
 
@@ -12,6 +11,11 @@ export function config(
   mode: 'production' | 'development',
   target: webpack.Configuration['target']
 ): webpack.Configuration {
+  const entries: { [key: string]: string } = {}
+  for (const key in Quercia.entries) {
+    entries[key] = Quercia.loader + '?path=' + Quercia.entries[key]
+  }
+
   return {
     mode,
     target,
@@ -73,21 +77,14 @@ export function pconfig(
 
   // remove the runtime entry, its not needed on the server side
   const entries = base.entry as { [key: string]: string }
-  for(const key in entries) {
-    if(key == 'runtime') {
-      delete entries[key]
-      continue
-    }
-
-    entries[key] = entries[key].replace(loader + '!', '')
-  }
+  delete entries['runtime']
   base.entry = entries
 
   // remove any optimization and chunk-splitting option
-  if(base.optimization) base.optimization = {}
+  if (base.optimization) base.optimization = {}
 
   base.externals = {
-    'react': 'commonjs2 react',
+    react: 'commonjs2 react',
     'react-dom': 'commonjs2 react-dom'
   }
 

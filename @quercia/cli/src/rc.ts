@@ -10,7 +10,16 @@ export async function loadRc() {
     return // no configuration, skip this step
   }
 
-  console.log('Using config at: ', path.replace(Quercia.root + sep, ''))
+  console.log('Using config at:', path.replace(Quercia.root + sep, ''))
+  const mod = require(path)
+  if (typeof mod != 'function') {
+    console.warn(
+      'Ignoring configuration file because it does not export a function wrapper'
+    )
+    return
+  }
+
+  Quercia.rc = mod
 }
 
 async function findRc(): Promise<string | null> {

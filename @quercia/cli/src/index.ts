@@ -1,6 +1,7 @@
 import { Command, flags } from '@oclif/command'
 import { sync as resolve } from 'enhanced-resolve'
 import { join } from 'path'
+import { Configuration } from 'webpack'
 
 import { loadRc } from './rc'
 import { loadPages } from './pages'
@@ -35,6 +36,13 @@ export default class Quercia extends Command {
   // the runtime entrypoint for webpack
   public static runtime = resolve(Quercia.root, '@quercia/runtime')
 
+  // the webpack loader for pages files
+  public static loader = resolve(__dirname, './webpack/page-loader.js')
+
+  // rc is the function exported by the configuration file
+  // used to edit the webpack configuration
+  public static rc: ((cfg: Configuration) => Configuration) | null = null
+
   // list of pages files to be used as webpack inputs
   public static entries: { [key: string]: string } = {}
 
@@ -49,20 +57,39 @@ export default class Quercia extends Command {
 
     this.log(`running in ${flags.watch ? 'watch' : 'build'}/${flags.mode}`)
 
-    const cfg = config(flags.mode, 'web')
+    let cfg = config(flags.mode, 'web')
+    let pcfg = pconfig(flags.mode)
+    // execute the config wrapper if we have it
+    if (Quercia.rc) {
+      try {
+        cfg = Quercia.rc(cfg)
+        pcfg = Quercia.rc(pcfg)
+      } catch (err) {
+        throw new Error('Error while executing config:\n' + err)
+      }
+    }
+
     if (flags.watch) {
       await watch(cfg)
     } else {
       await build(cfg)
 
-      const pConfig = pconfig(flags.mode)
-      await build(pConfig)
+      // on build prerender pages
+      await build(pcfg)
       await prerender()
     }
   }
 
-  async catch(err: Error) {
+  async catch(errors: Error[]) {
     this.log('Fatal error during the building process')
-    this.error(err, { exit: 1 })
+    if (!(errors instanceof Array)) {
+      this.error(errors, { exit: 1 })
+    }
+
+    for (const err of errors) {
+      this.error(err)
+    }
+
+    this.exit(1)
   }
 }
