@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "sourceMap": true,
-    "declaration": false
+    "declaration": false,
+    "jsx": "react"
   }
 }
