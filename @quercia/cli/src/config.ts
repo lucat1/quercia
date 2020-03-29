@@ -72,12 +72,19 @@ export function pconfig(
     ...base.output,
     libraryTarget: 'commonjs2',
     libraryExport: 'default',
-    path: join(Quercia.quercia, 'prerender')
+    path: join(Quercia.quercia, 'server')
   }
 
   // remove the runtime entry, its not needed on the server side
   const entries = base.entry as { [key: string]: string }
-  delete entries['runtime']
+  for (const key in entries) {
+    if (key == 'runtime') {
+      delete entries[key]
+      continue
+    }
+
+    entries[key] = entries[key].replace(`${Quercia.loader}!`, '')
+  }
   base.entry = entries
 
   // remove any optimization and chunk-splitting option

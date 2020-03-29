@@ -10,6 +10,6 @@ export async function loadPages(root: string) {
     const key =
       'pages/' + path.replace(root + sep, '').replace(extname(path), '')
 
-    Quercia.entries[key] = path
+    Quercia.entries[key] = `${Quercia.loader}!${path}`
   })
 }
