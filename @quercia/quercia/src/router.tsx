@@ -34,7 +34,7 @@ export const useRouter = () => React.useContext(Context)
 
 // give a name to the context only during development
 if (__DEV__) {
-  Context.displayName = 'RotuerContext'
+  Context.displayName = 'RouterContext'
 }
 
 export const Router: React.FunctionComponent<{}> = ({ children }) => {

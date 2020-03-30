@@ -4,6 +4,8 @@ import { render } from 'react-dom'
 import { Router } from '@quercia/quercia'
 import { Wrapper } from './wrapper'
 
+export { AppProps } from './wrapper'
+
 render(
   <Router>
     <Wrapper />

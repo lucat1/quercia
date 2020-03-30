@@ -45,12 +45,6 @@ export default class Quercia extends Command {
 
   public static runtime = resolve(process.cwd(), '@quercia/runtime')
 
-  // list of internal files ['_app', '_document']
-  public static internals: [string | null, string | null] = [
-    resolve(process.cwd(), '@quercia/runtime/dist/app'),
-    null
-  ]
-
   async run() {
     const { flags } = this.parse(Quercia)
     await mkdir(Quercia.quercia)
@@ -59,7 +53,6 @@ export default class Quercia extends Command {
     await loadPages()
 
     this.log(`running in ${flags.watch ? 'watch' : 'build'}/${flags.mode}`)
-    console.log(Quercia.internals)
 
     let cfg = config(flags.mode, 'web')
     let pcfg = pconfig(flags.mode)
@@ -91,7 +84,11 @@ export default class Quercia extends Command {
     }
 
     for (const err of errors) {
-      this.error(err)
+      if (err instanceof Error) {
+        this.error(err)
+      } else {
+        this.error((err as any).message)
+      }
     }
 
     this.exit(1)

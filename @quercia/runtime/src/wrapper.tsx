@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import { usePage } from './page'
 
-interface AppProps<T = any> {
+export interface AppProps<T = any> {
   Component: React.ElementType<T>
   pageProps: T
   prerender: boolean
