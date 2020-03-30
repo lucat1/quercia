@@ -33,9 +33,6 @@ export default class Quercia extends Command {
   public static pages = join(Quercia.root, 'pages')
   public static quercia = join(Quercia.root, '__quercia')
 
-  // the runtime entrypoint for webpack
-  public static runtime = resolve(Quercia.root, '@quercia/runtime')
-
   // the webpack loader for pages files
   public static loader = resolve(__dirname, './webpack/page-loader.js')
 
@@ -46,16 +43,23 @@ export default class Quercia extends Command {
   // list of pages files to be used as webpack inputs
   public static entries: { [key: string]: string } = {}
 
+  public static runtime = resolve(process.cwd(), '@quercia/runtime')
+
+  // list of internal files ['_app', '_document']
+  public static internals: [string | null, string | null] = [
+    resolve(process.cwd(), '@quercia/runtime/dist/app'),
+    null
+  ]
+
   async run() {
     const { flags } = this.parse(Quercia)
-
-    await loadRc()
-
-    await loadPages(Quercia.pages)
-
     await mkdir(Quercia.quercia)
 
+    await loadRc()
+    await loadPages()
+
     this.log(`running in ${flags.watch ? 'watch' : 'build'}/${flags.mode}`)
+    console.log(Quercia.internals)
 
     let cfg = config(flags.mode, 'web')
     let pcfg = pconfig(flags.mode)

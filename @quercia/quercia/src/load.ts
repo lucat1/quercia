@@ -27,3 +27,5 @@ export async function req(url: string): Promise<ContextData> {
 export function isLoaded(page: string) {
   return Object.keys(window.__P).includes(page)
 }
+
+export default load

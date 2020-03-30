@@ -1,17 +1,7 @@
 {
-  "extends": "../../tsconfig.json",
-  "include": ["src", "types", "test"],
+  "extends": "../../tsconfig.shared.json",
+  "include": ["src", "../../types"],
   "compilerOptions": {
-    "module": "esnext",
-    "lib": ["dom", "esnext"],
-    "importHelpers": true,
-    "rootDir": "./src",
-    "moduleResolution": "node",
-    "baseUrl": "./",
-    "paths": {
-      "*": ["src/*", "node_modules/*"]
-    },
-    "jsx": "react",
-    "esModuleInterop": true
+    "rootDir": "./src"
   }
 }

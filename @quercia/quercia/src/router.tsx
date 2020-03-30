@@ -1,6 +1,8 @@
 import * as React from 'react'
 import warning from 'tiny-warning'
+
 import navigate from './navigate'
+import load from './load'
 
 export interface ContextData {
   loading: boolean
@@ -19,9 +21,13 @@ export const Context = React.createContext<ContextValue>([
   {
     loading: false,
     page: '',
-    props: {},
+    props: {}
   },
-  () => warning(false, 'Tried setting the Router context from outside the Context.Provider')
+  () =>
+    warning(
+      false,
+      'Tried setting the Router context from outside the Context.Provider'
+    )
 ])
 
 export const useRouter = () => React.useContext(Context)
@@ -31,16 +37,21 @@ if (__DEV__) {
   Context.displayName = 'RotuerContext'
 }
 
-export const Router = (props: React.ProviderProps<ContextValue>) => {
+export const Router: React.FunctionComponent<{}> = ({ children }) => {
+  const state = React.useState<ContextData>({
+    loading: false,
+    ...load()
+  })
+
   React.useEffect(() => {
     const handler = () => {
       window.history.replaceState
-      navigate(window.location.pathname, props.value, true)
+      navigate(window.location.pathname, state, true)
     }
 
     window.addEventListener('popstate', handler)
     return () => window.removeEventListener('popstate', handler)
   })
 
-  return <Context.Provider {...props} />
+  return <Context.Provider value={state}>{children}</Context.Provider>
 }

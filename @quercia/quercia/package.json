@@ -1,6 +1,7 @@
 {
   "name": "@quercia/quercia",
   "version": "0.0.1",
+  "description": "The quercia library",
   "license": "MIT",
   "author": "luca",
   "main": "dist/index.js",

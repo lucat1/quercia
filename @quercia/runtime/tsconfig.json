@@ -1,12 +1,7 @@
 {
-  "extends": "../../tsconfig.json",
-  "include": ["**/*"],
+  "extends": "../../tsconfig.shared.json",
+  "include": ["src", "../../types"],
   "compilerOptions": {
-    "module": "esnext",
-    "target": "es2020",
-    "outDir": "dist"
-  },
-  "files": [
-    "index.tsx"
-  ]
+    "rootDir": "./src"
+  }
 }

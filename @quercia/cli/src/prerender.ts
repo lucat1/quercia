@@ -6,7 +6,7 @@ import * as React from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 
 import Quercia from '.'
-import { rm, mkdir } from './fs'
+import { mkdir } from './fs'
 
 interface Manifest {
   prerender: {
