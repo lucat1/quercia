@@ -19,7 +19,7 @@ export const navigate = async (
   [ctx, setCtx]: ContextValue,
   replace = false
 ) => {
-  if(replace) {
+  if (replace) {
     history.replaceState(null, '', url)
   } else {
     history.pushState(null, '', url)

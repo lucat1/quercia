@@ -21,7 +21,7 @@ export function config(
     target,
     devtool: mode == 'development' ? 'source-map' : false,
     output: {
-      path: Quercia.quercia,
+      path: join(Quercia.quercia, 'client'),
       filename: '[name]-[contenthash].js',
       publicPath: '/__quercia/'
     },
@@ -36,7 +36,7 @@ export function config(
         'react-dom': resolve(process.cwd(), 'react-dom')
       }
     },
-    plugins: [new ManifestPlugin()],
+    plugins: [new ManifestPlugin('../manifest.json')],
     optimization: {
       runtimeChunk: {
         name: _ => `webpack-runtime`
@@ -78,7 +78,7 @@ export function pconfig(
   // remove the runtime entry, its not needed on the server side
   const entries = base.entry as { [key: string]: string }
   for (const key in entries) {
-    if (key == 'runtime') {
+    if (key == 'runtime' || key == '_app') {
       delete entries[key]
       continue
     }
@@ -94,6 +94,9 @@ export function pconfig(
     react: 'commonjs2 react',
     'react-dom': 'commonjs2 react-dom'
   }
+
+  // recreate the manifest plugin to output inside of the server folder
+  base.plugins?.splice(0, 1, new ManifestPlugin('manifest.json'))
 
   return base
 }

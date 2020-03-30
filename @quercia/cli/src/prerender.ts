@@ -77,15 +77,25 @@ export async function prerender(): Promise<void> {
   // recreate it and populate it with the html contents
   await mkdir(prerenderDir)
   for (const page in results) {
+    if (page == '_document') {
+      await fs.writeFile(join(Quercia.quercia, 'template.html'), results[page])
+      delete results[page]
+      continue
+    }
+
     const pageWithHash =
-      pages[page].replace('.js', '').replace('pages/', '') + '.html'
+      pages[page].replace('.js', '').replace('pages/', '') + '.json'
 
     const dir = dirname(pageWithHash)
     if (dir != '.') {
       await mkdir(join(prerenderDir, dir))
     }
 
-    await fs.writeFile(join(prerenderDir, pageWithHash), results[page])
+    const obj = {
+      head: '',
+      content: results[page]
+    }
+    await fs.writeFile(join(prerenderDir, pageWithHash), JSON.stringify(obj))
     results[page] = join('prerender', pageWithHash)
   }
 

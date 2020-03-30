@@ -80,14 +80,15 @@ export default class Quercia extends Command {
   async catch(errors: Error[]) {
     this.log('Fatal error during the building process')
     if (!(errors instanceof Array)) {
-      this.error(errors, { exit: 1 })
+      console.log((errors as any).stack)
+      this.error((errors as any).stack, { exit: 1 })
     }
 
     for (const err of errors) {
-      if (err instanceof Error) {
-        this.error(err)
+      if (err.toString() == '[object Object]') {
+        this.error(err.message)
       } else {
-        this.error((err as any).message)
+        this.error((err as any).stack)
       }
     }
 

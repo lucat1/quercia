@@ -35,7 +35,7 @@ export async function readdir(folder: string): Promise<string[]> {
 // rm removes the given folder/file
 export async function rm(path: string) {
   const stat = await fs.stat(path)
-  if(stat.isFile()) {
+  if (stat.isFile()) {
     return await fs.unlink(path)
   }
 
