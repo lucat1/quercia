@@ -1,5 +1,6 @@
 import { Plugin, Compiler, compilation } from 'webpack'
 import { RawSource } from 'webpack-sources'
+import { join } from 'path'
 
 interface Assets {
   [key: string]: string | Assets
@@ -27,7 +28,7 @@ export default class ManifestPlugin implements Plugin {
         // handle pages chunks
         if (chunk.name.startsWith('pages/')) {
           const key = chunk.name.replace('pages/', '')
-          pages[key] = chunk.name + '-' + getHash(chunk) + '.js'
+          pages[key] = join('client', chunk.name + '-' + getHash(chunk) + '.js')
           continue
         }
 

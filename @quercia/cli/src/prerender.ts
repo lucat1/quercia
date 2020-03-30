@@ -1,5 +1,5 @@
 import { promises as fs } from 'fs'
-import { join, dirname } from 'path'
+import { join, dirname, sep } from 'path'
 import { sync as resolve } from 'enhanced-resolve'
 
 import * as React from 'react'
@@ -67,6 +67,9 @@ export async function prerender(): Promise<void> {
   const { pages } = await loadManifest(join(serverDir, 'manifest.json'))
 
   for (const page in pages) {
+    // strip client/ prefix
+    pages[page] = pages[page].replace('client' + sep, '')
+
     console.log(`prerendering pages/${page}`)
     const modulePath = resolve(serverDir, './' + pages[page])
 
