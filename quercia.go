@@ -226,6 +226,12 @@ func Render(w http.ResponseWriter, r *http.Request, page string, props interface
 	scripts := data(rdata)
 	scripts += script(webpack)
 	scripts += script(vendor)
+
+	// if we have a custom _app we should use it
+	if manifest.Pages["_app"] != "" {
+		scripts += script(manifest.Pages["_app"])
+	}
+
 	scripts += script(pageSrc)
 	scripts += script(runtime)
 
