@@ -34,7 +34,10 @@ export default class ManifestPlugin implements Plugin {
 
         // handle normal chunks
         if (['webpack-runtime', 'vendor', 'runtime'].includes(chunk.name)) {
-          vendor[chunk.name] = chunk.name + '-' + getHash(chunk) + '.js'
+          vendor[chunk.name] = join(
+            'client',
+            chunk.name + '-' + getHash(chunk) + '.js'
+          )
         }
       }
 
