@@ -9,8 +9,8 @@ export const QuerciaHead: React.FunctionComponent = ({ children }) => {
 
   return (
     <>
-      {children}
       __QUERCIA__HEAD__
+      {children}
     </>
   )
 }
@@ -18,7 +18,7 @@ export const QuerciaHead: React.FunctionComponent = ({ children }) => {
 export const QuerciaMount: React.FunctionComponent = _ => {
   invariant(typeof window == 'undefined', `<QuerciaMount> ${msg}`)
 
-  return <div id='__quercia' />
+  return <div id='__quercia'>__QUERCIA_PRERENDER__</div>
 }
 
 export const QuerciaScripts: React.FunctionComponent = _ => {

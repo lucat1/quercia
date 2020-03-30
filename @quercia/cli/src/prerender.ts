@@ -67,6 +67,9 @@ export async function prerender(): Promise<void> {
   const { pages } = await loadManifest(join(serverDir, 'manifest.json'))
 
   for (const page in pages) {
+    // ignore _app, it does not need to be prerendered
+    if (page == '_app') continue
+
     // strip client/ prefix
     pages[page] = pages[page].replace('client' + sep, '')
 

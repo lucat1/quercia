@@ -8,20 +8,21 @@ import (
 )
 
 func main() {
-	f := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		switch r.URL.Path {
-		case "/":
-			quercia.Render(w, r, "index", quercia.Props{})
-		case "/test":
-			quercia.Render(w, r, "nested/test", quercia.Props{})
+	dir := http.Dir("./__quercia")
+	http.Handle("/__quercia/", http.StripPrefix("/__quercia/", http.FileServer(dir)))
 
-		default:
-			quercia.Render(w, r, "404", quercia.Props{
-				"path": r.URL.Path,
-			})
-		}
+	// !!! required in most cases !!!
+	// quercia.SetDir(dir)
+	// !!! required in most cases !!!
+
+	http.HandleFunc("/test", func(w http.ResponseWriter, r *http.Request) {
+		quercia.Render(w, r, "nested/test", nil)
+	})
+
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		quercia.Render(w, r, "404", nil)
 	})
 
 	fmt.Println("Listening on :8080")
-	http.ListenAndServe(":8080", quercia.Middleware(f))
+	http.ListenAndServe(":8080", nil)
 }

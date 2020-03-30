@@ -9,7 +9,12 @@ export interface ContextData {
   page: string
   props: Object
   script?: string
-  prerender?: string
+  prerender?: PrerenderData
+}
+
+export interface PrerenderData {
+  content: string
+  head: string
 }
 
 export type ContextValue = [

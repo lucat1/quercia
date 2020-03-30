@@ -31,7 +31,7 @@ export type usePage = <T = any>() => [React.ElementType<T>, T, boolean]
 export const usePage: usePage = () => {
   const [router] = useRouter()
 
-  const shouldPrerender = router.loading && router.prerender != ''
+  const shouldPrerender = router.loading && router.prerender?.content != ''
   const Page = React.useMemo(() => {
     // dont even try to fetch the page wile loading
     // return a mock component which should never be rendered
@@ -50,7 +50,9 @@ export const usePage: usePage = () => {
   return [
     shouldPrerender ? Prerender : Page,
     shouldPrerender
-      ? ({ dangerouslySetInnerHTML: { __html: router.prerender || '' } } as any)
+      ? ({
+          dangerouslySetInnerHTML: { __html: router.prerender?.content || '' }
+        } as any)
       : router.props,
     shouldPrerender
   ]
