@@ -9,6 +9,8 @@
     "build": "ts-node scripts/build",
     "clean": "ts-node scripts/clean",
     "dev": "ts-node scripts/dev",
+    "docs:build": "vuepress build docs",
+    "docs:dev": "vuepress dev docs",
     "fix": "manypkg fix",
     "postinstall": "manypkg check",
     "pretty": "prettier --write *.json */*.{ts,json} @quercia/**/*.{ts,json} @quercia/**/**/*.{ts,json}"
@@ -25,7 +27,8 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "ts-node": "8.8.1",
-    "typescript": "3.8.3"
+    "typescript": "3.8.3",
+    "vuepress": "^1.4.0"
   },
   "husky": {
     "hooks": {
