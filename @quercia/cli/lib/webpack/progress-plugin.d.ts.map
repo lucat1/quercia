@@ -1,1 +1,0 @@
-{"version":3,"file":"progress-plugin.d.ts","sourceRoot":"","sources":["../../src/webpack/progress-plugin.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,MAAM,EAAE,QAAQ,EAAE,MAAM,SAAS,CAAA;AAK1C,MAAM,CAAC,OAAO,OAAO,cAAe,YAAW,MAAM;IACnD,KAAK,CAAC,QAAQ,EAAE,QAAQ;CA+BzB"}

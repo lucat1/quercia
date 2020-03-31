@@ -1,1 +1,0 @@
-{"version":3,"file":"manifest-plugin.d.ts","sourceRoot":"","sources":["../../src/webpack/manifest-plugin.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,MAAM,EAAE,QAAQ,EAAe,MAAM,SAAS,CAAA;AAWvD,MAAM,CAAC,OAAO,OAAO,cAAe,YAAW,MAAM;IACnD,KAAK,CAAC,QAAQ,EAAE,QAAQ;CA4BzB"}
