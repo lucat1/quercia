@@ -1,6 +1,6 @@
 import invariant from 'tiny-invariant'
 
-import { ContextValue } from './router'
+import { ContextValue, PrerenderData } from './router'
 import { req, isLoaded } from './load'
 
 // load loads a script for the new page
@@ -12,6 +12,12 @@ function load(src: string): Promise<void> {
     script.onerror = () => rej()
     document.body.appendChild(script)
   })
+}
+
+// empty is an empty-state prerender data
+const empty: PrerenderData = {
+  content: '',
+  head: ''
 }
 
 export const navigate = async (
@@ -28,7 +34,7 @@ export const navigate = async (
   setCtx({
     ...ctx,
     loading: true,
-    prerender: ''
+    prerender: empty
   })
 
   try {
@@ -46,7 +52,7 @@ export const navigate = async (
     setCtx({
       ...data,
       loading: false,
-      prerender: ''
+      prerender: empty
     })
   } catch (err) {
     invariant(false, `Could not route to '${url}': ${err}`)

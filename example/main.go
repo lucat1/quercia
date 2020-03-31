@@ -20,7 +20,13 @@ func main() {
 	})
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		quercia.Render(w, r, "404", nil)
+		if r.URL.Path == "/" {
+			quercia.Render(w, r, "index", nil)
+		} else {
+			quercia.Render(w, r, "404", quercia.Props{
+				"path": r.URL.Path,
+			})
+		}
 	})
 
 	fmt.Println("Listening on :8080")
