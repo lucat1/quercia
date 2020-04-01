@@ -4,7 +4,7 @@ import { join } from 'path'
 import Quercia from '../quercia'
 
 // config returns the default webpack configuration, one for each
-export default (server: boolean): Configuration => {
+export default (isServer: boolean): Configuration => {
   const {
     buildID,
     parsedFlags: { mode }
@@ -16,10 +16,11 @@ export default (server: boolean): Configuration => {
   } = Quercia.getInstance().tasks.structure
 
   return {
+    mode,
     devtool: mode == 'development' ? 'inline-source-map' : false,
     output: {
       filename: '[name].js',
-      path: join(root, '__quercia', buildID, server ? 'server' : 'client'),
+      path: join(root, '__quercia', buildID, isServer ? 'server' : 'client'),
       publicPath: '/__quercia/'
     },
     entry: {

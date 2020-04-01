@@ -50,8 +50,8 @@ export default class Config extends Task {
 
   private async must(isServer: boolean): Promise<Configuration> {
     const internal = isServer
-      ? await servercfg(basecfg(false))
-      : await clientcfg(basecfg(false))
+      ? await servercfg(basecfg(isServer))
+      : await clientcfg(basecfg(isServer))
 
     let final: Configuration = null as any
     try {

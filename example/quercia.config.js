@@ -1,10 +1,10 @@
-module.exports = function (cfg) {
-  cfg.resolve = {
+module.exports = function ({ config, isServer }) {
+  config.resolve = {
     // Add `.ts` and `.tsx` as a resolvable extension
     extensions: ['.ts', '.tsx', '.js']
   }
 
-  cfg.module = {
+  config.module = {
     rules: [
       {
         test: /.(ts|tsx)$/,
@@ -16,5 +16,5 @@ module.exports = function (cfg) {
     ]
   }
 
-  return cfg
+  return config
 }

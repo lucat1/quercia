@@ -3,14 +3,33 @@ import eresolve from 'enhanced-resolve'
 import { promisify } from 'util'
 
 import ManifestPlugin from './manifest-plugin'
+import Quercia from '../quercia'
 
 const resolve: (root: string, mod: string) => Promise<string> = promisify(
   eresolve
 ) as any
 
+interface T {
+  [key: string]: string
+}
+
 export default async (base: Configuration): Promise<Configuration> => {
+  const loader = await resolve(
+    Quercia.getInstance().tasks.structure.paths.root,
+    '@quercia/cli/dist/webpack/page-loader'
+  )
+
+  const entries = base.entry as T
+  const entry: T = {}
+
+  for (const key in entries) {
+    entry[key] = `${loader}!${entries[key]}`
+  }
+
   return {
     ...base,
+    entry,
+    target: 'web',
     plugins: [...(base.plugins || []), new ManifestPlugin('client')],
     resolve: {
       alias: {

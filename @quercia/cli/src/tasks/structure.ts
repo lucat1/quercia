@@ -1,5 +1,5 @@
 import eresolve from 'enhanced-resolve'
-import { join, sep } from 'path'
+import { join, sep, extname } from 'path'
 import { promisify } from 'util'
 
 import Task from '../task'
@@ -102,7 +102,8 @@ export default class Structure extends Task {
   // returns the name of a page relatively to the `this.paths.pages` folder
   private rel(path: string): string {
     return path
-      .replace((this.paths.pages as string) + sep, '')
-      .replace(sep, '/') // make paths web-like even on windows where sep=\
+      .replace((this.paths.root as string) + sep, '')
+      .replace(sep, '/') // make paths web-compatible on windows where sep=\
+      .replace(extname(path), '')
   }
 }

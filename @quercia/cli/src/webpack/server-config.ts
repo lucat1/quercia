@@ -5,6 +5,7 @@ export default async (base: Configuration): Promise<Configuration> => {
 
   return {
     ...base,
+    target: 'node',
     externals: {
       'react': 'commonjs2 react',
       'react-dom': 'commonjs2 react-dom'

@@ -3,5 +3,10 @@
   "include": ["src", "../../types"],
   "compilerOptions": {
     "rootDir": "./src"
-  }
+  },
+  "references": [
+    {
+      "path": "../quercia"
+    }
+  ]
 }

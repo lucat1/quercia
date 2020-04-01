@@ -12,8 +12,9 @@ export default class Task {
   protected quercia: Quercia
   protected logger: Logger
 
-  protected log: Logger['log']
   protected debug: Logger['debug']
+  protected log: Logger['log']
+  protected error: Logger['error']
   protected fatal: Logger['fatal']
 
   constructor(instance: Quercia) {
@@ -23,6 +24,7 @@ export default class Task {
     // simplified logger methods
     this.debug = this.logger.debug
     this.log = this.logger.log
+    this.error = this.logger.error
     this.fatal = this.logger.fatal
   }
 

@@ -1,7 +1,6 @@
 import { Command, flags } from '@oclif/command'
 import { IConfig } from '@oclif/config'
 import { AsyncParallelHook, AsyncSeriesHook } from 'tapable'
-import { Configuration } from 'webpack'
 import uid from 'uid'
 
 import Structure from './tasks/structure'
@@ -9,6 +8,7 @@ import Config from './tasks/config'
 import Prerender from './tasks/prerender'
 
 import Logger from './logger'
+import { Tasks } from 'task'
 
 // Shared class for both the build and watch command
 // Shared steps:
@@ -43,9 +43,6 @@ export default class Quercia extends Command {
 
     // called after the custom configuration(if any) has been executed
     afterConfig: new AsyncSeriesHook(['quercia', 'config']),
-
-    // called before the build task begins
-    beforeBuild: new AsyncSeriesHook(['quercia']),
 
     // called after the build process has ended with the webpack stats
     build: new AsyncSeriesHook(['quercia', 'stats']),
@@ -94,9 +91,10 @@ export default class Quercia extends Command {
   public logger = new Logger(this)
   public buildID = uid(5)
 
-  public tasks = {
+  public tasks: Tasks = {
     structure: new Structure(this),
     config: new Config(this),
+    builder: null as any,
     prerender: new Prerender(this)
   }
 

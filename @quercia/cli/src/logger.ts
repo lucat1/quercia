@@ -19,6 +19,10 @@ export default class Logger {
     this.log(from, ...extra)
   }
 
+  public error(from: string, ...extra: any[]) {
+    this.log(from, ...extra)
+  }
+
   public fatal(from: string, ...extra: any[]) {
     this.log(from, ...extra)
     this.quercia.exit(1)
