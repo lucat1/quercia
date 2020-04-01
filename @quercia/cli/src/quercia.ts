@@ -2,7 +2,7 @@ import { Command, flags } from '@oclif/command'
 import { IConfig } from '@oclif/config'
 import { AsyncParallelHook, AsyncSeriesHook } from 'tapable'
 import { Configuration } from 'webpack'
-import * as uid from 'uid'
+import uid from 'uid'
 
 import Structure from './tasks/structure'
 import Config from './tasks/config'
@@ -102,7 +102,7 @@ export default class Quercia extends Command {
 
   // arguments and flags parsed, with some sane defaults
   public parsedArgs: { [key: string]: any } = {}
-  public parsedFlags: { mode: Configuration['mode']; debug: boolean } = {
+  public parsedFlags: { mode: 'production' | 'development'; debug: boolean } = {
     mode: 'development',
     debug: false
   }
@@ -114,7 +114,7 @@ export default class Quercia extends Command {
 
     const { args, flags } = this.parse(Quercia)
     this.parsedArgs = args
-    this.parsedFlags = flags as any // to fix mode -> webpack.Configuration['mode']
+    this.parsedFlags = flags as any // to fix mode -> 'production' | 'development'
 
     await this.hooks.afterFlags.promise(this)
 

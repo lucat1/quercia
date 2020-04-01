@@ -42,7 +42,8 @@
     "jsxSingleQuote": true,
     "arrowParens": "avoid",
     "trailingComma": "none",
-    "proseWrap": "always"
+    "proseWrap": "always",
+    "quoteProps": "consistent"
   },
   "volta": {
     "node": "12.16.1",

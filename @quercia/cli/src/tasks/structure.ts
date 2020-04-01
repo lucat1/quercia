@@ -1,9 +1,9 @@
-import { join } from 'path'
-import * as eresolve from 'enhanced-resolve'
+import eresolve from 'enhanced-resolve'
+import { join, sep } from 'path'
 import { promisify } from 'util'
 
 import Task from '../task'
-import { exists } from '../fs'
+import { exists, readdir } from '../fs'
 
 export interface Pages {
   [key: string]: string
@@ -81,6 +81,28 @@ export default class Structure extends Task {
       this.paths
     )
 
+    if (this.paths.pages === null) {
+      this.fatal(
+        'tasks/structure',
+        "Your project doesn't contain a `pages` " +
+          ' folder. The compiler will abort'
+      )
+      return // useless, but makes typescript happy as below `this.paths.pages` is a string
+    }
+
+    const files = await readdir(this.paths.pages)
+    for (const file of files) {
+      this.pages[this.rel(file)] = file
+    }
+
+    this.debug('tasks/structure', 'found pages', this.pages)
     this.log('tasks/structure', 'Loaded project structure')
+  }
+
+  // returns the name of a page relatively to the `this.paths.pages` folder
+  private rel(path: string): string {
+    return path
+      .replace((this.paths.pages as string) + sep, '')
+      .replace(sep, '/') // make paths web-like even on windows where sep=\
   }
 }
