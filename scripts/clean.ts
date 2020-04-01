@@ -12,9 +12,9 @@ async function main() {
     for (const ext of ['js', 'd.ts', 'map', 'tsbuildinfo']) {
       const matches = await glob(join(pkg.dir, 'dist', `**/*.${ext}`))
       for (const match of matches) {
-        await fs.unlink(match)
+        await fs.unlink(match.toString())
         count++
-        console.log(`removed ${match.replace(pkg.dir + sep, '')}`)
+        console.log(`removed ${match.toString().replace(pkg.dir + sep, '')}`)
       }
     }
   }
