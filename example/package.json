@@ -4,8 +4,9 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "build": "quercia",
-    "clean": "rm -rf __quercia"
+    "build": "quercia build",
+    "clean": "rm -rf __quercia",
+    "dev": "quercia watch"
   },
   "dependencies": {
     "@quercia/cli": "0.0.1",
