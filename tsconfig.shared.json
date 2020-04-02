@@ -2,7 +2,7 @@
   "compilerOptions": {
     "resolveJsonModule": true,
     "target": "es2017",
-    "types": ["react", "react-dom", "node"],
+    "types": ["react", "react-dom", "node", "webpack", "loader-utils"],
     "lib": ["DOM", "ESNext"],
     "module": "esnext",
     "importHelpers": true,

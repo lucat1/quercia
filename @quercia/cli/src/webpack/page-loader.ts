@@ -1,16 +1,16 @@
 import { loader } from 'webpack'
-import { sep, extname } from 'path'
+import { parseQuery } from 'loader-utils'
 
-import Quercia from '../quercia'
+interface Query {
+  name: string
+}
 
 const pageLoader: loader.Loader = function () {
-  const pagesFolder = Quercia.getInstance().tasks.structure.paths.pages
-  const ext = extname(this.resourcePath)
+  const query = parseQuery(this.resourceQuery) as Query
   const pagePath = JSON.stringify(this.resourcePath)
-  const pageName = pagePath.replace(pagesFolder + sep, '').replace(ext, '')
 
   return `
-    (window.__P = window.__P || {})[${pageName}] = function() {
+    (window.__P = window.__P || {})[${query.name}] = function() {
       return require(${pagePath});
     }
   `

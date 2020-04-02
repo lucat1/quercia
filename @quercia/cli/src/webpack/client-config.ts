@@ -1,6 +1,7 @@
 import { Configuration } from 'webpack'
 import eresolve from 'enhanced-resolve'
 import { promisify } from 'util'
+import { sep } from 'path'
 
 import ManifestPlugin from './manifest-plugin'
 import Quercia from '../quercia'
@@ -23,7 +24,8 @@ export default async (base: Configuration): Promise<Configuration> => {
   const entry: T = {}
 
   for (const key in entries) {
-    entry[key] = `${loader}!${entries[key]}`
+    const pageName = key.replace('pages' + sep, '')
+    entry[key] = `${loader}!${entries[key]}?name=${pageName}`
   }
 
   return {
