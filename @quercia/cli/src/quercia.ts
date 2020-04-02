@@ -60,7 +60,10 @@ export default class Quercia extends Command {
     beforePrerender: new AsyncSeriesHook(['quercia']),
 
     // called after the prerender task has ended (every new change in watch mode)
-    afterPrerender: new AsyncSeriesHook(['quercia'])
+    afterPrerender: new AsyncSeriesHook(['quercia', 'prerender']),
+
+    // called after the manifest files have been written
+    manifest: new AsyncSeriesHook(['quercia'])
   }
 
   public static flags = {

@@ -11,6 +11,29 @@ export async function exists(path: string): Promise<boolean> {
   }
 }
 
+// recursively create a directory and its parents(if they dont exist)
+export async function mkdirp(folder: string) {
+  if (await exists(folder)) {
+    return
+  }
+
+  const stack = []
+  let _folder = folder
+  while ((_folder = join(_folder, '..'))) {
+    if (await exists(_folder)) {
+      break
+    }
+
+    stack.push(_folder)
+  }
+
+  for (const path of stack.reverse()) {
+    await fs.mkdir(path)
+  }
+
+  await fs.mkdir(folder)
+}
+
 // readdir reads a directory recursively
 export async function readdir(folder: string): Promise<string[]> {
   const files = await fs.readdir(folder)

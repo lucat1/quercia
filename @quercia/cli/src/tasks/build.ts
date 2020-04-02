@@ -36,6 +36,6 @@ export default class Build extends Compile {
       })
     })
 
-    await this.quercia.hooks.build.promise(this.quercia, this.stats)
+    this.log('tasks/build', 'Successfully compiled the application')
   }
 }

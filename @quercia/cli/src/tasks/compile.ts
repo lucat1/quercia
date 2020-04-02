@@ -1,4 +1,6 @@
 import webpack, { MultiCompiler, Stats } from 'webpack'
+import { join } from 'path'
+import { promises as fs } from 'fs'
 
 import Task from '../task'
 import Manifest from '../webpack/manifest'
@@ -35,5 +37,35 @@ export default class Compile extends Task {
     ]
 
     this.compiler = webpack(cfg)
+  }
+
+  // writes the manifest into two files(to preven deletion upon recompile)
+  // - `__quercia/<id>/manifest.json`
+  // - `__quercia/manifest.json`
+  public async writeManfiest() {
+    this.debug('tasks/compile', 'Writing manifest files')
+
+    const data = JSON.stringify(
+      this.manifest,
+      null,
+      this.quercia.parsedFlags.mode == 'production' ? 0 : 2
+    )
+
+    // save the file in two pats so that ever after a recompile the manifest
+    // is still available under the unique buildID based folder
+    const paths = [
+      join(this.quercia.tasks.structure.paths.root, '__quercia'),
+      join(
+        this.quercia.tasks.structure.paths.root,
+        '__quercia',
+        this.quercia.buildID
+      )
+    ]
+
+    for (const path of paths) {
+      await fs.writeFile(join(path, 'manifest.json'), data)
+    }
+
+    this.log('tasks/compile', 'Wrote manifest files')
   }
 }
