@@ -1,8 +1,8 @@
 import * as React from 'react'
 import warning from 'tiny-warning'
+import invariant from 'tiny-invariant'
 
 import navigate from './navigate'
-import load from './load'
 
 export interface ContextData {
   loading: boolean
@@ -21,6 +21,14 @@ export type ContextValue = [
   ContextData,
   React.Dispatch<React.SetStateAction<ContextData>>
 ]
+
+// load loads the data from the script tag in the server rendered page
+export function load(): ContextData {
+  const element = document.getElementById('__QUERCIA_DATA__')
+  invariant(element, 'FATAL: Could not load page data')
+
+  return JSON.parse(element.innerHTML)
+}
 
 export const Context = React.createContext<ContextValue>([
   {

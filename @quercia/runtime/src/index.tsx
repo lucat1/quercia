@@ -7,11 +7,9 @@ import { Wrapper } from './app'
 export { AppProps } from './app'
 export { QuerciaHead, QuerciaMount, QuerciaScripts } from './document'
 
-if (typeof window !== 'undefined') {
-  render(
-    <Router>
-      <Wrapper />
-    </Router>,
-    document.getElementById('__quercia')
-  )
-}
+render(
+  <Router>
+    <Wrapper />
+  </Router>,
+  document.getElementById('__quercia')
+)

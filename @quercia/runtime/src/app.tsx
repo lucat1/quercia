@@ -1,5 +1,7 @@
 import * as React from 'react'
 
+import { isLoaded } from '@quercia/quercia'
+
 import { usePage } from './page'
 
 export interface AppProps<T = any> {
@@ -23,7 +25,7 @@ export const Wrapper: React.FunctionComponent = () => {
   const [Component, props, prerender] = usePage()
 
   let App: React.ElementType<AppProps> = DefaultApp
-  if (window.__P['_app']) {
+  if (isLoaded('_app')) {
     App = window.__P['_app']().default as any
   }
 

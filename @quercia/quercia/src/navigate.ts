@@ -1,7 +1,24 @@
 import invariant from 'tiny-invariant'
 
-import { ContextValue, PrerenderData } from './router'
-import { req, isLoaded } from './load'
+import { ContextValue, ContextData, PrerenderData } from './router'
+
+export async function req(url: string): Promise<ContextData> {
+  const req = await fetch(url, {
+    headers: {
+      'X-Quercia': '1'
+    }
+  })
+
+  const data: ContextData = await req.json()
+  invariant(data.script, 'The response didn\t include a script url')
+  return data
+}
+
+// isLoaded cheks if the requested page is available/loaded in
+// the global `window.__P` object
+export function isLoaded(page: string) {
+  return window.__P && typeof window.__P[page] === 'function'
+}
 
 // load loads a script for the new page
 function load(src: string): Promise<void> {

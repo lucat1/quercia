@@ -6,5 +6,5 @@ export {
   ContextValue
 } from './router'
 export { Link } from './link'
-export { navigate } from './navigate'
+export { navigate, isLoaded } from './navigate'
 export { usePrerender } from './prerender'

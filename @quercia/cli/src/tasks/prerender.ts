@@ -51,10 +51,10 @@ export default class Prerender extends Task {
       this.clear(src)
 
       // render the compnent with react-dom/server
-      const data = await this.render(src)
+      const content = await this.render(src)
 
       await mkdirp(dirname(destination))
-      await fs.writeFile(destination, data)
+      await fs.writeFile(destination, JSON.stringify({ content, head: '' }))
 
       this.quercia.tasks.builder.manifest.prerender[page] = join(
         this.quercia.buildID,
