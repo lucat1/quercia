@@ -10,7 +10,9 @@ const pageLoader: loader.Loader = function () {
   const pagePath = JSON.stringify(this.resourcePath)
 
   return `
-    (window.__P = window.__P || {})[${query.name}] = function() {
+    (window.__P = window.__P || {})[${JSON.stringify(
+      query.name
+    )}] = function() {
       return require(${pagePath});
     }
   `

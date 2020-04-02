@@ -25,7 +25,8 @@ export default (isServer: boolean): Configuration => {
     output: {
       filename: '[name].js',
       path: out,
-      publicPath: '/__quercia/'
+      publicPath:
+        '/__quercia/' + buildID + '/' + (isServer ? 'server' : 'client')
     },
     entry: {
       runtime,

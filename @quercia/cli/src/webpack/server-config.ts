@@ -6,12 +6,12 @@ interface T {
 }
 
 export default async (base: Configuration): Promise<Configuration> => {
-  delete (base.entry as { [key: string]: string })['runtime']
-
   const entries = base.entry as T
   const entry: T = {}
 
   for (const key in entries) {
+    if (key == 'runtime') continue // ignore the runtime chunk on the server
+
     const pageName = key.replace('pages' + sep, '')
     entry[pageName] = entries[key]
   }

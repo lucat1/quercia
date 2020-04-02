@@ -24,6 +24,12 @@ export default async (base: Configuration): Promise<Configuration> => {
   const entry: T = {}
 
   for (const key in entries) {
+    // ignore the runtime chunk
+    if (key == 'runtime') {
+      entry[key] = entries[key]
+      continue
+    }
+
     const pageName = key.replace('pages' + sep, '')
     entry[key] = `${loader}!${entries[key]}?name=${pageName}`
   }
