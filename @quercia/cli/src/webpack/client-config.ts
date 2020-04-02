@@ -32,7 +32,10 @@ export default async (base: Configuration): Promise<Configuration> => {
     ...base,
     entry,
     target: 'web',
-    plugins: [...(base.plugins || []), new ManifestPlugin('client')],
+    plugins: [
+      ...(base.plugins || []),
+      new ManifestPlugin(Quercia.getInstance())
+    ],
     resolve: {
       alias: {
         // prevent duplicate react versions

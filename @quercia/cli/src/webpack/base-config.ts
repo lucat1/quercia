@@ -1,5 +1,7 @@
 import { Configuration } from 'webpack'
 import { join } from 'path'
+import isCI from 'is-ci'
+import Terser from 'terser-webpack-plugin'
 
 import Quercia from '../quercia'
 
@@ -15,17 +17,43 @@ export default (isServer: boolean): Configuration => {
     paths: { runtime, root }
   } = Quercia.getInstance().tasks.structure
 
+  const out = join(root, '__quercia', buildID, isServer ? 'server' : 'client')
+
   return {
     mode,
     devtool: mode == 'development' ? 'inline-source-map' : false,
     output: {
       filename: '[name].js',
-      path: join(root, '__quercia', buildID, isServer ? 'server' : 'client'),
+      path: out,
       publicPath: '/__quercia/'
     },
     entry: {
       runtime,
       ...pages
+    },
+    optimization: {
+      minimize: mode === 'production',
+      minimizer:
+        mode === 'production'
+          ? [
+              new Terser({
+                parallel: !isCI,
+                extractComments: {
+                  condition: /^\**!|@preserve|@license|@cc_on/i,
+                  filename: () => join(out, 'LICENSE.txt'),
+                  banner: file => {
+                    return `LICENSE at ${file}`
+                  }
+                },
+                terserOptions: {
+                  compress: true,
+                  mangle: {
+                    properties: true
+                  }
+                }
+              })
+            ]
+          : []
     }
   }
 }

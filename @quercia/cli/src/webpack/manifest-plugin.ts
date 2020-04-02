@@ -1,51 +1,50 @@
 import { Plugin, Compiler, compilation } from 'webpack'
-import { RawSource } from 'webpack-sources'
 import { join } from 'path'
 
-interface Assets {
-  [key: string]: string | Assets
-}
-
-function getHash(chunk: compilation.Chunk): string {
-  return (chunk.contentHash as { [key: string]: string })['javascript']
-}
+import Quercia from '../quercia'
+import Manifest, { VendorChunk } from './manifest'
 
 export default class ManifestPlugin implements Plugin {
-  private path: string
+  private quercia: Quercia
 
-  constructor(path: string) {
-    this.path = path
+  constructor(quercia: Quercia) {
+    this.quercia = quercia
   }
 
   apply(compiler: Compiler) {
     compiler.hooks.emit.tap('QuerciaManifest', compilation => {
       const chunks: compilation.Chunk[] = compilation.chunks
-      const assets: Assets = { pages: {}, vendor: {} }
-      const pages = assets.pages as Assets
-      const vendor = assets.vendor as Assets
+      const assets: Manifest = {
+        pages: {},
+        prerender: {},
+        vendor: {} as any
+      }
 
       for (const chunk of chunks) {
         // handle pages chunks
         if (chunk.name.startsWith('pages/')) {
           const key = chunk.name.replace('pages/', '')
-          pages[key] = join('client', chunk.name + '-' + getHash(chunk) + '.js')
+          assets.pages[key] = join(
+            this.quercia.buildID,
+            'client',
+            chunk.name + '.js'
+          )
           continue
         }
 
         // handle normal chunks
-        if (['webpack-runtime', 'vendor', 'runtime'].includes(chunk.name)) {
-          vendor[chunk.name] = join(
+        const vendors: VendorChunk[] = ['webpack-runtime', 'vendor', 'runtime']
+        if (vendors.includes(chunk.name as VendorChunk)) {
+          const name = chunk.name as VendorChunk
+          assets.vendor[name] = join(
+            this.quercia.buildID,
             'client',
-            chunk.name + '-' + getHash(chunk) + '.js'
+            chunk.name + '.js'
           )
         }
       }
 
-      assets.pages = pages
-      assets.vendor = vendor
-      compilation.assets[this.path] = new RawSource(
-        JSON.stringify(assets, null, 2)
-      )
+      this.quercia.tasks.builder.manifest = assets
     })
   }
 }

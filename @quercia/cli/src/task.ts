@@ -4,6 +4,7 @@ import Structure from './tasks/structure'
 import Config from './tasks/config'
 import Build from './tasks/build'
 import Watch from './tasks/watch'
+import Compile from './tasks/compile'
 import Prerender from './tasks/prerender'
 
 import Logger from './logger'
@@ -34,6 +35,6 @@ export default class Task {
 export interface Tasks {
   structure: Structure
   config: Config
-  builder: Build | Watch
+  builder: Compile & (Build | Watch)
   prerender: Prerender
 }
