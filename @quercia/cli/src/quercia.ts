@@ -51,10 +51,10 @@ export default class Quercia extends Command {
     beforeWatch: new AsyncSeriesHook(['quercia']),
 
     // called after every watch cycle has completed
-    watch: new AsyncSeriesHook(['quercia', 'watcher']),
+    watch: new AsyncSeriesHook(['quercia', 'stats']),
 
     // called after the compilation has ended
-    afterWatch: new AsyncSeriesHook(['quercia', 'stats']),
+    afterWatch: new AsyncSeriesHook(['quercia']),
 
     // called before we start the prerender task (every new change in watch mode)
     beforePrerender: new AsyncSeriesHook(['quercia']),

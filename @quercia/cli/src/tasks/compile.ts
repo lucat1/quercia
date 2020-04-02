@@ -12,7 +12,7 @@ export interface MultiStats {
 
 export default class Compile extends Task {
   protected compiler: MultiCompiler = null as any
-  protected stats: MultiStats | null = null
+  public stats: MultiStats | null = null
 
   private _manifest: Manifest = {} as any
 
@@ -37,6 +37,21 @@ export default class Compile extends Task {
     ]
 
     this.compiler = webpack(cfg)
+  }
+
+  // holds repetitive calls that happen after the build has been successful
+  public async afetrBuild() {
+    await this.quercia.hooks.beforePrerender.promise(this.quercia)
+
+    await this.quercia.tasks.prerender.execute()
+
+    await this.quercia.hooks.afterPrerender.promise(
+      this,
+      this.quercia.tasks.prerender
+    )
+
+    await this.writeManfiest()
+    await this.quercia.hooks.manifest.promise(this)
   }
 
   // writes the manifest into two files(to preven deletion upon recompile)

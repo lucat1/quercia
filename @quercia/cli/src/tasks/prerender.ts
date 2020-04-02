@@ -27,7 +27,7 @@ export default class Prerender extends Task {
 
     // the `prerender` output folder (ex. __quercia/<id>/prerender)
     const output = join(root, 'prerender')
-    await fs.mkdir(output)
+    await mkdirp(output)
 
     const pages = Object.keys(this.quercia.tasks.structure.pages)
 
