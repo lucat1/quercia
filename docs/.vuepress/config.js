@@ -17,7 +17,15 @@ module.exports = {
       },
       {
         title: 'Internals',
-        children: ['/internals/', '/internals/template'],
+        children: [
+          '/internals/',
+          '/internals/cli',
+          {
+            title: 'Tasks',
+            children: ['internals/tasks/structure'],
+            sidebar: 'auto'
+          }
+        ],
         sidebar: 'auto'
       }
     ]
