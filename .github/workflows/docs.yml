@@ -14,9 +14,8 @@ jobs:
       - name: Install node & yarn with volta
         uses: volta-cli/action@v1
 
-      # only install `vuepress` for the docs job
-      - name: Install vuepress dependency
-        run: yarn add vuepress
+      - name: Install dependencies
+        run: yarn install
 
       - name: Build docs
         run: yarn docs:build
