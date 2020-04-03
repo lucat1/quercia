@@ -65,8 +65,17 @@ this example we'll render an `Hello World!` inside a `<div>`:
 ```tsx
 import * as React from 'react'
 
-export default () => React.createElement()
+export default () => React.createElement('div', null, 'Hello World!')
 ```
+
+::: tip
+
+In the example here we use the `hyperscript` syntax style of writing react
+components. You may not be familiar with this syntax, but don't fear, quercia
+supports full webpack customization, so you can integrate it with `jsx` using
+`babel` or even with `typescript`!
+
+:::
 
 ## Final steps
 
