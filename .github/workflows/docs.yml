@@ -1,0 +1,32 @@
+name: docs
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install node & yarn with volta
+        uses: volta-cli/action@v1
+
+      # only install `vuepress` for the docs job
+      - name: Install vuepress dependency
+        run: yarn add vuepress
+
+      - name: Build docs
+        run: yarn docs:build
+
+      - name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@v1.0
+        with:
+          publish-dir: './docs/.vuepress/dist'
+          production-branch: master
+          deploy-message: 'Deploy from GitHub Actions'
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
