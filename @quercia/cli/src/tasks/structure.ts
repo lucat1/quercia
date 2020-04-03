@@ -5,22 +5,13 @@ import { promisify } from 'util'
 import Task from '../task'
 import { exists, readdir } from '../fs'
 
-export interface Pages {
-  [key: string]: string
-}
-
-export interface Paths {
-  root: string
-  pages: string | null
-  config: string | null
-  runtime: string
-}
+import IStructure, { Paths, Pages } from './istructure'
 
 const resolve: (root: string, mod: string) => Promise<string> = promisify(
   eresolve
 ) as any
 
-export default class Structure extends Task {
+export default class Structure extends Task implements IStructure {
   // only used during existance checking
   private _paths: Readonly<Paths> = {
     root: process.cwd(),

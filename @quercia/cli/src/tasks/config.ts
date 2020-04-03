@@ -2,22 +2,15 @@ import { Configuration } from 'webpack'
 
 import Task from '../task'
 import Structure from './structure'
+import IConfig, { Reducer, PReducer } from './iconfig'
 
 import basecfg from '../webpack/base-config'
 import clientcfg from '../webpack/client-config'
 import servercfg from '../webpack/server-config'
 
-export interface ConfigurationArgument {
-  isServer: boolean
-  config: Configuration
-}
-
-type Reducer = (data: ConfigurationArgument) => Configuration
-type PReducer = (data: ConfigurationArgument) => Promise<Configuration>
-
-export default class Config extends Task {
+export default class Config extends Task implements IConfig {
   private structure: Structure = null as any
-  private rc: Reducer | PReducer = data => data.config
+  public rc: Reducer | PReducer = data => data.config
 
   public client: Configuration = null as any
   public server: Configuration = null as any
