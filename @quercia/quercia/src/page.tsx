@@ -1,12 +1,12 @@
 import * as React from 'react'
 import warning from 'tiny-warning'
 
-import { useRouter } from '@quercia/quercia'
+import { useRouter } from './router'
 
 const Empty: React.FunctionComponent = () => {
   warning(
     false,
-    'This component should never render, you might be facing a network error'
+    'The <Empty /> component should never render, you might be facing a network error'
   )
 
   return null
@@ -24,12 +24,16 @@ if (__DEV__) {
   Prerender.displayName = 'Prerender'
 }
 
-export type usePage = <T = any>() => [React.ElementType<T>, T, boolean]
+export type UsePage = <T = any>() => [React.ElementType<T>, T, boolean]
+
+export const usePrerender = () => {
+  return typeof window === 'undefined'
+}
 
 // usePage is an hook used internally to get the page instance
 // and the props of the page. Should not be used by any external application
-export const usePage: usePage = () => {
-  const [router] = useRouter()
+export const usePage: UsePage = () => {
+  const router = useRouter()
 
   const shouldPrerender = router.loading && router.prerender?.content != ''
   const Page = React.useMemo(() => {

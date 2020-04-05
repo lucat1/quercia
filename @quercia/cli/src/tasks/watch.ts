@@ -15,7 +15,7 @@ export default class Watch extends Compile {
             this.fatal(
               'tasks/watch',
               'Fatal error while running webpack in watch mode:\n',
-              err
+              err.message || err.stack || err
             )
           }
 
@@ -26,7 +26,7 @@ export default class Watch extends Compile {
               this.error(
                 'tasks/watch',
                 `Error ${index} of ${length} while running webpack in watch mode:\n`,
-                err
+                err.message || err.stack || err
               )
             }
 

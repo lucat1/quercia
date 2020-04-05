@@ -1,70 +1,130 @@
 import * as React from 'react'
-import warning from 'tiny-warning'
-import invariant from 'tiny-invariant'
 
-import navigate from './navigate'
+import mitt, { MittHandler, MittEmitter } from './mitt'
+import {
+  loadScript,
+  reqScript,
+  req,
+  PageData,
+  PrerenderData,
+  isLoaded
+} from './load'
 
-export interface ContextData {
-  loading: boolean
-  page: string
-  props: Object
-  script?: string
-  prerender?: PrerenderData
+// the react router context
+export const RouterContext = React.createContext<PageData>(null as any)
+
+export interface IRouterEmitter extends MittEmitter {
+  emit(event: 'n', data: NavigatePayload): void
+  on(event: 'n', handler: NavigateHandler): void
 }
 
-export interface PrerenderData {
-  content: string
-  head: string
+// the router event emitter, used to handle navigate calls even outside of the react tree
+export const RouterEmitter: IRouterEmitter = mitt()
+
+// access the router data inside a react funciton component
+export const useRouter = () => React.useContext(RouterContext)
+
+// the navigate event name
+export const NAVIGATE = 'n'
+
+// the navigate event payload
+export type NavigatePayload = {
+  type: 'push' | 'replace'
+  method: 'GET' | 'POST'
+  url: string
 }
 
-export type ContextValue = [
-  ContextData,
-  React.Dispatch<React.SetStateAction<ContextData>>
-]
+// the navigate event handler
+export type NavigateHandler = MittHandler<NavigatePayload>
 
-// load loads the data from the script tag in the server rendered page
-export function load(): ContextData {
-  const element = document.getElementById('__QUERCIA_DATA__')
-  invariant(element, 'FATAL: Could not load page data')
-
-  return JSON.parse(element.innerHTML)
-}
-
-export const Context = React.createContext<ContextValue>([
-  {
-    loading: false,
-    page: '',
-    props: {}
-  },
-  () =>
-    warning(
-      false,
-      'Tried setting the Router context from outside the Context.Provider'
-    )
-])
-
-export const useRouter = () => React.useContext(Context)
-
-// give a name to the context only during development
 if (__DEV__) {
-  Context.displayName = 'RouterContext'
+  RouterContext.displayName = 'RouterContext'
 }
 
-export const Router: React.FunctionComponent<{}> = ({ children }) => {
-  const state = React.useState<ContextData>({
-    loading: false,
-    ...load()
+const empty: PrerenderData = {
+  content: '',
+  head: ''
+}
+
+// internal helper to route to an another route and update the state during this process
+// steps:
+// - 1: call history.[action + State]() and set the context to loading
+// - 2: fetch the data from the backend and set the prerendering data in context
+// - 3: load the script and properly render the new page
+async function routeTo(
+  navigation: NavigatePayload,
+  data: PageData,
+  setData: React.Dispatch<React.SetStateAction<PageData>>
+) {
+  // @ts-ignore we know this works, it can only call `pushState` or `replaceState`
+  history[navigation.type + 'State'](null, '', navigation.url)
+
+  // tell the router that we are loading a new page
+  setData({
+    ...data,
+    loading: true,
+    prerender: empty
   })
 
-  React.useEffect(() => {
-    const handler = () => {
-      window.history.replaceState
-      navigate(window.location.pathname, state, true)
+  const newData = await req(navigation.url, navigation.method)
+  setData({
+    ...newData,
+    loading: true
+  })
+
+  if (newData.script && !isLoaded(newData.page)) {
+    // TODO: bump progress
+    await reqScript(newData.script)
+  }
+
+  setData({
+    ...newData,
+    loading: false,
+    prerender: empty
+  })
+}
+
+export const Router: React.FunctionComponent = ({ children }) => {
+  // navigate holds the data used to query the server. It starts as null
+  // because at first we recieve the data from the initial script rendered in the backend
+  const [navigation, navigate] = React.useState<NavigatePayload | null>(null)
+  const [data, setData] = React.useState<PageData>(loadScript())
+
+  React.useMemo(() => {
+    // dont fetch anything, the data has already been loaded with
+    // `loadScript` because this is the first render
+    if (navigation === null) {
+      return
     }
 
+    // this logic is executed when we have to route to another page
+    routeTo(navigation, data, setData)
+  }, [navigation])
+
+  // listen to `navigate` events from the event emitter
+  // listen to `popstate` events from the window
+  React.useEffect(() => {
+    const handler = () => {
+      RouterEmitter.emit(NAVIGATE, {
+        method: 'GET',
+        type: 'replace',
+        url: window.location.pathname
+      })
+    }
+
+    RouterEmitter.on(NAVIGATE, navigate)
     window.addEventListener('popstate', handler)
-    return () => window.removeEventListener('popstate', handler)
+    return () => {
+      RouterEmitter.off(NAVIGATE, navigate)
+      window.removeEventListener('popstate', handler)
+    }
   })
 
-  return <Context.Provider value={state}>{children}</Context.Provider>
+  return (
+    <RouterContext.Provider value={data}>{children}</RouterContext.Provider>
+  )
+}
+
+if (__DEV__) {
+  Router.displayName = 'Router'
 }

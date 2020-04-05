@@ -1,7 +1,6 @@
 import * as React from 'react'
 
-import navigate from './navigate'
-import { useRouter } from './router'
+import { RouterEmitter, NAVIGATE, NavigatePayload } from './router'
 
 type AnchorProps = React.DetailedHTMLProps<
   React.AnchorHTMLAttributes<HTMLAnchorElement>,
@@ -10,18 +9,29 @@ type AnchorProps = React.DetailedHTMLProps<
 
 export interface LinkProps extends AnchorProps {
   to: string
+  method?: 'GET' | 'POST'
+}
+
+export function navigate(
+  url: string,
+  method: NavigatePayload['method'] = 'GET'
+) {
+  RouterEmitter.emit(NAVIGATE, {
+    url,
+    method,
+    type: 'push'
+  })
 }
 
 export const Link: React.FunctionComponent<LinkProps> = ({
   to,
   children,
+  method,
   ...props
 }) => {
-  const [router, setRouter] = useRouter()
-
   const onClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     e.preventDefault()
-    navigate(to, [router, setRouter])
+    navigate(to, method)
   }
 
   return (

@@ -13,7 +13,7 @@ export default class Build extends Compile {
             this.fatal(
               'tasks/build',
               'Error while running webpack in build mode:\n',
-              err
+              err.message || err.stack || err
             )
           }
 
@@ -24,7 +24,7 @@ export default class Build extends Compile {
               this.error(
                 'tasks/build',
                 `Error ${index} of ${length} while running webpack in build mode:\n`,
-                err
+                err.message || err.stack || err
               )
             }
 

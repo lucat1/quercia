@@ -1,8 +1,6 @@
 import * as React from 'react'
 
-import { isLoaded } from '@quercia/quercia'
-
-import { usePage } from './page'
+import { isLoaded, usePage } from '@quercia/quercia'
 
 export interface AppProps<T = any> {
   Component: React.ElementType<T>
