@@ -3,13 +3,16 @@ import { render } from 'react-dom'
 
 import { Router } from '@quercia/quercia'
 import { Wrapper } from './app'
+import { Header } from './head'
 
 export { AppProps } from './app'
 export { QuerciaHead, QuerciaMount, QuerciaScripts } from './document'
 
 render(
-  <Router>
-    <Wrapper />
-  </Router>,
+  <Header>
+    <Router>
+      <Wrapper />
+    </Router>
+  </Header>,
   document.getElementById('__quercia')
 )
