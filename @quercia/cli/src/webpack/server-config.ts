@@ -21,8 +21,7 @@ export default async (base: Configuration): Promise<Configuration> => {
     entry,
     output: {
       ...base.output,
-      libraryTarget: 'commonjs2',
-      libraryExport: 'default'
+      libraryTarget: 'commonjs2'
     },
     target: 'node',
     externals: {

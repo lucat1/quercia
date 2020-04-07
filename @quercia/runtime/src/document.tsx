@@ -8,10 +8,10 @@ export const QuerciaHead: React.FunctionComponent = ({ children }) => {
   invariant(typeof window == 'undefined', `<QuerciaHead> ${msg}`)
 
   return (
-    <>
+    <head>
       __QUERCIA__HEAD__
       {children}
-    </>
+    </head>
   )
 }
 

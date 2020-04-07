@@ -1,12 +1,13 @@
 import * as React from 'react'
 import { QuerciaHead, QuerciaScripts, QuerciaMount } from '@quercia/runtime'
 
+interface DocumentProps {}
+
 export default () => (
   <html>
-    <head>
-      <QuerciaHead />
+    <QuerciaHead>
       <meta name='viewport' content='width=device-width' />
-    </head>
+    </QuerciaHead>
     <body>
       <QuerciaMount />
       <QuerciaScripts />
