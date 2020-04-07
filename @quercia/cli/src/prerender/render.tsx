@@ -61,7 +61,7 @@ async function renderWithDocument(
   // if we have a custom component we should load it to chec if it has
   // custom `getInitialProps` or such methods
   if (task.Document != task.DefaultDocument) {
-    await loadPage(join(task.input, '_document.js'))
+    page = await loadPage(join(task.input, '_document.js'))
   }
 
   const props = await page.getInitialProps(documentProps)

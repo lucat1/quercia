@@ -1,12 +1,20 @@
 import * as React from 'react'
-import { QuerciaHead, QuerciaScripts, QuerciaMount } from '@quercia/runtime'
+import {
+  QuerciaHead,
+  QuerciaScripts,
+  QuerciaMount,
+  DocumentProps
+} from '@quercia/runtime'
 
-interface DocumentProps {}
+interface DocProps extends DocumentProps {
+  styles: string
+}
 
-export default () => (
+export default ({ styles }: DocProps) => (
   <html>
     <QuerciaHead>
       <meta name='viewport' content='width=device-width' />
+      <style dangerouslySetInnerHTML={{ __html: styles }} />
     </QuerciaHead>
     <body>
       <QuerciaMount />
@@ -15,6 +23,7 @@ export default () => (
   </html>
 )
 
-export const getInitialProps = () => {
-  console.log('called')
-}
+export const getInitialProps = (props: DocumentProps): DocProps => ({
+  ...props,
+  styles: 'test{} '
+})

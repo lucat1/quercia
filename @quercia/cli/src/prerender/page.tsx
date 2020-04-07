@@ -18,8 +18,8 @@ async function loadPage(path: string) {
     page.Component = mod
   }
 
-  for (const key in Object.keys(mod)) {
-    if (fieldsOfInterest.includes(key)) {
+  for (const key of fieldsOfInterest) {
+    if (key in mod) {
       page[key as keyof Page] = mod[key]
     }
   }
