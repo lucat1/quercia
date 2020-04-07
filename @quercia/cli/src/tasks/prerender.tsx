@@ -2,7 +2,6 @@ import { join, sep, dirname } from 'path'
 import { promises as fs } from 'fs'
 
 import * as React from 'react'
-import { renderToStaticMarkup as render } from 'react-dom/server'
 
 import {
   AppProps,
@@ -10,10 +9,10 @@ import {
   QuerciaScripts,
   QuerciaMount
 } from '@quercia/runtime'
-import { HeadContext, HeadUpdater, HeadState } from '@quercia/quercia'
 
 import Task from '../task'
 import { mkdirp } from '../fs'
+import render from '../prerender/render'
 
 export default class Prerender extends Task {
   // the <App /> component, given a default value
@@ -26,10 +25,9 @@ export default class Prerender extends Task {
   // the <Document /> component, given a default value
   public Document = () => (
     <html>
-      <head>
-        <QuerciaHead />
+      <QuerciaHead>
         <meta name='viewport' content='width=device-width' />
-      </head>
+      </QuerciaHead>
       <body>
         <QuerciaMount />
         <QuerciaScripts />
@@ -73,7 +71,7 @@ export default class Prerender extends Task {
       const destination = join(output, page + '.html')
 
       // render the compnent with react-dom/server
-      const [full, partial] = await this.render(src)
+      const [full, partial] = await render(this, src)
 
       await mkdirp(dirname(destination))
       await fs.writeFile(
@@ -96,48 +94,7 @@ export default class Prerender extends Task {
     this.log('tasks/prerender', `Prerendered ${count} pages`)
   }
 
-  private async render(
-    path: string
-  ): Promise<[[string, string], [string, string]]> {
-    try {
-      // mod is the output of `require`, so we also check if the
-      // `default` field is availabe, otherwhise fallback to `module.exports`
-      const component = await this.load(path)
-
-      const rndr = (h: React.ReactElement<any>): [string, string] => {
-        let _head: HeadState = []
-        const handler: HeadUpdater = state => (_head = state)
-        const content = render(
-          <HeadContext.Provider value={handler}>{h}</HeadContext.Provider>
-        )
-
-        return [
-          `<head count="${_head.length}">${render(_head as any)}</head>`,
-          content
-        ]
-      }
-
-      return [
-        rndr(<this.App Component={component} pageProps={{}} prerender />),
-        rndr(<this.DefaultApp Component={component} pageProps={{}} prerender />)
-      ]
-    } catch (err) {
-      const val: [string, string] = [
-        '<title>Error while prerendering the page</title>',
-        `<div>
-        <h2>Error while prerendering page <code>${path}</code></h2>
-        <code><pre>
-          ${err.stack}
-        </pre></code>
-        <script>debugger</script>
-      </div>`
-      ]
-
-      return [val, val]
-    }
-  }
-
-  private async load(path: string): Promise<React.FunctionComponent> {
+  public async load(path: string): Promise<React.FunctionComponent> {
     // clear the nodejs require cache
     this.clear(path)
 
@@ -147,7 +104,7 @@ export default class Prerender extends Task {
   }
 
   // clears the node require cache
-  private clear(path: string) {
+  public clear(path: string) {
     if (require.cache[path]) {
       delete require.cache[path]
     }
