@@ -16,15 +16,11 @@ if (__DEV__) {
   Empty.displayName = '!Empty!'
 }
 
-const Prerender: React.FunctionComponent = props => {
-  return <div {...props} />
-}
-
-if (__DEV__) {
-  Prerender.displayName = 'Prerender'
-}
-
-export type UsePage = <T = any>() => [React.ElementType<T>, T, boolean]
+export type UsePage<T extends Object = any> = () => [
+  React.ElementType<T>,
+  T,
+  boolean
+]
 
 export const usePrerender = () => {
   return typeof window === 'undefined'
@@ -35,11 +31,10 @@ export const usePrerender = () => {
 export const usePage: UsePage = () => {
   const router = useRouter()
 
-  const shouldPrerender = router.loading && router.prerender[1] != ''
   const Page = React.useMemo(() => {
-    // dont even try to fetch the page wile loading
+    // dont even try to fetch the page component wile loading
     // return a mock component which should never be rendered
-    if (shouldPrerender) return Empty
+    if (router.loading) return Empty
 
     const Page = window.__P[router.page]().default
 
@@ -49,17 +44,7 @@ export const usePage: UsePage = () => {
     }
 
     return Page
-  }, [router.page, router.loading])
+  }, [router.page])
 
-  // TODO: prerender the head somehow
-
-  return [
-    shouldPrerender ? Prerender : Page,
-    shouldPrerender
-      ? ({
-          dangerouslySetInnerHTML: { __html: router.prerender[1] || '' }
-        } as any)
-      : router.props,
-    shouldPrerender
-  ]
+  return [Page, router.loading ? {} : router.props, router.loading]
 }

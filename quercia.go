@@ -14,33 +14,18 @@ const (
 	// the prefix used for HTTP requests and filesystem out folder
 	querciaPrefix = "/__quercia/"
 
-	// html placeholders
-	querciaHead      = "__QUERCIA__HEAD__"
-	querciaPrerender = "__QUERCIA_PRERENDER__"
-	querciaScripts   = "__QUERCIA__SCRIPTS__"
+	// html placeholder
+	querciaScripts = "__QUERCIA__SCRIPTS__"
 
 	// html and json mime types (required for the two kinds of renders we can do)
 	htmlMime = "text/html; charset=utf-8"
 	jsonMime = "application/json"
-
-	tmpl = `
-		<html>
-			` + querciaHead + `
-			<body>
-				<div id="__quercia">` + querciaPrerender + `</div>
-				` + querciaScripts + `
-			</body>
-		</html>
-	`
 )
 
 var (
 	// the http directory used to fetch the manifest.json file
 	// can be set using SetDir (has to be most of the times)
 	dir = http.Dir("." + querciaPrefix)
-
-	// template is a stripped and optimized version of `tmpl`
-	template = strings.Replace(strings.Replace(tmpl, "\n", "", -1), "\t", "", -1)
 )
 
 // struct describing the `manifest.json`
@@ -48,12 +33,6 @@ type manifest struct {
 	Pages     map[string]string `json:"pages"`
 	Vendor    map[string]string `json:"vendor"`
 	Prerender map[string]string `json:"prerender"`
-}
-
-// struct describing the `prerener` value inside jsonRenderData
-type prerenderData struct {
-	Partial [2]string `json:"partial"`
-	Full    [2]string `json:"full"`
 }
 
 // struct describing the data inside a template render
@@ -131,10 +110,10 @@ func loadManfiest() manifest {
 
 // loadTemplate tries to load the `template.html` file if
 // it exists, otherwhise falls back to the included `template` const
-func loadTemplate() string {
-	data, err := readFile("template.html")
+func loadTemplate(path string) string {
+	data, err := readFile(path)
 	if err != nil {
-		return template
+		return "404 - Could not fetch template for page `" + path + "`"
 	}
 
 	return string(data)
@@ -163,22 +142,6 @@ func data(data interface{}) string {
 	return `<script id="__QUERCIA_DATA__" type="application/json" crossorigin="anonymous">` + string(json) + `</script>`
 }
 
-func loadPrerender(man manifest, page string) (data prerenderData) {
-	// the page is not prerendered for some reason
-	if man.Prerender[page] == "" {
-		return
-	}
-
-	// read from the filesystem the prerendered data
-	if err := readJSONFile(man.Prerender[page], &data); err != nil {
-		return
-	}
-
-	// if we don't have any errors we can safely return the data
-	// and be confident we have read it
-	return
-}
-
 // handles roughly the errors following the missing of a requested page to be rendered
 func failOnUnkownPage(man manifest, page string) {
 	// if the page url does not exist we will panic
@@ -202,8 +165,6 @@ func Render(w http.ResponseWriter, r *http.Request, page string, props interface
 	}
 
 	manifest := loadManfiest()
-	template := loadTemplate()
-	prerender := loadPrerender(manifest, page)
 
 	failOnUnkownPage(manifest, page)
 
@@ -215,6 +176,10 @@ func Render(w http.ResponseWriter, r *http.Request, page string, props interface
 
 	// the page source
 	pageSrc := manifest.Pages[page]
+	templateSrc := manifest.Prerender[page]
+
+	// load the prerendered page template
+	template := loadTemplate(templateSrc)
 
 	// construct the data to be put inside the script tag (json encoded)
 	rdata := renderData{
@@ -236,8 +201,6 @@ func Render(w http.ResponseWriter, r *http.Request, page string, props interface
 	scripts += script(runtime)
 
 	// replace head, prerender and scripts sections
-	template = strings.Replace(template, querciaHead, prerender.Full[0], 1)
-	template = strings.Replace(template, querciaPrerender, prerender.Full[1], 1)
 	template = strings.Replace(template, querciaScripts, scripts, 1)
 
 	w.Header().Add("Content-Type", htmlMime)
@@ -248,7 +211,6 @@ func Render(w http.ResponseWriter, r *http.Request, page string, props interface
 // the prerendered data of the page and nothing more
 func renderJSON(w http.ResponseWriter, r *http.Request, page string, props interface{}) {
 	manifest := loadManfiest()
-	prerender := loadPrerender(manifest, page)
 
 	failOnUnkownPage(manifest, page)
 
@@ -257,8 +219,7 @@ func renderJSON(w http.ResponseWriter, r *http.Request, page string, props inter
 			Page:  page,
 			Props: props,
 		},
-		Prerender: prerender.Partial,
-		Script:    querciaPrefix + manifest.Pages[page],
+		Script: querciaPrefix + manifest.Pages[page],
 	})
 
 	w.Header().Add("Content-Type", jsonMime)

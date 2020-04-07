@@ -1,14 +1,7 @@
 import * as React from 'react'
 
 import mitt, { MittHandler, MittEmitter } from './mitt'
-import {
-  loadScript,
-  reqScript,
-  req,
-  PageData,
-  PrerenderData,
-  isLoaded
-} from './load'
+import { loadScript, reqScript, req, PageData, isLoaded } from './load'
 
 // the react router context
 export const RouterContext = React.createContext<PageData>(null as any)
@@ -41,8 +34,6 @@ if (__DEV__) {
   RouterContext.displayName = 'RouterContext'
 }
 
-const empty: PrerenderData = ['', '']
-
 // internal helper to route to an another route and update the state during this process
 // steps:
 // - 1: call history.[action + State]() and set the context to loading
@@ -59,13 +50,13 @@ async function routeTo(
   // tell the router that we are loading a new page
   setData({
     ...data,
-    loading: true,
-    prerender: empty
+    loading: true
   })
 
   const newData = await req(navigation.url, navigation.method)
+  // TODO: bump progress
   setData({
-    ...newData,
+    ...data,
     loading: true
   })
 
@@ -76,8 +67,7 @@ async function routeTo(
 
   setData({
     ...newData,
-    loading: false,
-    prerender: empty
+    loading: false
   })
 }
 

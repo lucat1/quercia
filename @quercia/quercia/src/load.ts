@@ -6,7 +6,6 @@ export interface PageData {
   page: string
   props: Object
   script?: string
-  prerender: PrerenderData
 }
 
 export type RequestedPageData = Required<PageData>
@@ -65,8 +64,7 @@ export async function req(
 
   const data = parse(await req.text())
 
-  // do a bunch of checks on the new page's data
-  warning(data.prerender[1], "The page didn't include any prerender data")
+  // check if we recieved a string url. This is mandatory
   invariant(data.script, "The response didn't include a script url")
 
   return data
