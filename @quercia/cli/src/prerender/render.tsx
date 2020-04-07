@@ -1,48 +1,74 @@
 import * as React from 'react'
 import { renderToStaticMarkup as toString } from 'react-dom/server'
+import { join } from 'path'
 
-import { HeadContext, HeadUpdater, HeadState } from '@quercia/quercia'
+import { AppProps, DocumentProps } from '@quercia/runtime'
+
+import loadPage, { Page } from './page'
+import extract from './extract'
 
 import Prerender from '../tasks/prerender'
 
-export default async function render(
+function handleError(err: Error, path: string): [number, string, string] {
+  return [
+    1,
+    '<title>Error while prerendering the page</title>',
+    `<div>
+    <h2>Error while prerendering page <code>${path}</code></h2>
+    <code><pre>
+      ${err.stack}
+    </pre></code>
+    <script>debugger</script>
+  </div>`
+  ]
+}
+
+async function renderPage(
   task: Prerender,
   path: string
-): Promise<[[string, string], [string, string]]> {
+): Promise<[number, string, string]> {
+  let body: [number, string, string]
   try {
-    // mod is the output of `require`, so we also check if the
-    // `default` field is availabe, otherwhise fallback to `module.exports`
-    const component = await task.load(path)
+    // clear the node require cache
+    task.clear(path)
 
-    const rndr = (h: React.ReactElement<any>): [string, string] => {
-      let _head: HeadState = []
-      const handler: HeadUpdater = state => (_head = state)
-      const content = toString(
-        <HeadContext.Provider value={handler}>{h}</HeadContext.Provider>
-      )
-
-      return [
-        `<head count="${_head.length}">${toString(_head as any)}</head>`,
-        content
-      ]
+    const page = await loadPage(path)
+    const props: AppProps = {
+      Component: page.Component,
+      pageProps: await page.getInitialProps({}),
+      prerender: true
     }
 
-    return [
-      rndr(<task.App Component={component} pageProps={{}} prerender />),
-      rndr(<task.DefaultApp Component={component} pageProps={{}} prerender />)
-    ]
+    body = extract(<task.App {...props} />)
   } catch (err) {
-    const val: [string, string] = [
-      '<title>Error while prerendering the page</title>',
-      `<div>
-      <h2>Error while prerendering page <code>${path}</code></h2>
-      <code><pre>
-        ${err.stack}
-      </pre></code>
-      <script>debugger</script>
-    </div>`
-    ]
-
-    return [val, val]
+    body = handleError(err, path)
   }
+
+  return body
 }
+
+async function renderWithDocument(
+  task: Prerender,
+  path: string
+): Promise<string> {
+  const [nHead, head, body] = await renderPage(task, path)
+  let documentProps: DocumentProps = { renderPage: () => body }
+
+  let page: Page<DocumentProps> = {
+    Component: task.Document,
+    getInitialProps: async v => v
+  }
+  // if we have a custom component we should load it to chec if it has
+  // custom `getInitialProps` or such methods
+  if (task.Document != task.DefaultDocument) {
+    await loadPage(join(task.input, '_document.js'))
+  }
+
+  const props = await page.getInitialProps(documentProps)
+  return toString(<page.Component {...props} />)
+    .replace('__QUERCIA__HEAD__COUNT__', nHead.toString())
+    .replace('__QUERCIA__HEAD__', head)
+    .replace('__QUERCIA_PRERENDER__', body)
+}
+
+export default renderWithDocument

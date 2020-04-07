@@ -46,7 +46,7 @@ const toDOM = ({ type, props }: React.ReactElement<any, string>) => {
 
 const updateElements = (type: string, components: HeadState) => {
   const head = document.head
-  const count = parseInt(document.head.getAttribute('count') || '0')
+  const count = parseInt(document.head.getAttribute('data-count') || '0')
   const oldTags: HTMLElement[] = []
 
   for (let i = 0; i < count; i++) {
@@ -70,7 +70,7 @@ const updateElements = (type: string, components: HeadState) => {
   oldTags.forEach(t => head.removeChild(t))
   newTags.forEach(t => head.prepend(t))
   head.setAttribute(
-    'count',
+    'data-count',
     (count - oldTags.length + newTags.length).toString()
   )
 }

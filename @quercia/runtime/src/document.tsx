@@ -1,6 +1,10 @@
 import * as React from 'react'
 import invariant from 'tiny-invariant'
 
+export interface DocumentProps {
+  renderPage(): string
+}
+
 const msg =
   'should only be used inside `_document`, and therefore only rendered in the backend'
 
@@ -8,7 +12,7 @@ export const QuerciaHead: React.FunctionComponent = ({ children }) => {
   invariant(typeof window == 'undefined', `<QuerciaHead> ${msg}`)
 
   return (
-    <head>
+    <head data-count='__QUERCIA__HEAD__COUNT__'>
       __QUERCIA__HEAD__
       {children}
     </head>

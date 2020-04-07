@@ -6,7 +6,12 @@ import { Wrapper } from './app'
 import { Header } from './header'
 
 export { AppProps } from './app'
-export { QuerciaHead, QuerciaMount, QuerciaScripts } from './document'
+export {
+  QuerciaHead,
+  QuerciaMount,
+  QuerciaScripts,
+  DocumentProps
+} from './document'
 
 if (typeof window !== 'undefined') {
   render(

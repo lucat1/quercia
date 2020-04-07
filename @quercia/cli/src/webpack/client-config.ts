@@ -24,7 +24,8 @@ export default async (base: Configuration): Promise<Configuration> => {
   const entry: T = {}
 
   for (const key in entries) {
-    // ignore the runtime chunk
+    // ignore the runtime and _document chunks
+    if (key == '_document') continue
     if (key == 'runtime') {
       entry[key] = entries[key]
       continue
