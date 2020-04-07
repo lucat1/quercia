@@ -1,4 +1,5 @@
 import { loader } from 'webpack'
+import { sync as resolve } from 'enhanced-resolve'
 import { parseQuery } from 'loader-utils'
 
 interface Query {
@@ -7,7 +8,11 @@ interface Query {
 
 const pageLoader: loader.Loader = function () {
   const query = parseQuery(this.resourceQuery) as Query
-  const pagePath = JSON.stringify(this.resourcePath)
+  const pagePath = JSON.stringify(
+    `${resolve(process.cwd(), '@quercia/cli/dist/webpack/exclude-loader')}!${
+      this.resourcePath
+    }`
+  )
 
   return `
     (window.__P = window.__P || {})[${JSON.stringify(

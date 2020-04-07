@@ -13,3 +13,7 @@ export default () => (
     </body>
   </html>
 )
+
+export const getInitialProps = () => {
+  console.log('called')
+}

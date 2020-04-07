@@ -4,19 +4,40 @@ import { promises as fs } from 'fs'
 import * as React from 'react'
 import { renderToStaticMarkup as render } from 'react-dom/server'
 
-import { AppProps } from '@quercia/runtime'
+import {
+  AppProps,
+  QuerciaHead,
+  QuerciaScripts,
+  QuerciaMount
+} from '@quercia/runtime'
 import { HeadContext, HeadUpdater, HeadState } from '@quercia/quercia'
 
 import Task from '../task'
 import { mkdirp } from '../fs'
 
 export default class Prerender extends Task {
-  // default implementation of the <App /> component
-  private App = ({ Component, pageProps }: AppProps) => (
+  // the <App /> component, given a default value
+  public App = ({ Component, pageProps }: AppProps) => (
     <Component {...pageProps} />
   )
   // the default value of the <App /> component
-  private DefaultApp = this.App
+  public DefaultApp = this.App
+
+  // the <Document /> component, given a default value
+  public Document = () => (
+    <html>
+      <head>
+        <QuerciaHead />
+        <meta name='viewport' content='width=device-width' />
+      </head>
+      <body>
+        <QuerciaMount />
+        <QuerciaScripts />
+      </body>
+    </html>
+  )
+  // the default value of the <Document /> component
+  public DefaultDocument = this.Document
 
   public async execute() {
     this.debug('tasks/prerender', 'Prerendering all pages')

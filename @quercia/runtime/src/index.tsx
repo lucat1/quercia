@@ -8,11 +8,13 @@ import { Header } from './header'
 export { AppProps } from './app'
 export { QuerciaHead, QuerciaMount, QuerciaScripts } from './document'
 
-render(
-  <Header>
-    <Router>
-      <Wrapper />
-    </Router>
-  </Header>,
-  document.getElementById('__quercia')
-)
+if (typeof window !== 'undefined') {
+  render(
+    <Header>
+      <Router>
+        <Wrapper />
+      </Router>
+    </Header>,
+    document.getElementById('__quercia')
+  )
+}
