@@ -51,6 +51,8 @@ export default async (base: Configuration): Promise<Configuration> => {
       }
     },
     optimization: {
+      ...base.optimization,
+      usedExports: true,
       runtimeChunk: {
         name: () => 'webpack-runtime'
       },

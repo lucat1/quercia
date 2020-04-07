@@ -39,15 +39,22 @@ export default (isServer: boolean): Configuration => {
           ? [
               new Terser({
                 parallel: !isCI,
+                cache: true,
                 extractComments: {
                   condition: /^\**!|@preserve|@license|@cc_on/i,
-                  filename: () => join(out, 'LICENSE.txt'),
+                  filename: () => 'LICENSE.txt',
                   banner: file => {
-                    return `LICENSE at ${file}`
+                    return `LICENSE(s) at ${file.replace(
+                      join(root, '__quercia', ''),
+                      ''
+                    )}`
                   }
                 },
                 terserOptions: {
                   compress: true,
+                  output: {
+                    comments: false
+                  },
                   mangle: {
                     properties: true
                   }

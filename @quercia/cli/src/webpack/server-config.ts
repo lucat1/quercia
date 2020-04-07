@@ -30,6 +30,10 @@ export default async (base: Configuration): Promise<Configuration> => {
       'react-dom': 'commonjs2 react-dom',
       '@quercia/quercia': 'commonjs2 @quercia/quercia',
       '@quercia/runtime': 'commonjs2 @quercia/runtime'
+    },
+    optimization: {
+      // dont optimize/minimize the server bundle
+      minimize: false
     }
   }
 }
