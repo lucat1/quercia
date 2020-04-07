@@ -50,7 +50,6 @@
     "yarn": "1.22.4"
   },
   "workspaces": [
-    "@quercia/*",
-    "example"
+    "@quercia/*"
   ]
 }
