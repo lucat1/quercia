@@ -55,7 +55,14 @@ export default class Prerender extends Task {
       const [full, partial] = await this.render(src)
 
       await mkdirp(dirname(destination))
-      await fs.writeFile(destination, JSON.stringify({ full, partial }))
+      await fs.writeFile(
+        destination,
+        JSON.stringify(
+          { full, partial },
+          null,
+          this.quercia.parsedFlags.mode == 'production' ? 0 : 2
+        )
+      )
 
       this.quercia.tasks.builder.manifest.prerender[page] = join(
         this.quercia.buildID,
