@@ -5,7 +5,7 @@ import * as React from 'react'
 import { renderToStaticMarkup as render } from 'react-dom/server'
 
 import { AppProps } from '@quercia/runtime'
-import { HeadContext, HeadUpdater } from '@quercia/quercia'
+import { HeadContext, HeadUpdater, HeadState } from '@quercia/quercia'
 
 import Task from '../task'
 import { mkdirp } from '../fs'
@@ -51,9 +51,6 @@ export default class Prerender extends Task {
       const src = join(input, page)
       const destination = join(output, page + '.html')
 
-      // clear the nodejs require cache
-      this.clear(src)
-
       // render the compnent with react-dom/server
       const [full, partial] = await this.render(src)
 
@@ -71,11 +68,6 @@ export default class Prerender extends Task {
     this.log('tasks/prerender', `Prerendered ${count} pages`)
   }
 
-  private async load(path: string): Promise<React.FunctionComponent> {
-    const mod = await import(path)
-    return (mod.default || mod) as React.FunctionComponent
-  }
-
   private async render(
     path: string
   ): Promise<[[string, string], [string, string]]> {
@@ -85,13 +77,16 @@ export default class Prerender extends Task {
       const component = await this.load(path)
 
       const rndr = (h: React.ReactElement<any>): [string, string] => {
-        let _head: any
+        let _head: HeadState = []
         const handler: HeadUpdater = state => (_head = state)
         const content = render(
           <HeadContext.Provider value={handler}>{h}</HeadContext.Provider>
         )
 
-        return [render(_head), content]
+        return [
+          `<head count="${_head.length}">${render(_head as any)}</head>`,
+          content
+        ]
       }
 
       return [
@@ -112,6 +107,15 @@ export default class Prerender extends Task {
 
       return [val, val]
     }
+  }
+
+  private async load(path: string): Promise<React.FunctionComponent> {
+    // clear the nodejs require cache
+    this.clear(path)
+
+    // require the module
+    const mod = await import(path)
+    return (mod.default || mod) as React.FunctionComponent
   }
 
   // clears the node require cache

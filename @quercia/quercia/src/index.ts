@@ -21,4 +21,4 @@ export {
 } from './load'
 export { usePage, UsePage, usePrerender } from './page'
 export { Link, LinkProps, navigate } from './link'
-export { Head, HeadContext, HeadUpdater, Children as HeadState } from './head'
+export { Head, HeadContext, HeadUpdater, HeadElement, HeadState } from './head'

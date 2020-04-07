@@ -4,7 +4,11 @@ import { Link, Head } from '@quercia/quercia'
 export default () => {
   const [count, setCount] = React.useState(0)
 
-  setTimeout(() => setCount(count + 1), 1000)
+  React.useEffect(() => {
+    const timeout = setTimeout(() => setCount(count + 1), 1000)
+
+    return () => clearTimeout(timeout)
+  })
 
   return (
     <>

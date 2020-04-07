@@ -1,9 +1,12 @@
 import * as React from 'react'
 import invariant from 'tiny-invariant'
 
-export type Child = Exclude<React.ReactElement, boolean | null | undefined>
-export type Children = Child[]
-export type HeadUpdater = (elements: Children) => void
+type Child = Exclude<React.ReactElement, boolean | null | undefined>
+type Children = Child[]
+
+export type HeadElement = React.ReactElement<any, string>
+export type HeadState = HeadElement[]
+export type HeadUpdater = (elements: HeadState) => void
 
 export const HeadContext = React.createContext<HeadUpdater>(() =>
   invariant(false, 'Rendered <Head /> outside of its provider')
@@ -107,7 +110,7 @@ const emit = (fn: HeadUpdater) => {
     .reverse()
     .map((c: React.ReactElement<any>, i: number) =>
       React.cloneElement(c, { key: i })
-    )
+    ) as HeadState
 
   fn(result)
 }

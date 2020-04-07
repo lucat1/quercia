@@ -25,10 +25,10 @@ const (
 
 	tmpl = `
 		<html>
-			<head>__QUERCIA__HEAD__</head>
+			` + querciaHead + `
 			<body>
-				<div id="__quercia">__QUERCIA_PRERENDER__</div>
-				__QUERCIA__SCRIPTS__
+				<div id="__quercia">` + querciaPrerender + `</div>
+				` + querciaScripts + `
 			</body>
 		</html>
 	`

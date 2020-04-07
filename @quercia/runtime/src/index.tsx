@@ -3,7 +3,7 @@ import { render } from 'react-dom'
 
 import { Router } from '@quercia/quercia'
 import { Wrapper } from './app'
-import { Header } from './head'
+import { Header } from './header'
 
 export { AppProps } from './app'
 export { QuerciaHead, QuerciaMount, QuerciaScripts } from './document'
