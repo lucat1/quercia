@@ -1,8 +1,8 @@
 import * as React from 'react'
 import invariant from 'tiny-invariant'
 
-type Child = Exclude<React.ReactElement, boolean | null | undefined>
-type Children = Child[]
+export type Child = Exclude<React.ReactElement, boolean | null | undefined>
+export type Children = Child[]
 export type HeadUpdater = (elements: Children) => void
 
 export const HeadContext = React.createContext<HeadUpdater>(() =>

@@ -35,7 +35,7 @@ export const usePrerender = () => {
 export const usePage: UsePage = () => {
   const router = useRouter()
 
-  const shouldPrerender = router.loading && router.prerender?.content != ''
+  const shouldPrerender = router.loading && router.prerender[1] != ''
   const Page = React.useMemo(() => {
     // dont even try to fetch the page wile loading
     // return a mock component which should never be rendered
@@ -51,11 +51,13 @@ export const usePage: UsePage = () => {
     return Page
   }, [router.page, router.loading])
 
+  // TODO: prerender the head somehow
+
   return [
     shouldPrerender ? Prerender : Page,
     shouldPrerender
       ? ({
-          dangerouslySetInnerHTML: { __html: router.prerender?.content || '' }
+          dangerouslySetInnerHTML: { __html: router.prerender[1] || '' }
         } as any)
       : router.props,
     shouldPrerender

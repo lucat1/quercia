@@ -41,10 +41,7 @@ if (__DEV__) {
   RouterContext.displayName = 'RouterContext'
 }
 
-const empty: PrerenderData = {
-  content: '',
-  head: ''
-}
+const empty: PrerenderData = ['', '']
 
 // internal helper to route to an another route and update the state during this process
 // steps:

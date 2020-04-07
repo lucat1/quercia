@@ -5,14 +5,18 @@ import * as React from 'react'
 import { renderToStaticMarkup as render } from 'react-dom/server'
 
 import { AppProps } from '@quercia/runtime'
+import { HeadContext, HeadUpdater } from '@quercia/quercia'
 
 import Task from '../task'
 import { mkdirp } from '../fs'
 
 export default class Prerender extends Task {
   // default implementation of the <App /> component
-  private App = ({ Component, pageProps }: AppProps) =>
-    React.createElement(Component, pageProps)
+  private App = ({ Component, pageProps }: AppProps) => (
+    <Component {...pageProps} />
+  )
+  // the default value of the <App /> component
+  private DefaultApp = this.App
 
   public async execute() {
     this.debug('tasks/prerender', 'Prerendering all pages')
@@ -31,7 +35,7 @@ export default class Prerender extends Task {
 
     const pages = Object.keys(this.quercia.tasks.structure.pages)
 
-    if (pages.includes('_app')) {
+    if (pages.includes('pages/_app')) {
       this.debug('tasks/prerender', 'Found a custom _app, loading it')
 
       // If the user has defined a custom _app we wanna load that one for prerendering
@@ -51,10 +55,10 @@ export default class Prerender extends Task {
       this.clear(src)
 
       // render the compnent with react-dom/server
-      const content = await this.render(src)
+      const [full, partial] = await this.render(src)
 
       await mkdirp(dirname(destination))
-      await fs.writeFile(destination, JSON.stringify({ content, head: '' }))
+      await fs.writeFile(destination, JSON.stringify({ full, partial }))
 
       this.quercia.tasks.builder.manifest.prerender[page] = join(
         this.quercia.buildID,
@@ -72,29 +76,41 @@ export default class Prerender extends Task {
     return (mod.default || mod) as React.FunctionComponent
   }
 
-  private async render(path: string): Promise<string> {
+  private async render(
+    path: string
+  ): Promise<[[string, string], [string, string]]> {
     try {
       // mod is the output of `require`, so we also check if the
       // `default` field is availabe, otherwhise fallback to `module.exports`
       const component = await this.load(path)
 
-      return render(
-        React.createElement(this.App, {
-          Component: component,
-          pageProps: {},
-          prerender: true
-        })
-      )
+      const rndr = (h: React.ReactElement<any>): [string, string] => {
+        let _head: any
+        const handler: HeadUpdater = state => (_head = state)
+        const content = render(
+          <HeadContext.Provider value={handler}>{h}</HeadContext.Provider>
+        )
+
+        return [render(_head), content]
+      }
+
+      return [
+        rndr(<this.App Component={component} pageProps={{}} prerender />),
+        rndr(<this.DefaultApp Component={component} pageProps={{}} prerender />)
+      ]
     } catch (err) {
-      return `<div>
+      const val: [string, string] = [
+        '<title>Error while prerendering the page</title>',
+        `<div>
         <h2>Error while prerendering page <code>${path}</code></h2>
         <code><pre>
           ${err.stack}
         </pre></code>
         <script>debugger</script>
       </div>`
-        .replace('\t', '')
-        .replace('\n', '')
+      ]
+
+      return [val, val]
     }
   }
 

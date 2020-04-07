@@ -27,7 +27,9 @@ export default async (base: Configuration): Promise<Configuration> => {
     target: 'node',
     externals: {
       'react': 'commonjs2 react',
-      'react-dom': 'commonjs2 react-dom'
+      'react-dom': 'commonjs2 react-dom',
+      '@quercia/quercia': 'commonjs2 @quercia/quercia',
+      '@quercia/runtime': 'commonjs2 @quercia/runtime'
     }
   }
 }

@@ -52,8 +52,8 @@ type manifest struct {
 
 // struct describing the `prerener` value inside jsonRenderData
 type prerenderData struct {
-	Body string `json:"content"`
-	Head string `json:"head"`
+	Partial [2]string `json:"partial"`
+	Full    [2]string `json:"full"`
 }
 
 // struct describing the data inside a template render
@@ -66,8 +66,8 @@ type renderData struct {
 type jsonRenderData struct {
 	renderData
 
-	Script    string        `json:"script"`
-	Prerender prerenderData `json:"prerender"`
+	Script    string    `json:"script"`
+	Prerender [2]string `json:"prerender"`
 }
 
 // Props is the type for the data structure to give quercia renderer
@@ -236,8 +236,8 @@ func Render(w http.ResponseWriter, r *http.Request, page string, props interface
 	scripts += script(runtime)
 
 	// replace head, prerender and scripts sections
-	template = strings.Replace(template, querciaHead, prerender.Head, 1)
-	template = strings.Replace(template, querciaPrerender, prerender.Body, 1)
+	template = strings.Replace(template, querciaHead, prerender.Full[0], 1)
+	template = strings.Replace(template, querciaPrerender, prerender.Full[1], 1)
 	template = strings.Replace(template, querciaScripts, scripts, 1)
 
 	w.Header().Add("Content-Type", htmlMime)
@@ -257,7 +257,7 @@ func renderJSON(w http.ResponseWriter, r *http.Request, page string, props inter
 			Page:  page,
 			Props: props,
 		},
-		Prerender: prerender,
+		Prerender: prerender.Partial,
 		Script:    querciaPrefix + manifest.Pages[page],
 	})
 
