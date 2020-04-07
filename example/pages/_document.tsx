@@ -6,15 +6,19 @@ import {
   DocumentProps
 } from '@quercia/runtime'
 
-interface DocProps extends DocumentProps {
-  styles: string
-}
+import createCache from '@emotion/cache'
 
-export default ({ styles }: DocProps) => (
+const cache = createCache()
+import createEmotionServer, { EmotionCritical } from 'create-emotion-server'
+
+export default ({ ids, css }: DocumentProps & EmotionCritical) => (
   <html>
     <QuerciaHead>
       <meta name='viewport' content='width=device-width' />
-      <style dangerouslySetInnerHTML={{ __html: styles }} />
+      <style
+        data-emotion-css={ids.join(' ')}
+        dangerouslySetInnerHTML={{ __html: css }}
+      />
     </QuerciaHead>
     <body>
       <QuerciaMount />
@@ -23,7 +27,6 @@ export default ({ styles }: DocProps) => (
   </html>
 )
 
-export const getInitialProps = (props: DocumentProps): DocProps => ({
-  ...props,
-  styles: 'test{} '
-})
+export const getInitialProps = ({ renderPage }: DocumentProps) => {
+  return createEmotionServer(cache).extractCritical(renderPage())
+}

@@ -1,5 +1,10 @@
 import * as React from 'react'
+import styled from '@emotion/styled'
 import { Link, Head } from '@quercia/quercia'
+
+const Box = styled.div`
+  background: blue;
+`
 
 export default () => {
   const [count, setCount] = React.useState(0)
@@ -22,7 +27,7 @@ export default () => {
           </>
         </>
       </Head>
-      <a>count: {count}</a>
+      <Box>count: {count}</Box>
       <Link to='test'>test</Link>
       <Link to='thats-a-404'>404</Link>
     </>
