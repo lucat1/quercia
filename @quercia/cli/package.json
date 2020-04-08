@@ -10,11 +10,15 @@
   },
   "scripts": {
     "build": "tsc",
-    "dev": "tsc -w --preserveWatchOutput"
+    "dev": "tsc -w --preserveWatchOutput",
+    "postbuild": "oclif-dev manifest",
+    "postpack": "rm -f oclif.manifest.json",
+    "prepack": "rm -rf lib && yarn build"
   },
   "files": [
     "/bin",
-    "/lib"
+    "/lib",
+    "/oclif.manifest.json"
   ],
   "peerDependencies": {
     "react": ">=16",
