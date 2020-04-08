@@ -40,7 +40,7 @@ export default class Compile extends Task {
   }
 
   // holds repetitive calls that happen after the build has been successful
-  public async afetrBuild() {
+  public async afterBuild() {
     await this.quercia.hooks.beforePrerender.promise(this.quercia)
 
     await this.quercia.tasks.prerender.execute()

@@ -41,7 +41,7 @@ export default class Watch extends Compile {
         this.log('tasks/watch', 'Successfully compiled the application')
         await this.quercia.hooks.watch.promise(this, stats)
 
-        await this.afetrBuild()
+        await this.afterBuild()
       }
     )
   }

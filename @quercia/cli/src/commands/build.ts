@@ -21,6 +21,6 @@ export default class Build extends Quercia {
       (this.tasks.builder as BuildTask).stats
     )
 
-    await this.tasks.builder.afetrBuild()
+    await this.tasks.builder.afterBuild()
   }
 }
