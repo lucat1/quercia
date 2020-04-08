@@ -1,5 +1,13 @@
 # @quercia/cli
 
+## 0.1.5
+
+### Patch Changes
+
+- [`d496751`](https://github.com/lucat1/quercia/commit/d496751f4ec5c43678694428164a986406a337b7)
+  Thanks [@lucat1](https://github.com/lucat1)! - chore(cli): make all node
+  module dependencies external
+
 ## 0.1.4
 
 ### Patch Changes
