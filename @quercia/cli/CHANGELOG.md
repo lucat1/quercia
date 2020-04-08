@@ -1,5 +1,14 @@
 # @quercia/cli
 
+## 0.1.2
+
+### Patch Changes
+
+- [`9ceec35`](https://github.com/lucat1/quercia/commit/9ceec3568a3d7956d5a4b249f62266bf6157cdae)
+  [#1](https://github.com/lucat1/quercia/pull/1) Thanks
+  [@lucat1](https://github.com/lucat1)! - Include a fix for the oclif
+  manifest.json file
+
 ## 0.1.1
 
 ### Patch Changes
