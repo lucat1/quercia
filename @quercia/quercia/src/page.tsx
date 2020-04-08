@@ -29,6 +29,10 @@ export const usePrerender = () => {
 // usePage is an hook used internally to get the page instance
 // and the props of the page. Should not be used by any external application
 export const usePage: UsePage = () => {
+  // return empty values during prerender as we don't have access to the router
+  if (usePrerender()) {
+    return [() => null, {}, false]
+  }
   const router = useRouter()
 
   const Page = React.useMemo(() => {
