@@ -1,6 +1,11 @@
 import { sep } from 'path'
 import { Configuration } from 'webpack'
+import eresolve from 'enhanced-resolve'
+import { promisify } from 'util'
 
+const resolve: (root: string, mod: string) => Promise<string> = promisify(
+  eresolve
+) as any
 interface T {
   [key: string]: string
 }
@@ -25,10 +30,16 @@ export default async (base: Configuration): Promise<Configuration> => {
     },
     target: 'node',
     externals: {
-      'react': 'commonjs2 react',
-      'react-dom': 'commonjs2 react-dom',
-      '@quercia/quercia': 'commonjs2 @quercia/quercia',
-      '@quercia/runtime': 'commonjs2 @quercia/runtime'
+      'react': `commonjs2 ${await resolve(__dirname, 'react')}`,
+      'react-dom': `commonjs2 ${await resolve(__dirname, 'react-dom')}`,
+      '@quercia/quercia': `commonjs2 ${await resolve(
+        __dirname,
+        '@quercia/quercia'
+      )}`,
+      '@quercia/runtime': `commonjs2 ${await resolve(
+        __dirname,
+        '@quercia/runtime'
+      )}`
     },
     optimization: {
       // dont optimize/minimize the server bundle
