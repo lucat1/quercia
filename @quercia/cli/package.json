@@ -11,8 +11,8 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsc -w --preserveWatchOutput",
-    "postbuild": "oclif-dev manifest",
-    "postpack": "rm -f oclif.manifest.json"
+    "postpack": "rm -f oclif.manifest.json",
+    "prepack": "oclif-dev manifest"
   },
   "files": [
     "/bin",
