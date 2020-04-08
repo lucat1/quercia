@@ -12,8 +12,7 @@
     "build": "tsc",
     "dev": "tsc -w --preserveWatchOutput",
     "postbuild": "oclif-dev manifest",
-    "postpack": "rm -f oclif.manifest.json",
-    "prepack": "rm -rf dist && npm run build"
+    "postpack": "rm -f oclif.manifest.json"
   },
   "files": [
     "/bin",
