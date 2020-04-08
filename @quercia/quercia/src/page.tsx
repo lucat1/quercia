@@ -46,5 +46,5 @@ export const usePage: UsePage = () => {
     return Page
   }, [router.page])
 
-  return [Page, router.loading ? {} : router.props, router.loading]
+  return [Page, router.props, router.loading]
 }
