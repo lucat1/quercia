@@ -1,6 +1,6 @@
 {
   "name": "@quercia/runtime",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "The quercia runtime",
   "license": "MIT",
   "author": "luca",
@@ -24,7 +24,7 @@
     "react-dom": ">=16"
   },
   "dependencies": {
-    "@quercia/quercia": "0.1.2",
+    "@quercia/quercia": "0.1.3",
     "tiny-invariant": "^1.1.0",
     "tiny-warning": "^1.0.3"
   },

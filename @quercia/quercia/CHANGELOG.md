@@ -1,5 +1,13 @@
 # @quercia/quercia
 
+## 0.1.3
+
+### Patch Changes
+
+- [`ac115b9`](https://github.com/lucat1/quercia/commit/ac115b9069d08fbe258b043ae42d568470a4a294)
+  Thanks [@lucat1](https://github.com/lucat1)! - fix(quercia): allow usePage
+  during prerender
+
 ## 0.1.2
 
 ### Patch Changes
