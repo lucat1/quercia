@@ -40,10 +40,6 @@ export default async (base: Configuration): Promise<Configuration> => {
         __dirname,
         '@quercia/runtime'
       )}`
-    },
-    optimization: {
-      // dont optimize/minimize the server bundle
-      minimize: false
     }
   }
 }

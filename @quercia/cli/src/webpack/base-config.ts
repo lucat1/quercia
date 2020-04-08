@@ -33,9 +33,9 @@ export default (isServer: boolean): Configuration => {
       ...pages
     },
     optimization: {
-      minimize: mode === 'production',
+      minimize: mode === 'production' && !isServer,
       minimizer:
-        mode === 'production'
+        mode === 'production' && !isServer
           ? [
               new Terser({
                 parallel: !isCI,
@@ -54,9 +54,6 @@ export default (isServer: boolean): Configuration => {
                   compress: true,
                   output: {
                     comments: false
-                  },
-                  mangle: {
-                    properties: true
                   }
                 }
               })

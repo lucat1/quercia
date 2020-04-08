@@ -48,7 +48,9 @@ export default async (base: Configuration): Promise<Configuration> => {
         // prevent duplicate react versions
         // which causes issues with hooks (react >= 16.8)
         'react': await resolve(process.cwd(), 'react'),
-        'react-dom': await resolve(process.cwd(), 'react-dom')
+        'react-dom': await resolve(process.cwd(), 'react-dom'),
+        '@quercia/quercia': await resolve(process.cwd(), '@quercia/quercia'),
+        '@quercia/runtime': await resolve(process.cwd(), '@quercia/runtime')
       }
     },
     optimization: {
