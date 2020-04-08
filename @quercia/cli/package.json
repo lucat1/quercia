@@ -18,7 +18,7 @@
   "files": [
     "/bin",
     "/lib",
-    "oclif.manifest.json"
+    "/oclif.manifest.json"
   ],
   "peerDependencies": {
     "react": ">=16",
