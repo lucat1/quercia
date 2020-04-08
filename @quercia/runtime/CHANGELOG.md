@@ -1,5 +1,13 @@
 # @quercia/runtime
 
+## 0.1.2
+
+### Patch Changes
+
+- Updated dependencies
+  [[`a1e0450`](https://github.com/lucat1/quercia/commit/a1e0450ac78ab15a829278b8e87d383546417938)]:
+  - @quercia/quercia@0.1.2
+
 ## 0.1.1
 
 ### Patch Changes
