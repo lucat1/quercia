@@ -16,6 +16,7 @@
     "pretty": "prettier --write *.json */*.{ts,json} @quercia/**/*.{ts,json} @quercia/**/**/*.{ts,json}"
   },
   "dependencies": {
+    "@changesets/changelog-github": "^0.2.3",
     "@changesets/cli": "^2.6.2",
     "@manypkg/cli": "0.11.1",
     "@manypkg/get-packages": "1.0.0",
