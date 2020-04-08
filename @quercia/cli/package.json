@@ -13,11 +13,11 @@
     "dev": "tsc -w --preserveWatchOutput",
     "postbuild": "oclif-dev manifest",
     "postpack": "rm -f oclif.manifest.json",
-    "prepack": "rm -rf lib && yarn build"
+    "prepack": "rm -rf dist && yarn build"
   },
   "files": [
     "/bin",
-    "/lib",
+    "/dist",
     "/oclif.manifest.json"
   ],
   "peerDependencies": {
