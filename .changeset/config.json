@@ -1,8 +1,8 @@
 {
   "$schema": "https://unpkg.com/@changesets/config@1.0.1/schema.json",
-  "changelog": "@changesets/cli/changelog",
+  "changelog": ["@changesets/changelog-github", { "repo": "lucat1/quercia" }],
   "commit": true,
   "linked": [],
-  "access": "restricted",
+  "access": "public",
   "baseBranch": "master"
 }
