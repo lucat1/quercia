@@ -1,5 +1,13 @@
 # @quercia/cli
 
+## 0.1.3
+
+### Patch Changes
+
+- [`07128b7`](https://github.com/lucat1/quercia/commit/07128b720fcfe9423da6f143f4b9350d1c00ff69)
+  Thanks [@lucat1](https://github.com/lucat1)! - Properly generate
+  oclif.manifest.json
+
 ## 0.1.2
 
 ### Patch Changes
