@@ -1,5 +1,13 @@
 # @quercia/cli
 
+## 0.1.7
+
+### Patch Changes
+
+- [`ff5d9f5`](https://github.com/lucat1/quercia/commit/ff5d9f543bb152fdf0d878ad3651372cbcd0ef36)
+  Thanks [@lucat1](https://github.com/lucat1)! - fix(cli): publish update
+  properly
+
 ## 0.1.6
 
 ### Patch Changes
