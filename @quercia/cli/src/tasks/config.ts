@@ -48,7 +48,12 @@ export default class Config extends Task implements IConfig {
 
     let final: Configuration = null as any
     try {
-      final = await this.rc({ isServer, config: internal })
+      final = await this.rc({
+        isServer,
+        config: internal,
+        buildID: this.quercia.buildID,
+        mode: this.quercia.parsedFlags.mode
+      })
     } catch (err) {
       this.fatal(
         'tasks/config',

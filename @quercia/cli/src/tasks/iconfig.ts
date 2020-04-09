@@ -2,8 +2,10 @@ import { Configuration } from 'webpack'
 
 // the arguments used to call the function exported from the config file
 export interface ConfigurationArgument {
-  isServer: boolean
   config: Configuration
+  isServer: boolean
+  buildID: string
+  mode: 'production' | 'development'
 }
 
 // two types for the possible configuration export value
