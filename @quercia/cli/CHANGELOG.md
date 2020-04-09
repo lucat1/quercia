@@ -1,5 +1,13 @@
 # @quercia/cli
 
+## 0.1.6
+
+### Patch Changes
+
+- [`da8ca7c`](https://github.com/lucat1/quercia/commit/da8ca7c66d29d188b856a2780819f32dca77abc4)
+  Thanks [@lucat1](https://github.com/lucat1)! - chore(cli): Provide `buildID`
+  and `mode` to the configuration function
+
 ## 0.1.5
 
 ### Patch Changes
