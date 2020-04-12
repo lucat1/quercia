@@ -45,7 +45,8 @@ type renderData struct {
 type jsonRenderData struct {
 	renderData
 
-	Script string `json:"script"`
+	Script   string `json:"script"`
+	Redirect string `json:"redirect"`
 }
 
 // Props is the type for the data structure to give quercia renderer
@@ -159,7 +160,7 @@ func failOnUnkownPage(man manifest, page string) {
 func Render(w http.ResponseWriter, r *http.Request, page string, props interface{}) {
 	// just skip to the json rendering (read above)
 	if r.Header.Get(querciaHeader) != "" {
-		renderJSON(w, r, page, props)
+		renderJSON(w, r, "", page, props)
 		return
 	}
 
@@ -208,7 +209,7 @@ func Render(w http.ResponseWriter, r *http.Request, page string, props interface
 
 // renders a page in json. We just provide the page props, the script url,
 // the prerendered data of the page and nothing more
-func renderJSON(w http.ResponseWriter, r *http.Request, page string, props interface{}) {
+func renderJSON(w http.ResponseWriter, r *http.Request, redirect string, page string, props interface{}) {
 	manifest := loadManfiest()
 
 	failOnUnkownPage(manifest, page)
@@ -218,9 +219,31 @@ func renderJSON(w http.ResponseWriter, r *http.Request, page string, props inter
 			Page:  page,
 			Props: props,
 		},
-		Script: querciaPrefix + manifest.Pages[page],
+		Script:   querciaPrefix + manifest.Pages[page],
+		Redirect: redirect,
 	})
 
 	w.Header().Add("Content-Type", jsonMime)
 	w.Write(json)
+}
+
+// Redirect redirects the request to another page. If the request has been made
+// by an HTML client you may aswell just use `http.Redirect` but this is wraps
+// arround the native go api and also handles the JSON-based requests that the
+// quercia client may send. If there quest does NOT contain the `X-Quercia` header
+// we just use a default Redriect, otherwhise we answer with JSON and the
+// transition is handled by the client in javascript
+//
+// If you want a normal redirect ignoring JSON requests you could use the `http.Redirect`
+// or pass `""`(an empty string) as the `page` parameter ex. `quercia.Redirect(w, r, "/test", "", nil)`
+func Redirect(w http.ResponseWriter, r *http.Request, url string, page string, props interface{}) {
+	// redirect if the request is not json-based
+	if r.Header.Get(querciaHeader) == "" {
+		http.Redirect(w, r, url, http.StatusTemporaryRedirect)
+		return
+	}
+
+	if page != "" {
+		renderJSON(w, r, url, page, props)
+	}
 }

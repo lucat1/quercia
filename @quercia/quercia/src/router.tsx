@@ -54,16 +54,18 @@ async function routeTo(
     loading: true
   })
 
-  const newData = await req(
+  const newData: PageData & { redirect?: string } = await req(
     navigation.url,
     navigation.method,
     navigation.options
   )
   // TODO: bump progress
-  setData({
-    ...data,
-    loading: true
-  })
+
+  if (newData.redirect) {
+    // TODO: bump progress
+    history.replaceState(null, '', newData.redirect)
+    delete newData.redirect
+  }
 
   if (newData.script && !isLoaded(newData.page)) {
     // TODO: bump progress
