@@ -1,5 +1,13 @@
 # @quercia/quercia
 
+## 0.1.5
+
+### Patch Changes
+
+- [`b57c896`](https://github.com/lucat1/quercia/commit/b57c8962703439a8563c9a0a2676382604a289cd)
+  Thanks [@lucat1](https://github.com/lucat1)! - feat(quercia & go): add
+  redirect method and handle it on the client
+
 ## 0.1.4
 
 ### Patch Changes
