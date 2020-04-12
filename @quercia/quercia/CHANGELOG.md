@@ -1,5 +1,13 @@
 # @quercia/quercia
 
+## 0.1.4
+
+### Patch Changes
+
+- [`2b4c79f`](https://github.com/lucat1/quercia/commit/2b4c79f7b66d026cbf93ababc70fc96bcc02d56c)
+  Thanks [@lucat1](https://github.com/lucat1)! - feat(quercia): add fetch
+  options to `navigate`
+
 ## 0.1.3
 
 ### Patch Changes
