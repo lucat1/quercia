@@ -45,8 +45,7 @@ type renderData struct {
 type jsonRenderData struct {
 	renderData
 
-	Script    string    `json:"script"`
-	Prerender [2]string `json:"prerender"`
+	Script string `json:"script"`
 }
 
 // Props is the type for the data structure to give quercia renderer
