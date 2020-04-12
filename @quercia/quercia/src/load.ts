@@ -53,11 +53,14 @@ export function parse(data: string): PageData {
 // sends a request to the given url
 export async function req(
   url: string,
-  method: 'GET' | 'POST'
+  method: 'GET' | 'POST',
+  options?: RequestInit
 ): Promise<PageData> {
   const req = await fetch(url, {
+    ...options,
     method,
     headers: {
+      ...(options && (options.headers || {})),
       'X-Quercia': '1'
     }
   })

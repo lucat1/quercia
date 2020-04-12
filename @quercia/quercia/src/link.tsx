@@ -14,12 +14,14 @@ export interface LinkProps extends AnchorProps {
 
 export function navigate(
   url: string,
-  method: NavigatePayload['method'] = 'GET'
+  method: NavigatePayload['method'] = 'GET',
+  options?: RequestInit
 ) {
   RouterEmitter.emit(NAVIGATE, {
     url,
     method,
-    type: 'push'
+    type: 'push',
+    options: options
   })
 }
 

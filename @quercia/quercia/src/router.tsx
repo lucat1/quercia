@@ -25,6 +25,7 @@ export type NavigatePayload = {
   type: 'push' | 'replace'
   method: 'GET' | 'POST'
   url: string
+  options?: RequestInit
 }
 
 // the navigate event handler
@@ -53,7 +54,11 @@ async function routeTo(
     loading: true
   })
 
-  const newData = await req(navigation.url, navigation.method)
+  const newData = await req(
+    navigation.url,
+    navigation.method,
+    navigation.options
+  )
   // TODO: bump progress
   setData({
     ...data,
