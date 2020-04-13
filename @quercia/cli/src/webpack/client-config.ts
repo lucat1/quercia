@@ -61,6 +61,7 @@ export default async (base: Configuration): Promise<Configuration> => {
       },
       splitChunks: {
         chunks: 'all',
+        maxInitialRequests: 2,
         cacheGroups: {
           runtime: {
             test: /(node_modules|@quercia\/quercia)/,
