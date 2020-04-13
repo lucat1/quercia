@@ -66,11 +66,6 @@ export default async (base: Configuration): Promise<Configuration> => {
             test: /(node_modules|@quercia\/quercia)/,
             name: 'vendor',
             priority: -10
-          },
-          default: {
-            minChunks: 2,
-            priority: -20,
-            reuseExistingChunk: true
           }
         }
       }
