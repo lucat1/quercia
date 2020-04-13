@@ -1,5 +1,14 @@
 # @quercia/cli
 
+## 0.1.8
+
+### Patch Changes
+
+- [`a1dc812`](https://github.com/lucat1/quercia/commit/a1dc81281c66cb4e49f9c875dfc5149d6681e57f)
+  Thanks [@lucat1](https://github.com/lucat1)! - fix(cli): don't split common
+  chunks in a `default` shared library, would cause errors because it does not
+  get loaded in the go backend
+
 ## 0.1.7
 
 ### Patch Changes
