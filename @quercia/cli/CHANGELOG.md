@@ -1,5 +1,14 @@
 # @quercia/cli
 
+## 0.2.0
+
+### Minor Changes
+
+- [`9e2ef3b`](https://github.com/lucat1/quercia/commit/9e2ef3b520121b6dae517e9e5ff49ca4bfa1850e)
+  Thanks [@lucat1](https://github.com/lucat1)! - breaking(cli): Prevent extra
+  shared modules to be created. Only accept the vendor module and a single
+  module for each page
+
 ## 0.1.8
 
 ### Patch Changes
