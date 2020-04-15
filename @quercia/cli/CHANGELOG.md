@@ -1,5 +1,13 @@
 # @quercia/cli
 
+## 0.2.1
+
+### Patch Changes
+
+- [`83b1559`](https://github.com/lucat1/quercia/commit/83b15594a3d38292128c5e0221e267337e9b98fb)
+  Thanks [@lucat1](https://github.com/lucat1)! - fix(cli): disable quirks mode
+  during prerender
+
 ## 0.2.0
 
 ### Minor Changes
