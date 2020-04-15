@@ -65,10 +65,13 @@ async function renderWithDocument(
   }
 
   const props = await page.getInitialProps(documentProps)
-  return toString(<page.Component {...props} />)
-    .replace('__QUERCIA__HEAD__COUNT__', nHead.toString())
-    .replace('__QUERCIA__HEAD__', head)
-    .replace('__QUERCIA_PRERENDER__', body)
+  return (
+    '<!DOCTYPE html>' +
+    toString(<page.Component {...props} />)
+      .replace('__QUERCIA__HEAD__COUNT__', nHead.toString())
+      .replace('__QUERCIA__HEAD__', head)
+      .replace('__QUERCIA_PRERENDER__', body)
+  )
 }
 
 export default renderWithDocument
