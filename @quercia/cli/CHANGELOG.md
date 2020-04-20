@@ -1,5 +1,13 @@
 # @quercia/cli
 
+## 0.3.1
+
+### Patch Changes
+
+- [`a9b53c6`](https://github.com/lucat1/quercia/commit/a9b53c60e7513f530f9bdaff9bad4858da74dc62)
+  Thanks [@lucat1](https://github.com/lucat1)! - fix(cli): add support for
+  async/await via babel by default
+
 ## 0.3.0
 
 ### Minor Changes
