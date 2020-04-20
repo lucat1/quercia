@@ -1,5 +1,20 @@
 # @quercia/cli
 
+## 0.2.2
+
+### Patch Changes
+
+- [`8751c53`](https://github.com/lucat1/quercia/commit/8751c5388c878088164436d7932fd2af640f8270)
+  Thanks [@lucat1](https://github.com/lucat1)! - fix(cli): properly use the
+  `src` argument
+
+* [`fac2492`](https://github.com/lucat1/quercia/commit/fac24925292215844ed02795812389d49c9858fd)
+  Thanks [@lucat1](https://github.com/lucat1)! - fix(cli) fix HMR update path
+
+- [`ce2d464`](https://github.com/lucat1/quercia/commit/ce2d46464f8448cfed11df9182ec199be220236d)
+  Thanks [@lucat1](https://github.com/lucat1)! - feat(cli): add hot module
+  replacement in watch mode
+
 ## 0.2.1
 
 ### Patch Changes
