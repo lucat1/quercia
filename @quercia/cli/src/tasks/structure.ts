@@ -13,7 +13,7 @@ const resolve: (root: string, mod: string) => Promise<string> = promisify(
 
 export default class Structure extends Task implements IStructure {
   // only used during existance checking
-  private _paths: Readonly<Paths> = {
+  private _paths: Paths = {
     root: process.cwd(),
     get pages() {
       return join(this.root, 'pages')
@@ -35,7 +35,10 @@ export default class Structure extends Task implements IStructure {
 
   public async execute() {
     this.debug('tasks/structure', 'Parsing project structure')
-    this.paths.root = join(process.cwd(), this.quercia.parsedArgs.src)
+    this._paths.root = this.paths.root = join(
+      process.cwd(),
+      this.quercia.parsedArgs.src
+    )
 
     // check if the root exists. This is mandatory and will fail otherwhise
     if (!(await exists(this.paths.root))) {
