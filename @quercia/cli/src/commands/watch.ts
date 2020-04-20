@@ -1,11 +1,12 @@
-import Quercia from '../quercia'
+import Quercia, { Args, Flags } from '../quercia'
 
 import WatchTask from '../tasks/watch'
 import { Tasks } from '../task'
 
 export default class Watch extends Quercia {
-  public description =
-    'watch for changes inside your application and rebundle the code on every update'
+  constructor(args: Args, flags: Flags) {
+    super('watch', args, flags)
+  }
 
   public tasks: Tasks = {
     ...this.tasks,

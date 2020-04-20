@@ -1,5 +1,3 @@
-import { Command, flags } from '@oclif/command'
-import { IConfig } from '@oclif/config'
 import { AsyncParallelHook, AsyncSeriesHook } from 'tapable'
 import uid from 'uid'
 
@@ -10,6 +8,15 @@ import Prerender from './tasks/prerender'
 import Logger from './logger'
 import { Tasks } from 'task'
 
+export interface Args {
+  src: string
+}
+
+export interface Flags {
+  mode: 'development' | 'production'
+  debug: boolean
+}
+
 // Shared class for both the build and watch command
 // Shared steps:
 // - flags = parsing command line flags
@@ -18,16 +25,21 @@ import { Tasks } from 'task'
 // - build     = either watching or building
 // - prerender = prerendering pages(run on every change in watch mode)
 
-export default class Quercia extends Command {
+export default class Quercia {
   public static getInstance(): Quercia {
     return Quercia.instance
   }
   private static instance: Quercia
 
-  constructor(argv: string[], config: IConfig) {
-    super(argv, config)
+  public args: Args
+  public flags: Flags
+  public command: 'build' | 'watch'
 
+  constructor(command: 'build' | 'watch', args: Args, flags: Flags) {
     Quercia.instance = this
+    this.command = command
+    this.args = args
+    this.flags = flags
   }
 
   public hooks = {
@@ -66,31 +78,6 @@ export default class Quercia extends Command {
     manifest: new AsyncSeriesHook(['quercia'])
   }
 
-  public static flags = {
-    help: flags.help({ char: 'h' }),
-    version: flags.version({ char: 'v' }),
-    mode: flags.string({
-      char: 'm',
-      default: 'development',
-      options: ['development', 'production'],
-      description: 'set the webpack `mode` option'
-    }),
-    debug: flags.boolean({
-      char: 'd',
-      default: false,
-      description: 'print debug messages'
-    })
-  }
-
-  public static args = [
-    {
-      name: 'src',
-      required: true,
-      description: 'the application source path',
-      default: '.'
-    }
-  ]
-
   public logger = new Logger(this)
   public buildID = uid(5)
 
@@ -101,21 +88,13 @@ export default class Quercia extends Command {
     prerender: new Prerender(this)
   }
 
-  // arguments and flags parsed, with some sane defaults
-  public parsedArgs: { [key: string]: any } = {}
-  public parsedFlags: { mode: 'production' | 'development'; debug: boolean } = {
-    mode: 'development',
-    debug: false
+  public exit(code: number) {
+    process.exit(code)
   }
 
   public async run() {
     // TODO: Load extensions
-
     await this.hooks.beforeFlags.promise(this)
-
-    const { args, flags } = this.parse(Quercia)
-    this.parsedArgs = args
-    this.parsedFlags = flags as any // to fix mode -> 'production' | 'development'
 
     await this.hooks.afterFlags.promise(this)
 

@@ -9,7 +9,7 @@ import Quercia from '../quercia'
 export default (isServer: boolean): Configuration => {
   const {
     buildID,
-    parsedFlags: { mode }
+    flags: { mode }
   } = Quercia.getInstance()
 
   const {

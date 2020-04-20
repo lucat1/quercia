@@ -8,7 +8,6 @@ import IConfig, { Reducer, PReducer } from './iconfig'
 import basecfg from '../webpack/base-config'
 import clientcfg from '../webpack/client-config'
 import servercfg from '../webpack/server-config'
-import Watch from '../commands/watch'
 
 export default class Config extends Task implements IConfig {
   private structure: Structure = null as any
@@ -23,7 +22,7 @@ export default class Config extends Task implements IConfig {
     this.debug('tasks/config', 'Loading configuration file')
     this.structure = this.quercia.tasks.structure
 
-    if (this.quercia instanceof Watch) {
+    if (this.quercia.command === 'watch') {
       this.hmr = await getPort()
     }
 
@@ -60,7 +59,7 @@ export default class Config extends Task implements IConfig {
         isServer,
         config: internal,
         buildID: this.quercia.buildID,
-        mode: this.quercia.parsedFlags.mode
+        mode: this.quercia.flags.mode
       })
     } catch (err) {
       this.fatal(

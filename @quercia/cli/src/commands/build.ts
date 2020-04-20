@@ -1,11 +1,12 @@
-import Quercia from '../quercia'
+import Quercia, { Args, Flags } from '../quercia'
 
 import BuildTask from '../tasks/build'
 import { Tasks } from '../task'
 
 export default class Build extends Quercia {
-  public description =
-    'bundle your application to be served from a quercia backend'
+  constructor(args: Args, flags: Flags) {
+    super('build', args, flags)
+  }
 
   public tasks: Tasks = {
     ...this.tasks,

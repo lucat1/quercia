@@ -37,7 +37,7 @@ export default class Structure extends Task implements IStructure {
     this.debug('tasks/structure', 'Parsing project structure')
     this._paths.root = this.paths.root = join(
       process.cwd(),
-      this.quercia.parsedArgs.src
+      this.quercia.args.src
     )
 
     // check if the root exists. This is mandatory and will fail otherwhise

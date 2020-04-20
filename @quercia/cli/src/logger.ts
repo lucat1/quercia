@@ -12,7 +12,7 @@ export default class Logger {
   }
 
   public debug(from: string, ...extra: any[]) {
-    if (!this.quercia.parsedFlags.debug) {
+    if (!this.quercia.flags.debug) {
       return
     }
 

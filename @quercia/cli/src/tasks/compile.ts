@@ -63,7 +63,7 @@ export default class Compile extends Task {
     const data = JSON.stringify(
       this.manifest,
       null,
-      this.quercia.parsedFlags.mode == 'production' ? 0 : 2
+      this.quercia.flags.mode == 'production' ? 0 : 2
     )
 
     // save the file in two pats so that ever after a recompile the manifest
