@@ -1,4 +1,4 @@
-import { Configuration } from 'webpack'
+import { Configuration, HotModuleReplacementPlugin } from 'webpack'
 import eresolve from 'enhanced-resolve'
 import { promisify } from 'util'
 import { sep } from 'path'
@@ -23,11 +23,25 @@ export default async (base: Configuration): Promise<Configuration> => {
   const entries = base.entry as T
   const entry: T = {}
 
+  const {
+    tasks: { config }
+  } = Quercia.getInstance()
+
+  // check for the hot module replacement availability
+  let hmr = ''
+  if (config.hmr != -1) {
+    const url = `http://localhost:${config.hmr}/hmr`
+    hmr = `webpack-hot-middleware/client?path=${url}`
+  }
+
   for (const key in entries) {
     // ignore the runtime and _document chunks
     if (key == '_document') continue
+
     if (key == 'runtime') {
-      entry[key] = entries[key]
+      // enable the `webpack-hot-middleware` during development
+      entry[key] = hmr != '' ? ([hmr, entries[key]] as any) : entries[key]
+
       continue
     }
 
@@ -41,7 +55,8 @@ export default async (base: Configuration): Promise<Configuration> => {
     target: 'web',
     plugins: [
       ...(base.plugins || []),
-      new ManifestPlugin(Quercia.getInstance())
+      new ManifestPlugin(Quercia.getInstance()),
+      new HotModuleReplacementPlugin()
     ],
     resolve: {
       alias: {
@@ -57,7 +72,7 @@ export default async (base: Configuration): Promise<Configuration> => {
       ...base.optimization,
       usedExports: true,
       runtimeChunk: {
-        name: () => 'webpack-runtime'
+        name: 'webpack-runtime'
       },
       splitChunks: {
         chunks: 'all',

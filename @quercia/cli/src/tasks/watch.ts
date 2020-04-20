@@ -1,10 +1,22 @@
+import { createServer } from 'http'
+import { NextHandleFunction } from 'connect'
+import hmr, { EventStream } from 'webpack-hot-middleware'
+
 import Compile, { MultiStats } from './compile'
 
 export default class Watch extends Compile {
   private prev: string = ''
+  private middleware: NextHandleFunction & EventStream = null as any
 
   public async execute() {
     await super.execute()
+
+    this.middleware = hmr(this.compiler.compilers[0], {
+      path: '/hmr',
+      heartbeat: 10 * 1000,
+      log: false
+    })
+    this.hmr()
 
     this.log('tasks/watch', 'Watching for changes inside the application')
     ;(this.compiler as any).watch(
@@ -44,5 +56,19 @@ export default class Watch extends Compile {
         await this.afterBuild()
       }
     )
+  }
+
+  private hmr() {
+    this.log(
+      'tasks/watch',
+      `HMR listening on :${this.quercia.tasks.config.hmr}`
+    )
+
+    createServer((req, res) => {
+      this.middleware(req, res, err => {
+        res.statusCode = 400
+        res.end(`Bad request${err ? '\n' + err : ''}`)
+      })
+    }).listen(this.quercia.tasks.config.hmr)
   }
 }

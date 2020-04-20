@@ -1,4 +1,5 @@
 import { Configuration } from 'webpack'
+import getPort from 'get-port'
 
 import Task from '../task'
 import Structure from './structure'
@@ -7,6 +8,7 @@ import IConfig, { Reducer, PReducer } from './iconfig'
 import basecfg from '../webpack/base-config'
 import clientcfg from '../webpack/client-config'
 import servercfg from '../webpack/server-config'
+import Watch from '../commands/watch'
 
 export default class Config extends Task implements IConfig {
   private structure: Structure = null as any
@@ -15,9 +17,15 @@ export default class Config extends Task implements IConfig {
   public client: Configuration = null as any
   public server: Configuration = null as any
 
+  public hmr: number = -1
+
   public async execute() {
     this.debug('tasks/config', 'Loading configuration file')
     this.structure = this.quercia.tasks.structure
+
+    if (this.quercia instanceof Watch) {
+      this.hmr = await getPort()
+    }
 
     // load the configuration file if it exists and set `this.rc` to its value
     if (this.structure.paths.config !== null) {

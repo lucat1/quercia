@@ -30,12 +30,14 @@
     "@quercia/runtime": "^0.1.1",
     "astring": "^1.4.3",
     "estree-walker": "^2.0.1",
+    "get-port": "^5.1.1",
     "is-ci": "^2.0.0",
     "loader-utils": "^2.0.0",
     "tapable": "^1.1.3",
     "terser-webpack-plugin": "^2.3.5",
     "uid": "^1.0.0",
     "webpack": "^4.42.0",
+    "webpack-hot-middleware": "^2.25.0",
     "webpack-node-externals": "^1.7.2"
   },
   "devDependencies": {
@@ -49,6 +51,7 @@
     "@types/tapable": "^1.0.5",
     "@types/terser-webpack-plugin": "^2.2.0",
     "@types/webpack": "^4.41.7",
+    "@types/webpack-hot-middleware": "^2.25.2",
     "@types/webpack-node-externals": "^1.7.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

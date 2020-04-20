@@ -19,4 +19,7 @@ export default interface IConfig {
   // the webpack client and server configurations
   client: Configuration
   server: Configuration
+  // hmr is the port on which the HMR server listens on.
+  // the port is `-1` when we are in build mode or HMR is disabled
+  hmr: number
 }
