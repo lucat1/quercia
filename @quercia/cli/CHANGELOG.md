@@ -1,5 +1,13 @@
 # @quercia/cli
 
+## 0.2.4
+
+### Patch Changes
+
+- [`e65855f`](https://github.com/lucat1/quercia/commit/e65855f741758c1de22220e8953f35641f21c7db)
+  Thanks [@lucat1](https://github.com/lucat1)! - fix(cli): add dependency on
+  sade
+
 ## 0.2.3
 
 ### Patch Changes
