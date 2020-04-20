@@ -1,3 +1,4 @@
+import { hot } from 'react-hot-loader/root'
 import * as React from 'react'
 import { render } from 'react-dom'
 
@@ -13,13 +14,19 @@ export {
   DocumentProps
 } from './document'
 
+let Root: React.FunctionComponent = () => (
+  <Header>
+    <Router>
+      <Wrapper />
+    </Router>
+  </Header>
+)
+
 if (typeof window !== 'undefined') {
-  render(
-    <Header>
-      <Router>
-        <Wrapper />
-      </Router>
-    </Header>,
-    document.getElementById('__quercia')
-  )
+  if (__DEV__) {
+    Root = hot(Root)
+    Root.displayName = 'hot(Root)'
+  }
+
+  render(<Root />, document.getElementById('__quercia'))
 }

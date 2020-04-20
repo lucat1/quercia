@@ -24,7 +24,8 @@ export default async (base: Configuration): Promise<Configuration> => {
   const entry: T = {}
 
   const {
-    tasks: { config }
+    tasks: { config },
+    flags: { mode }
   } = Quercia.getInstance()
 
   // check for the hot module replacement availability
@@ -46,7 +47,9 @@ export default async (base: Configuration): Promise<Configuration> => {
     }
 
     const pageName = key.replace('pages' + sep, '')
-    entry[key] = `${loader}!${entries[key]}?name=${pageName}`
+    entry[key] = `${loader}!${entries[key]}?name=${pageName}&dev=${
+      mode === 'development'
+    }`
   }
 
   return {
@@ -55,15 +58,19 @@ export default async (base: Configuration): Promise<Configuration> => {
     target: 'web',
     plugins: [
       ...(base.plugins || []),
-      new ManifestPlugin(Quercia.getInstance()),
-      new HotModuleReplacementPlugin()
-    ],
+      new ManifestPlugin(Quercia.getInstance())
+    ].concat(mode === 'development' ? new HotModuleReplacementPlugin() : []),
     resolve: {
+      ...base.resolve,
       alias: {
         // prevent duplicate react versions
         // which causes issues with hooks (react >= 16.8)
         'react': await resolve(process.cwd(), 'react'),
-        'react-dom': await resolve(process.cwd(), 'react-dom'),
+        'react-dom': await resolve(
+          process.cwd(),
+          // use `@hot-loader/react-dom` during development to improve hot reloading
+          mode === 'development' ? '@hot-loader/react-dom' : 'react-dom'
+        ),
         '@quercia/quercia': await resolve(process.cwd(), '@quercia/quercia'),
         '@quercia/runtime': await resolve(process.cwd(), '@quercia/runtime')
       }

@@ -4,14 +4,20 @@ import { parseQuery } from 'loader-utils'
 
 interface Query {
   name: string
+  dev: boolean
 }
 
 const pageLoader: loader.Loader = function () {
   const query = parseQuery(this.resourceQuery) as Query
+
+  // add `exclude-loader` and `page-hot-loader` (only during dev mode)
   const pagePath = JSON.stringify(
-    `${resolve(process.cwd(), '@quercia/cli/dist/webpack/exclude-loader')}!${
-      this.resourcePath
-    }`
+    `${resolve(process.cwd(), '@quercia/cli/dist/webpack/exclude-loader')}${
+      query.dev
+        ? '!' +
+          resolve(process.cwd(), '@quercia/cli/dist/webpack/page-hot-loader')
+        : ''
+    }!${this.resourcePath}`
   )
 
   return `

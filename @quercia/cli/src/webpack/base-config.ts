@@ -32,6 +32,9 @@ export default (isServer: boolean): Configuration => {
       runtime,
       ...pages
     },
+    resolve: {
+      extensions: ['.js', '.jsx', '.mjs', '.json', '.ts', '.tsx']
+    },
     module: {
       rules: [
         {
@@ -44,7 +47,8 @@ export default (isServer: boolean): Configuration => {
                 '@babel/preset-env',
                 '@babel/preset-typescript',
                 '@babel/preset-react'
-              ]
+              ],
+              plugins: ['react-hot-loader/babel']
             }
           }
         }
