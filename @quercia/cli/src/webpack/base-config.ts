@@ -44,11 +44,23 @@ export default (isServer: boolean): Configuration => {
             loader: 'babel-loader',
             options: {
               presets: [
-                '@babel/preset-env',
+                [
+                  '@babel/preset-env',
+                  { exclude: ['@babel/plugin-transform-regenerator'] }
+                ],
                 '@babel/preset-typescript',
                 '@babel/preset-react'
               ],
-              plugins: ['react-hot-loader/babel']
+              plugins: [
+                'react-hot-loader/babel',
+                [
+                  'transform-async-to-promises',
+                  {
+                    // share code between files (only on the client-side)
+                    externalHelpers: !isServer
+                  }
+                ]
+              ]
             }
           }
         }
