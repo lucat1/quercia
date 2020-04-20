@@ -21,6 +21,9 @@ export default class Structure extends Task implements IStructure {
     get config() {
       return join(this.root, 'quercia.config.js')
     },
+    get tsconfig() {
+      return join(this.root, 'tsconfig.json')
+    },
     get runtime() {
       // should never be called
       return eresolve.sync(this.root, '@quercia/runtime')
@@ -87,6 +90,13 @@ export default class Structure extends Task implements IStructure {
     const files = await readdir(this.paths.pages)
     for (const file of files) {
       this.pages[this.rel(file)] = file
+    }
+
+    if (this.paths.tsconfig && this.quercia.flags.typecheck) {
+      this.log(
+        'tasks/structure',
+        'Found `tsconfig.json` in the root directory, enabling typescript type-checker'
+      )
     }
 
     this.debug('tasks/structure', 'found pages', this.pages)

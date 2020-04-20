@@ -15,13 +15,19 @@ const defaultArgs: Args = {
 
 const defaultFlags: Flags = {
   debug: false,
-  mode: 'development'
+  mode: 'development',
+  typecheck: true
 }
 
 cli
   .version(`v${version}`)
-  .option('-d, --debug', 'print debug messages')
+  .option('-d, --debug', 'print debug messages', false as any)
   .option('-m, --mode', 'set the webpack `mode` option', defaultFlags.mode)
+  .option(
+    '--typecheck',
+    'can be set to false to disable typechecking',
+    true as any
+  )
   .example('quercia watch')
   .example('quercia build -m=production')
 

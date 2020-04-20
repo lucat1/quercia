@@ -1,4 +1,5 @@
 import { Configuration, HotModuleReplacementPlugin } from 'webpack'
+import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
 import eresolve from 'enhanced-resolve'
 import { promisify } from 'util'
 import { sep } from 'path'
@@ -24,8 +25,8 @@ export default async (base: Configuration): Promise<Configuration> => {
   const entry: T = {}
 
   const {
-    tasks: { config },
-    flags: { mode }
+    tasks: { config, structure },
+    flags: { mode, typecheck }
   } = Quercia.getInstance()
 
   // check for the hot module replacement availability
@@ -59,7 +60,15 @@ export default async (base: Configuration): Promise<Configuration> => {
     plugins: [
       ...(base.plugins || []),
       new ManifestPlugin(Quercia.getInstance())
-    ].concat(mode === 'development' ? new HotModuleReplacementPlugin() : []),
+    ]
+      .concat(mode === 'development' ? new HotModuleReplacementPlugin() : [])
+      .concat(
+        structure.paths.tsconfig && typecheck
+          ? new ForkTsCheckerWebpackPlugin({
+              tsconfig: structure.paths.tsconfig
+            })
+          : []
+      ),
     resolve: {
       ...base.resolve,
       alias: {

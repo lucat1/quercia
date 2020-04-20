@@ -6,6 +6,7 @@ export interface Paths {
   root: string
   pages: string | null
   config: string | null
+  tsconfig: string | null
   runtime: string
 }
 

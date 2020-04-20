@@ -15,6 +15,7 @@ export interface Args {
 export interface Flags {
   mode: 'development' | 'production'
   debug: boolean
+  typecheck: boolean
 }
 
 // Shared class for both the build and watch command
