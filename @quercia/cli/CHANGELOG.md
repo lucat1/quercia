@@ -1,5 +1,13 @@
 # @quercia/cli
 
+## 0.2.3
+
+### Patch Changes
+
+- [`d5cfe74`](https://github.com/lucat1/quercia/commit/d5cfe746346cfeab3193f826579551905e1f7fd4)
+  Thanks [@lucat1](https://github.com/lucat1)! - feat(cli): remove oclif, make
+  the cli smaller. Now using `sade`
+
 ## 0.2.2
 
 ### Patch Changes
