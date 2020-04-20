@@ -1,5 +1,13 @@
 # @quercia/cli
 
+## 0.3.2
+
+### Patch Changes
+
+- [`198ddf2`](https://github.com/lucat1/quercia/commit/198ddf2814b84d662d8550c4b7be95eb15c01f29)
+  Thanks [@lucat1](https://github.com/lucat1)! - feat(cli): Add typescript
+  typechecking when a `tsconfig.json` file is available
+
 ## 0.3.1
 
 ### Patch Changes
