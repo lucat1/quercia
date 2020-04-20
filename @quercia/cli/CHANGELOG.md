@@ -1,5 +1,23 @@
 # @quercia/cli
 
+## 0.3.0
+
+### Minor Changes
+
+- [`6094a1d`](https://github.com/lucat1/quercia/commit/6094a1d7132052578bde5143c1c68c4a11cf5f2c)
+  Thanks [@lucat1](https://github.com/lucat1)! - feat(cli, runtime): add
+  react-hot-loader
+
+### Patch Changes
+
+- [`622b90c`](https://github.com/lucat1/quercia/commit/622b90c122c10f129f07dd25f93db5c527a7d952)
+  Thanks [@lucat1](https://github.com/lucat1)! - fix(cli): Only add HMR in
+  development mode
+
+- Updated dependencies
+  [[`6094a1d`](https://github.com/lucat1/quercia/commit/6094a1d7132052578bde5143c1c68c4a11cf5f2c)]:
+  - @quercia/runtime@0.2.0
+
 ## 0.2.4
 
 ### Patch Changes

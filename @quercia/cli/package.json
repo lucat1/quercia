@@ -1,6 +1,6 @@
 {
   "name": "@quercia/cli",
-  "version": "0.2.4",
+  "version": "0.3.0",
   "description": "The quercia cli",
   "license": "MIT",
   "author": "LucaT",
@@ -27,7 +27,7 @@
     "@babel/preset-react": "^7.9.4",
     "@babel/preset-typescript": "^7.9.0",
     "@hot-loader/react-dom": "^16.13.0",
-    "@quercia/runtime": "^0.1.1",
+    "@quercia/runtime": "^0.2.0",
     "astring": "^1.4.3",
     "babel-loader": "^8.1.0",
     "estree-walker": "^2.0.1",

@@ -1,5 +1,13 @@
 # @quercia/runtime
 
+## 0.2.0
+
+### Minor Changes
+
+- [`6094a1d`](https://github.com/lucat1/quercia/commit/6094a1d7132052578bde5143c1c68c4a11cf5f2c)
+  Thanks [@lucat1](https://github.com/lucat1)! - feat(cli, runtime): add
+  react-hot-loader
+
 ## 0.1.5
 
 ### Patch Changes
