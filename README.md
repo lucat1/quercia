@@ -50,6 +50,12 @@ non-javascript backend, such as Go, Ruby or PHP.
 > the guides in the `internal` section in our docs, or join our Discord server
 > and get some help there!
 
+#### setup
+
+You can read our documentation on [netlify](https://zen-benz-446b1a.netlify.com)
+for a quick introduction and setup instruction. For any question feel free to
+join our Discord server and ask there.
+
 #### why `quercia`?
 
 _quercia_ is the italian word for `oak tree`. The branches of an oak might
