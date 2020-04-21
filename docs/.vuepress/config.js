@@ -20,6 +20,7 @@ module.exports = {
         children: [
           '/internals/',
           '/internals/cli',
+          '/internals/hooks',
           {
             title: 'Tasks',
             children: [
