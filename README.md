@@ -6,11 +6,7 @@
 
 <img src="https://badgen.net/bundlephobia/minzip/@quercia/quercia" alt="@quercia/quercia size">
 
-<img src="https://img.shields.io/npm/v/@quercia/quercia" alt="@quercia/quercia version">
-
 <img src="https://badgen.net/bundlephobia/minzip/@quercia/runtime" alt="@quercia/runtime size">
-
-<img src="https://img.shields.io/npm/v/@quercia/runtime" alt="@quercia/runtime version">
 
 </p>
 
@@ -18,7 +14,7 @@
 
 `quercia` is a javascript framework based on the [`react`](https://reactjs.org)
 view library inspired by other popular options like `nextjs`. The aim of the
-project is to enable the amazing DX of these aforemetioned tools while using a
+project is to enable the amazing DX of these aforementioned tools while using a
 non-javascript backend, such as Go, Ruby or PHP.
 
 #### Main features:
