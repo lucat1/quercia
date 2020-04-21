@@ -6,13 +6,8 @@ import { Router } from '@quercia/quercia'
 import { Wrapper } from './app'
 import { Header } from './header'
 
-export { AppProps } from './app'
-export {
-  QuerciaHead,
-  QuerciaMount,
-  QuerciaScripts,
-  DocumentProps
-} from './document'
+export { AppProps, DocumentProps } from './props'
+export { QuerciaHead, QuerciaMount, QuerciaScripts } from './document'
 
 let Root: React.FunctionComponent = () => (
   <Header>

@@ -1,12 +1,7 @@
 import * as React from 'react'
-
 import { isLoaded, usePage } from '@quercia/quercia'
 
-export interface AppProps<T = any> {
-  Component: React.ElementType<T>
-  pageProps: T
-  prerender: boolean
-}
+import { AppProps } from './props'
 
 const DefaultApp: React.FunctionComponent<AppProps> = ({
   Component,

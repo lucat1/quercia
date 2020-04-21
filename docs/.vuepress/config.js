@@ -29,7 +29,8 @@ module.exports = {
               'internals/tasks/builder'
             ],
             sidebar: 'auto'
-          }
+          },
+          '/internals/runtime'
         ],
         sidebar: 'auto'
       }

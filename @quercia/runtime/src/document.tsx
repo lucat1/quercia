@@ -1,10 +1,6 @@
 import * as React from 'react'
 import invariant from 'tiny-invariant'
 
-export interface DocumentProps {
-  renderPage(): string
-}
-
 const msg =
   'should only be used inside `_document`, and therefore only rendered in the backend'
 
