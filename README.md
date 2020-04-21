@@ -28,7 +28,7 @@ view library inspired by other popular options like `nextjs`. The aim of the
 project is to enable the amazing DX of these aforementioned tools while using a
 non-javascript backend, such as Go, Ruby or PHP.
 
-#### Main features:
+#### features:
 
 - filesystem-based page routing
 
@@ -42,10 +42,15 @@ non-javascript backend, such as Go, Ruby or PHP.
 
 - any language with a JSON parser can be used to render a `quercia` page
 
-#### Current backends:
+#### current backends:
 
 - `go` - inside this repository
 
-> If you'd like to create a backend for your language of choice you can follow
+> if you'd like to create a backend for your language of choice you can follow
 > the guides in the `internal` section in our docs, or join our Discord server
 > and get some help there!
+
+#### why `quercia`?
+
+_quercia_ is the italian word for `oak tree`. The branches of an oak might
+resemble what your monolith application structure looks like on the filesystem.
