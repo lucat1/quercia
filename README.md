@@ -25,7 +25,7 @@ non-javascript backend, such as Go, Ruby or PHP.
 
 - pages are statically rendered at build time (SSG)
 
-- dev mode with HMR and hot reloading
+- dev mode with HMR and `react-hot-loader`
 
 - lightweight and extensible client-side routing
 
