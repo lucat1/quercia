@@ -2,12 +2,23 @@
   <b>quercia</b><br>
   A modern approach to monolith applications based on react
 </p>
+
 <p align="center">
-
-<img src="https://badgen.net/bundlephobia/minzip/@quercia/quercia" alt="@quercia/quercia size">
-
-<img src="https://badgen.net/bundlephobia/minzip/@quercia/runtime" alt="@quercia/runtime size">
-
+  <!-- @quercia/quercia size -->
+  <a href="https://bundlephobia.com/result?p=@quercia/quercia">
+    <img src="https://badgen.net/bundlephobia/minzip/@quercia/quercia"
+      alt="@quercia/quercia size" />
+  </a>
+  <!-- @quercia/runtime size -->
+  <a href="https://bundlephobia.com/result?p=@quercia/runtime">
+    <img src="https://badgen.net/bundlephobia/minzip/@quercia/runtime"
+      alt="@quercia/runtime size" />
+  </a>
+  <!-- Discord chat -->
+  <a href="https://discord.gg/TvDTzK">
+    <img src="https://img.shields.io/discord/702086867776045166"
+      alt="Discord chat" />
+  </a>
 </p>
 
 <a href="https://unsplash.com/photos/tLSu12Rv1jQ"><img  src="https://images.unsplash.com/photo-1568654792529-d6f9f8a1c231?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" align="right" alt="An oakwood tree"  width="400px"></a>
