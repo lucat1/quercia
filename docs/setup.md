@@ -28,15 +28,15 @@ that quercia depends on the `hooks` api and therefore requires at least
 `react >= 16.8`
 
 ```sh
-npm install -S -D @quercia/clireact
-npm install -S ract-dom
+npm install -S -D @quercia/cli
+npm install -S react ract-dom
 ```
 
 or if you prefer to sue `yarn`:
 
 ```sh
 yarn add -D @quercia/cli
-yarn install react ract-dom
+yarn add react ract-dom
 ```
 
 ## Project structure
@@ -86,3 +86,7 @@ with:
 and bundle the application for production with:
 
 `npm run build` or `yarn buid`
+
+The quercia dev environment will now be setup, so you can start rendering your
+pages form the backend of your choice. For example you read the
+[`go` backend docs](/backends/go).
