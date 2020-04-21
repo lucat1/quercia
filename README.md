@@ -46,6 +46,6 @@ non-javascript backend, such as Go, Ruby or PHP.
 
 - `go` - inside this repository
 
-If you'd like to create a backend for your language of choice you can follow the
-guides in the `internal` section in our docs, or join our Discord server and get
-some help there!
+> If you'd like to create a backend for your language of choice you can follow
+> the guides in the `internal` section in our docs, or join our Discord server
+> and get some help there!
