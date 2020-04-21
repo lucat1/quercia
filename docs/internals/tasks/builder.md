@@ -12,3 +12,8 @@ speed and DX experience, focusing on live reloading and speed of bundling. The
 `Watch Task\ implements the`IWatch`interface, which describes all exported values. The instance is accessible via`quercia.tasks.watch`.
 
 <<< @/@quercia/cli/src/tasks/iwatch.ts
+
+## Build
+
+The build task has no public methods, but you can still hook into the process
+via the [`hooks`](/internals/hooks) value exported from the `quercia` class.
