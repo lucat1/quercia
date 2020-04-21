@@ -22,7 +22,11 @@ module.exports = {
           '/internals/cli',
           {
             title: 'Tasks',
-            children: ['internals/tasks/structure', 'internals/tasks/config'],
+            children: [
+              'internals/tasks/structure',
+              'internals/tasks/config',
+              'internals/tasks/builder'
+            ],
             sidebar: 'auto'
           }
         ],

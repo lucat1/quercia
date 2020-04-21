@@ -2,11 +2,12 @@ import { createServer } from 'http'
 import { NextHandleFunction } from 'connect'
 import hmr, { EventStream } from 'webpack-hot-middleware'
 
+import IWatch from './iwatch'
 import Compile, { MultiStats } from './compile'
 
-export default class Watch extends Compile {
-  private prev: string = ''
-  private middleware: NextHandleFunction & EventStream = null as any
+export default class Watch extends Compile implements IWatch {
+  public prev: string = ''
+  public middleware: NextHandleFunction & EventStream = null as any
 
   public async execute() {
     await super.execute()
