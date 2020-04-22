@@ -3,7 +3,13 @@
   "version": "0.1.8",
   "description": "The quercia library",
   "license": "MIT",
-  "author": "luca",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lucat1/quercia.git",
+    "directory": "@quercia/quercia"
+  },
+  "author": "LucaT",
+  "bugs": "https://github.com/lucat1/quercia/issues",
   "main": "dist/quercia.cjs.js",
   "module": "dist/quercia.esm.js",
   "engines": {

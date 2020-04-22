@@ -3,7 +3,13 @@
   "version": "0.2.3",
   "description": "The quercia runtime",
   "license": "MIT",
-  "author": "luca",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lucat1/quercia.git",
+    "directory": "@quercia/runtime"
+  },
+  "author": "LucaT",
+  "bugs": "https://github.com/lucat1/quercia/issues",
   "main": "dist/runtime.cjs.js",
   "module": "dist/runtime.esm.js",
   "engines": {
