@@ -8,7 +8,7 @@ const DefaultApp: React.FunctionComponent<AppProps> = ({
   pageProps
 }) => <Component {...pageProps} />
 
-if (__DEV__) {
+if (process.env.NODE_ENV === 'development') {
   DefaultApp.displayName = 'DefaultApp'
 }
 
@@ -25,7 +25,7 @@ export const Wrapper: React.FunctionComponent = () => {
   return <App Component={Component} pageProps={props} prerender={prerender} />
 }
 
-if (__DEV__) {
+if (process.env.NODE_ENV === 'development') {
   Wrapper.displayName = 'AppWrapper'
 }
 

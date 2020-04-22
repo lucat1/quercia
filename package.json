@@ -6,20 +6,21 @@
   "license": "MIT",
   "author": "LucaT",
   "scripts": {
-    "build": "ts-node scripts/build",
-    "clean": "ts-node scripts/clean",
-    "dev": "ts-node scripts/dev",
+    "build": "preconstruct build",
+    "dev": "preconstruct watch",
     "docs:build": "vuepress build docs",
     "docs:dev": "vuepress dev docs",
     "fix": "manypkg fix",
-    "postinstall": "manypkg check",
+    "postinstall": "manypkg check && preconstruct validate && preconstruct dev",
     "pretty": "prettier --write *.json */*.{ts,json} @quercia/**/*.{ts,json} @quercia/**/**/*.{ts,json}"
   },
   "dependencies": {
+    "@babel/preset-react": "^7.9.4",
+    "@babel/preset-typescript": "^7.9.0",
     "@changesets/changelog-github": "^0.2.3",
     "@changesets/cli": "^2.6.2",
     "@manypkg/cli": "0.11.1",
-    "@manypkg/get-packages": "1.0.0",
+    "@preconstruct/cli": "^1.1.12",
     "@types/react": "^16.9.25",
     "@types/react-dom": "16.9.5",
     "husky": "4.2.3",
@@ -28,14 +29,18 @@
     "pretty-quick": "^2.0.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "ts-node": "^8.8.2",
-    "typescript": "3.8.3",
     "vuepress": "^1.4.0"
   },
   "husky": {
     "hooks": {
       "pre-commit": "pretty-quick --pattern '*.json */*.{ts,json} @quercia/**/*.{ts,json} @quercia/**/**/*.{ts,json}' --staged"
     }
+  },
+  "preconstruct": {
+    "packages": [
+      "@quercia/quercia",
+      "@quercia/runtime"
+    ]
   },
   "prettier": {
     "printWidth": 80,

@@ -31,7 +31,7 @@ export type NavigatePayload = {
 // the navigate event handler
 export type NavigateHandler = MittHandler<NavigatePayload>
 
-if (__DEV__) {
+if (process.env.NODE_ENV === 'development') {
   RouterContext.displayName = 'RouterContext'
 }
 
@@ -119,6 +119,6 @@ export const Router: React.FunctionComponent = ({ children }) => {
   )
 }
 
-if (__DEV__) {
+if (process.env.NODE_ENV === 'development') {
   Router.displayName = 'Router'
 }

@@ -111,6 +111,6 @@ export const Header: FunctionComponent = ({ children }) => {
   )
 }
 
-if (__DEV__) {
+if (process.env.NODE_ENV === 'development') {
   Header.displayName = 'HeadManager'
 }

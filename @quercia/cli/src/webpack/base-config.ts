@@ -52,7 +52,6 @@ export default (isServer: boolean): Configuration => {
                 '@babel/preset-react'
               ],
               plugins: [
-                'react-hot-loader/babel',
                 [
                   'transform-async-to-promises',
                   {
@@ -60,7 +59,7 @@ export default (isServer: boolean): Configuration => {
                     externalHelpers: !isServer
                   }
                 ]
-              ]
+              ].concat(mode === 'development' ? ['react-hot-loader/babel'] : [])
             }
           }
         }

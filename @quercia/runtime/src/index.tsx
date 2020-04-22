@@ -6,7 +6,7 @@ import { Router } from '@quercia/quercia'
 import { Wrapper } from './app'
 import { Header } from './header'
 
-export { AppProps, DocumentProps } from './props'
+export * from './props'
 export { QuerciaHead, QuerciaMount, QuerciaScripts } from './document'
 
 let Root: React.FunctionComponent = () => (
@@ -18,7 +18,7 @@ let Root: React.FunctionComponent = () => (
 )
 
 if (typeof window !== 'undefined') {
-  if (__DEV__) {
+  if (process.env.NODE_ENV === 'development') {
     Root = hot(Root)
     Root.displayName = 'hot(Root)'
   }

@@ -12,7 +12,7 @@ const Empty: React.FunctionComponent = () => {
   return null
 }
 
-if (__DEV__) {
+if (process.env.NODE_ENV === 'development') {
   Empty.displayName = '!Empty!'
 }
 
@@ -43,7 +43,7 @@ export const usePage: UsePage = () => {
     const Page = window.__P[router.page]().default
 
     // give a name to the page only during development
-    if (__DEV__) {
+    if (process.env.NODE_ENV === 'development') {
       Page.displayName = `Page<{page: ${router.page}}>`
     }
 

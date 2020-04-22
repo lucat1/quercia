@@ -36,7 +36,7 @@ export function loadScript(): PageData {
 // parses the json input and pretty-prints errors during development
 export function parse(data: string): PageData {
   // during development catch json parsing errors
-  if (__DEV__) {
+  if (process.env.NODE_ENV === 'development') {
     try {
       return JSON.parse(data)
     } catch (err) {

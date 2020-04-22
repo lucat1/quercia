@@ -4,16 +4,10 @@
   "description": "The quercia runtime",
   "license": "MIT",
   "author": "luca",
-  "main": "dist/index.js",
-  "module": "dist/quercia.esm.js",
+  "main": "dist/runtime.cjs.js",
+  "module": "dist/runtime.esm.js",
   "engines": {
     "node": ">=10"
-  },
-  "scripts": {
-    "build": "tsdx build",
-    "dev": "tsdx watch --verbose",
-    "prepare": "tsdx build",
-    "test": "tsdx test"
   },
   "files": [
     "dist",
@@ -21,7 +15,8 @@
   ],
   "peerDependencies": {
     "react": ">=16",
-    "react-dom": ">=16"
+    "react-dom": ">=16",
+    "react-hot-loader": "^4.12.20"
   },
   "dependencies": {
     "@quercia/quercia": "0.1.5",
@@ -29,14 +24,11 @@
     "tiny-warning": "^1.0.3"
   },
   "devDependencies": {
-    "@types/jest": "^25.1.4",
     "@types/react": "^16.9.25",
     "@types/react-dom": "16.9.5",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "tsdx": "^0.13.0",
-    "tslib": "^1.11.1",
-    "typescript": "3.8.3"
+    "react-hot-loader": "^4.12.20"
   },
-  "typings": "dist/index.d.ts"
+  "typings": "dist/runtime.cjs.d.ts"
 }
