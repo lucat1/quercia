@@ -1,5 +1,17 @@
 # @quercia/runtime
 
+## 0.2.1
+
+### Patch Changes
+
+- [`a10899f`](https://github.com/lucat1/quercia/commit/a10899fd2b9446e1ad258d9543ddfd916f8edc12)
+  Thanks [@lucat1](https://github.com/lucat1)! - fix(cli): don't include babel's
+  react-hot-loader in production, move from tsdx to preconstruct for smaller
+  builds with babel
+- Updated dependencies
+  [[`a10899f`](https://github.com/lucat1/quercia/commit/a10899fd2b9446e1ad258d9543ddfd916f8edc12)]:
+  - @quercia/quercia@0.1.6
+
 ## 0.2.0
 
 ### Minor Changes
