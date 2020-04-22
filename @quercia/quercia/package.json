@@ -18,6 +18,7 @@
     "react-dom": ">=16"
   },
   "dependencies": {
+    "babel-plugin-transform-async-to-promises": "^0.8.15",
     "tiny-invariant": "^1.1.0",
     "tiny-warning": "^1.0.3"
   },

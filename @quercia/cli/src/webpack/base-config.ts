@@ -39,7 +39,7 @@ export default (isServer: boolean): Configuration => {
       rules: [
         {
           test: /\.m?[t|j]sx?$/,
-          exclude: mode === 'development' ? /node_modules/ : undefined,
+          exclude: /node_modules/,
           use: {
             loader: 'babel-loader',
             options: {
