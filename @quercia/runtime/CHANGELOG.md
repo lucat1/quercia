@@ -1,5 +1,17 @@
 # @quercia/runtime
 
+## 0.2.2
+
+### Patch Changes
+
+- [`896fbd4`](https://github.com/lucat1/quercia/commit/896fbd4744387f555a45b289df25f7c486177698)
+  Thanks [@lucat1](https://github.com/lucat1)! - fix(all): don't execute babel
+  on node_modules(revert last update) and make all packages depend on a
+  lightweight async/await implementation
+- Updated dependencies
+  [[`896fbd4`](https://github.com/lucat1/quercia/commit/896fbd4744387f555a45b289df25f7c486177698)]:
+  - @quercia/quercia@0.1.7
+
 ## 0.2.1
 
 ### Patch Changes
