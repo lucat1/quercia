@@ -4,11 +4,6 @@
 </p>
 
 <p align="center">
-  <!-- @quercia/quercia size -->
-  <a href="https://bundlephobia.com/result?p=@quercia/quercia">
-    <img src="https://badgen.net/bundlephobia/minzip/@quercia/quercia"
-      alt="@quercia/quercia size" />
-  </a>
   <!-- @quercia/runtime size -->
   <a href="https://bundlephobia.com/result?p=@quercia/runtime">
     <img src="https://badgen.net/bundlephobia/minzip/@quercia/runtime"
