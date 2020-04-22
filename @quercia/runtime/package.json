@@ -1,6 +1,6 @@
 {
   "name": "@quercia/runtime",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "The quercia runtime",
   "license": "MIT",
   "author": "luca",
@@ -19,7 +19,7 @@
     "react-hot-loader": "^4.12.20"
   },
   "dependencies": {
-    "@quercia/quercia": "0.1.7",
+    "@quercia/quercia": "0.1.8",
     "babel-plugin-transform-async-to-promises": "^0.8.15",
     "tiny-invariant": "^1.1.0",
     "tiny-warning": "^1.0.3"
