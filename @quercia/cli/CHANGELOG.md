@@ -1,5 +1,13 @@
 # @quercia/cli
 
+## 0.3.4
+
+### Patch Changes
+
+- [`773a81b`](https://github.com/lucat1/quercia/commit/773a81b895149f9456b2320b242e03af6f8c397a)
+  Thanks [@lucat1](https://github.com/lucat1)! - fix(cli): transform async/await
+  in node modules during production
+
 ## 0.3.3
 
 ### Patch Changes
