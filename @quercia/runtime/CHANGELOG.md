@@ -1,5 +1,17 @@
 # @quercia/runtime
 
+## 0.2.4
+
+### Patch Changes
+
+- [`4bb9646`](https://github.com/lucat1/quercia/commit/4bb96465a9eab74e59171978443e12ca03c3b93e)
+  Thanks [@lucat1](https://github.com/lucat1)! - chore(all): add repository url
+  and bugs issue tracker url
+
+- Updated dependencies
+  [[`4bb9646`](https://github.com/lucat1/quercia/commit/4bb96465a9eab74e59171978443e12ca03c3b93e)]:
+  - @quercia/quercia@0.1.9
+
 ## 0.2.3
 
 ### Patch Changes

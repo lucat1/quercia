@@ -1,5 +1,21 @@
 # @quercia/cli
 
+## 0.3.7
+
+### Patch Changes
+
+- [`f207291`](https://github.com/lucat1/quercia/commit/f20729199dca10865263f1b82a1733243e23bf10)
+  Thanks [@lucat1](https://github.com/lucat1)! - feat(cli): add -s flag to
+  output webpack stats
+
+* [`4bb9646`](https://github.com/lucat1/quercia/commit/4bb96465a9eab74e59171978443e12ca03c3b93e)
+  Thanks [@lucat1](https://github.com/lucat1)! - chore(all): add repository url
+  and bugs issue tracker url
+
+* Updated dependencies
+  [[`4bb9646`](https://github.com/lucat1/quercia/commit/4bb96465a9eab74e59171978443e12ca03c3b93e)]:
+  - @quercia/runtime@0.2.4
+
 ## 0.3.6
 
 ### Patch Changes
