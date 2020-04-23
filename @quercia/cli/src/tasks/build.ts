@@ -1,3 +1,6 @@
+import { promises as fs } from 'fs'
+import { join } from 'path'
+
 import Compile, { MultiStats } from './compile'
 
 export default class Build extends Compile {
@@ -35,6 +38,19 @@ export default class Build extends Compile {
         res(stats)
       })
     })
+
+    // after a successfull build save the webpack stats when requested
+    if (this.quercia.flags.stats) {
+      await fs.writeFile(
+        join(
+          this.quercia.tasks.structure.paths.root,
+          '__quercia',
+          'stats.json'
+        ),
+        JSON.stringify(this.stats.stats[0].toJson('normal'))
+      )
+      this.log('tasks/build', 'Saved webpack stats')
+    }
 
     this.log('tasks/build', 'Successfully compiled the application')
   }

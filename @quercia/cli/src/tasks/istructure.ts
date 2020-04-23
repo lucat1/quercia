@@ -4,10 +4,11 @@ export interface Pages {
 
 export interface Paths {
   root: string
+  runtime: string
+
   pages: string | null
   config: string | null
   tsconfig: string | null
-  runtime: string
 }
 
 export default interface IStructure {

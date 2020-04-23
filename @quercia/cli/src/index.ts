@@ -16,23 +16,29 @@ const defaultArgs: Args = {
 const defaultFlags: Flags = {
   debug: false,
   mode: 'development',
-  typecheck: true
+  typecheck: true,
+  stats: false
 }
 
 cli
   .version(`v${version}`)
-  .option('-d, --debug', 'print debug messages', false as any)
+  .option('-d, --debug', 'print debug messages', defaultFlags.debug as any)
   .option('-m, --mode', 'set the webpack `mode` option', defaultFlags.mode)
   .option(
     '--typecheck',
     'can be set to false to disable typechecking',
-    true as any
+    defaultFlags.typecheck as any
   )
   .example('quercia watch')
   .example('quercia build -m=production')
 
 cli
   .command('build [src]')
+  .option(
+    '-s, --stats',
+    'puts webpack stats into `__quercia/stats.json`',
+    defaultFlags.stats as any
+  )
   .describe('bundle your application to be served from a quercia backend')
   .example('quercia build -m=production')
   .example('quercia build src -m=production')

@@ -9,7 +9,7 @@ import Quercia from '../quercia'
 export default (isServer: boolean): Configuration => {
   const {
     buildID,
-    flags: { mode }
+    flags: { mode, stats }
   } = Quercia.getInstance()
 
   const {
@@ -21,6 +21,16 @@ export default (isServer: boolean): Configuration => {
 
   return {
     mode,
+
+    // enable stats output when requested
+    profile: stats,
+    parallelism: stats ? 1 : undefined,
+    stats: stats
+      ? {
+          modules: true
+        }
+      : undefined,
+
     devtool: mode == 'development' ? 'inline-source-map' : false,
     output: {
       filename: '[name].js',
