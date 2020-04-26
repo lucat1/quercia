@@ -64,7 +64,8 @@ export default class Config extends Task implements IConfig {
     } catch (err) {
       this.error(
         'tasks/config',
-        'while executing your configuration file:\n' + err.stack
+        'while executing your configuration file:\n' +
+          this.logger.prettyError('error', err)
       )
     }
 

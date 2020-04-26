@@ -45,6 +45,22 @@ export default class Logger {
     this.quercia = quercia
   }
 
+  public prettyError(
+    level: keyof Symbols,
+    err: any,
+    verbose: boolean = false
+  ): string {
+    return (verbose
+      ? err.stack || err.message || err
+      : err.message || err.stack || err
+    )
+      ?.split('\n')
+      .map(
+        (l: string) => kleur[this.colors[level] as keyof kleur.Kleur]('│ ') + l
+      )
+      .join('\n')
+  }
+
   private print(level: keyof Symbols, from: string, ...extra: any[]) {
     if (level === 'debug') {
       if (this.quercia.flags.debug) {

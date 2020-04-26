@@ -71,6 +71,17 @@ export default class Prerender extends Task {
       this.Document = (await this.load(join(this.input, '_document.js'))) as any
     }
 
+    // handles promises errors inside the webpack bundle.
+    // the handler is cleared after the page has been loaded
+    const promiseHandler = (err: any) => {
+      this.warning(
+        'prerender/page',
+        'unhandled promise rejection while prerendering\n' +
+          this.logger.prettyError('warning', err, true)
+      )
+    }
+    process.on('unhandledRejection', promiseHandler)
+
     let count = 0
     const EXCLUDES = ['pages/_app', 'pages/_document']
     for (let page of pages) {
@@ -94,6 +105,7 @@ export default class Prerender extends Task {
       count++
     }
 
+    process.off('unhandledRejection', promiseHandler)
     this.success('tasks/prerender', `prerendered ${count} pages`)
   }
 

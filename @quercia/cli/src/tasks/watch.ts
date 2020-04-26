@@ -27,8 +27,8 @@ export default class Watch extends Compile implements IWatch {
           if (err) {
             this.error(
               'tasks/watch',
-              'while running webpack in watch mode:\n',
-              err.message || err.stack || err
+              'while running webpack in watch mode:\n' +
+                this.logger.prettyError('error', err)
             )
           }
 
@@ -38,8 +38,8 @@ export default class Watch extends Compile implements IWatch {
               const length = stat.compilation.errors.length
               this.warning(
                 'tasks/watch',
-                `error ${index} of ${length} while running webpack in watch mode:\n`,
-                err.message || err.stack || err
+                `error ${index} of ${length} while running webpack in watch mode:\n` +
+                  this.logger.prettyError('warning', err)
               )
             }
 

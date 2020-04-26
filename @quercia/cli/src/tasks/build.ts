@@ -15,8 +15,8 @@ export default class Build extends Compile {
           if (err) {
             this.error(
               'tasks/build',
-              'while running webpack in build mode:\n',
-              err.message || err.stack || err
+              'while running webpack in build mode:\n' +
+                this.logger.prettyError('error', err)
             )
           }
 
@@ -26,8 +26,8 @@ export default class Build extends Compile {
               const length = stat.compilation.errors.length
               this.error(
                 'tasks/build',
-                `${index} of ${length} while running webpack in build mode:\n`,
-                err.message || err.stack || err
+                `${index} of ${length} while running webpack in build mode:\n` +
+                  this.logger.prettyError('error', err)
               )
             }
 
