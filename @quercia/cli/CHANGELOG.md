@@ -1,5 +1,20 @@
 # @quercia/cli
 
+## 0.3.8
+
+### Patch Changes
+
+- [`152a56a`](https://github.com/lucat1/quercia/commit/152a56a6627603ef16818b4f01142ccc85e72d9a)
+  Thanks [@lucat1](https://github.com/lucat1)! - feat(cli): properly handle
+  promise rejections and prettify errors
+
+* [`9c7aeb1`](https://github.com/lucat1/quercia/commit/9c7aeb15ae7353af680f52a3bae9283803c104ad)
+  Thanks [@lucat1](https://github.com/lucat1)! - feat(cli): beautify ts-checker
+  errors
+
+- [`8e3bad8`](https://github.com/lucat1/quercia/commit/8e3bad89eef66ddcdb57d26824570f1b1bf29cf2)
+  Thanks [@lucat1](https://github.com/lucat1)! - feat(cli): pretty logging
+
 ## 0.3.7
 
 ### Patch Changes
