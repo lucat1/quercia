@@ -26,7 +26,8 @@ export default async (base: Configuration): Promise<Configuration> => {
 
   const {
     tasks: { config, structure },
-    flags: { mode, typecheck }
+    flags: { mode, typecheck },
+    logger
   } = Quercia.getInstance()
 
   // check for the hot module replacement availability
@@ -65,7 +66,28 @@ export default async (base: Configuration): Promise<Configuration> => {
       .concat(
         structure.paths.tsconfig && typecheck
           ? new ForkTsCheckerWebpackPlugin({
-              tsconfig: structure.paths.tsconfig
+              tsconfig: structure.paths.tsconfig,
+              logger: {
+                info: (...args) =>
+                  logger.info('webpack/ts-type-checker', ...args),
+                error: err => {
+                  // only fail during builds (keep alive during watch)
+                  // if the hmr is enabled we are clearly in watch mode
+                  const level = config.hmr ? 'warning' : 'error'
+
+                  logger[level](
+                    'webpack/ts-type-checker(error)',
+                    'type error from `ts-checker`\n' +
+                      logger.prettyError(level, new TypeError(err))
+                  )
+                },
+                warn: err =>
+                  logger.warning(
+                    'webpack/ts-type-checker',
+                    'type warning from `ts-checker`\n' +
+                      logger.prettyError('warning', new TypeError(err))
+                  )
+              }
             })
           : []
       ),
