@@ -81,6 +81,6 @@ export default class Compile extends Task {
       await fs.writeFile(join(path, 'manifest.json'), data)
     }
 
-    this.log('tasks/compile', 'Wrote manifest files')
+    this.success('tasks/compile', 'wrote manifest files')
   }
 }

@@ -7,15 +7,15 @@ export default class Build extends Compile {
   public async execute() {
     await super.execute()
 
-    this.log('tasks/build', 'Building the application')
+    this.info('tasks/build', 'building the application')
 
     this.stats = await new Promise<MultiStats>(res => {
       ;(this.compiler as any).run((err: Error, stats: MultiStats) => {
         for (const stat of stats.stats) {
           if (err) {
-            this.fatal(
+            this.error(
               'tasks/build',
-              'Error while running webpack in build mode:\n',
+              'while running webpack in build mode:\n',
               err.message || err.stack || err
             )
           }
@@ -26,7 +26,7 @@ export default class Build extends Compile {
               const length = stat.compilation.errors.length
               this.error(
                 'tasks/build',
-                `Error ${index} of ${length} while running webpack in build mode:\n`,
+                `${index} of ${length} while running webpack in build mode:\n`,
                 err.message || err.stack || err
               )
             }
@@ -49,9 +49,9 @@ export default class Build extends Compile {
         ),
         JSON.stringify(this.stats.stats[0].toJson('normal'))
       )
-      this.log('tasks/build', 'Saved webpack stats')
+      this.success('tasks/build', 'saved webpack stats')
     }
 
-    this.log('tasks/build', 'Successfully compiled the application')
+    this.success('tasks/build', 'compiled the application')
   }
 }

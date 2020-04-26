@@ -94,7 +94,7 @@ export default class Prerender extends Task {
       count++
     }
 
-    this.log('tasks/prerender', `Prerendered ${count} pages`)
+    this.success('tasks/prerender', `prerendered ${count} pages`)
   }
 
   private async load(path: string): Promise<React.FunctionComponent> {

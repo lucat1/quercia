@@ -19,15 +19,15 @@ export default class Watch extends Compile implements IWatch {
     })
     this.hmr()
 
-    this.log('tasks/watch', 'Watching for changes inside the application')
+    this.info('tasks/watch', 'watching for changes inside the application')
     ;(this.compiler as any).watch(
       null,
       async (err: Error, stats: MultiStats) => {
         for (const stat of stats.stats) {
           if (err) {
-            this.fatal(
+            this.error(
               'tasks/watch',
-              'Fatal error while running webpack in watch mode:\n',
+              'while running webpack in watch mode:\n',
               err.message || err.stack || err
             )
           }
@@ -36,9 +36,9 @@ export default class Watch extends Compile implements IWatch {
             for (const err of stat.compilation.errors) {
               const index = stat.compilation.errors.indexOf(err) + 1
               const length = stat.compilation.errors.length
-              this.error(
+              this.warning(
                 'tasks/watch',
-                `Error ${index} of ${length} while running webpack in watch mode:\n`,
+                `error ${index} of ${length} while running webpack in watch mode:\n`,
                 err.message || err.stack || err
               )
             }
@@ -51,7 +51,7 @@ export default class Watch extends Compile implements IWatch {
         if (this.prev == stats.hash) return
         this.prev = stats.hash
 
-        this.log('tasks/watch', 'Successfully compiled the application')
+        this.success('tasks/watch', 'compiled the application')
         await this.quercia.hooks.watch.promise(this, stats)
 
         await this.afterBuild()
@@ -60,9 +60,9 @@ export default class Watch extends Compile implements IWatch {
   }
 
   private hmr() {
-    this.log(
+    this.info(
       'tasks/watch',
-      `HMR listening on :${this.quercia.tasks.config.hmr}`
+      `hmr listening on :${this.quercia.tasks.config.hmr}`
     )
 
     createServer((req, res) => {

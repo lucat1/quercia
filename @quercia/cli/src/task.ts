@@ -14,19 +14,21 @@ export default class Task {
   protected logger: Logger
 
   protected debug: Logger['debug']
-  protected log: Logger['log']
+  protected info: Logger['info']
+  protected success: Logger['success']
+  protected warning: Logger['warning']
   protected error: Logger['error']
-  protected fatal: Logger['fatal']
 
   constructor(instance: Quercia) {
     this.quercia = instance
     this.logger = instance.logger
 
     // simplified logger methods
-    this.debug = this.logger.debug
-    this.log = this.logger.log
-    this.error = this.logger.error
-    this.fatal = this.logger.fatal
+    this.debug = this.logger.debug.bind(this.logger)
+    this.info = this.logger.info.bind(this.logger)
+    this.success = this.logger.success.bind(this.logger)
+    this.warning = this.logger.warning.bind(this.logger)
+    this.error = this.logger.error.bind(this.logger)
   }
 
   public async execute() {}

@@ -34,9 +34,9 @@ export default class Config extends Task implements IConfig {
       } else if (typeof mod === 'object' && typeof mod.default === 'function') {
         this.rc = mod.default
       } else {
-        this.fatal(
+        this.error(
           'tasks/config',
-          'The configuration file must export a reducer function either as ' +
+          'the configuration file must export a reducer function either as ' +
             '`module.exports` or as `export default`'
         )
       }
@@ -45,7 +45,7 @@ export default class Config extends Task implements IConfig {
     this.client = await this.must(false)
     this.server = await this.must(true)
 
-    this.log('tasks/config', 'Generated webpack configuration')
+    this.success('tasks/config', 'generated webpack configuration')
   }
 
   private async must(isServer: boolean): Promise<Configuration> {
@@ -62,16 +62,16 @@ export default class Config extends Task implements IConfig {
         mode: this.quercia.flags.mode
       })
     } catch (err) {
-      this.fatal(
+      this.error(
         'tasks/config',
-        'Error while executing your configuration file:\n' + err.stack
+        'while executing your configuration file:\n' + err.stack
       )
     }
 
     if (typeof final !== 'object') {
-      this.fatal(
+      this.error(
         'tasks/config',
-        "The configuration you provided doesn't " +
+        "the configuration you provided doesn't " +
           'return a valid webpack configuration object. Expected `object`, got `' +
           typeof final +
           '`'

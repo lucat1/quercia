@@ -41,6 +41,7 @@
     "fork-ts-checker-webpack-plugin": "^4.1.3",
     "get-port": "^5.1.1",
     "is-ci": "^2.0.0",
+    "kleur": "^3.0.3",
     "loader-utils": "^2.0.0",
     "react-hot-loader": "^4.12.20",
     "sade": "^1.7.3",

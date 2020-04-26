@@ -45,10 +45,7 @@ export default class Structure extends Task implements IStructure {
 
     // check if the root exists. This is mandatory and will fail otherwhise
     if (!(await exists(this.paths.root))) {
-      this.fatal(
-        'tasks/structure',
-        'The requested `src` directory does not exist'
-      )
+      this.error('tasks/structure', 'invalid `src` directory (does not exist)')
     }
 
     // check for the existance of other secondary files/folder
@@ -65,9 +62,9 @@ export default class Structure extends Task implements IStructure {
     try {
       this.paths.runtime = await resolve(this.paths.root, '@quercia/runtime')
     } catch (err) {
-      this.fatal(
+      this.error(
         'tasks/structure',
-        'Could not find the `@quercia/runtime` package. Your `node_modules` ' +
+        'could not find the `@quercia/runtime` package. Your `node_modules` ' +
           'folder is most lickely corrupted. Try reinstalling the npm modules'
       )
     }
@@ -79,9 +76,9 @@ export default class Structure extends Task implements IStructure {
     )
 
     if (this.paths.pages === null) {
-      this.fatal(
+      this.error(
         'tasks/structure',
-        "Your project doesn't contain a `pages` " +
+        "your project doesn't contain a `pages` " +
           ' folder. The compiler will abort'
       )
       return // useless, but makes typescript happy as below `this.paths.pages` is a string
@@ -93,14 +90,14 @@ export default class Structure extends Task implements IStructure {
     }
 
     if (this.paths.tsconfig && this.quercia.flags.typecheck) {
-      this.log(
+      this.info(
         'tasks/structure',
-        'Found `tsconfig.json` in the root directory, enabling typescript type-checker'
+        'found `tsconfig.json` in the root directory, enabling typescript type-checker'
       )
     }
 
     this.debug('tasks/structure', 'found pages', this.pages)
-    this.log('tasks/structure', 'Loaded project structure')
+    this.success('tasks/structure', 'loaded project structure')
   }
 
   // returns the name of a page relatively to the `this.paths.pages` folder
