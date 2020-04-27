@@ -22,10 +22,10 @@ Pull requests are encouraged. If you want to add a feature or fix a bug:
    > NOTE: you can create commits manually with git, but your last commit must
    > be created via `changeset`
 
-   > NOTE(2): git commits _MUST_ be formatted following the
-   > [conventional](https://www.conventionalcommits.org/en/v1.0.0/) commit
-   > style. we will have to squash and merge the PR otherwhise. Just run
-   > `git commit` and you will be promped to use the `commitizen` helper.
+   > NOTE(2): git commits follow the
+   > [conventional](https://www.conventionalcommits.org/en/v1.0.0/) style
+   > guideline; don't worry tough! just run`git commit` and you will be promped
+   > to use the `commitizen` helper.
 
 5. Push to your fork and open a PR
 
