@@ -7,6 +7,7 @@
   "author": "LucaT",
   "scripts": {
     "build": "preconstruct build",
+    "cm": "git-cz",
     "dev": "preconstruct watch",
     "docs:build": "vuepress build docs",
     "docs:dev": "vuepress dev docs",
@@ -24,6 +25,8 @@
     "@types/react": "^16.9.25",
     "@types/react-dom": "16.9.5",
     "babel-plugin-transform-async-to-promises": "^0.8.15",
+    "commitizen": "^4.0.4",
+    "cz-conventional-changelog": "^3.1.0",
     "husky": "4.2.3",
     "prettier": "2.0.1",
     "prettier-plugin-package": "^1.0.0",
@@ -32,8 +35,14 @@
     "react-dom": "^16.13.1",
     "vuepress": "^1.4.0"
   },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
+    }
+  },
   "husky": {
     "hooks": {
+      "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true",
       "pre-commit": "pretty-quick --pattern '*.json */*.{ts,json} @quercia/**/*.{ts,json} @quercia/**/**/*.{ts,json}' --staged"
     }
   },

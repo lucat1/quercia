@@ -24,7 +24,8 @@ Pull requests are encouraged. If you want to add a feature or fix a bug:
 
    > NOTE(2): git commits _MUST_ be formatted following the
    > [conventional](https://www.conventionalcommits.org/en/v1.0.0/) commit
-   > style. we will have to squash and merge the PR otherwhise
+   > style. we will have to squash and merge the PR otherwhise. Just run
+   > `git commit` and you will be promped to use the `commitizen` helper.
 
 5. Push to your fork and open a PR
 
