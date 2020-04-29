@@ -4,6 +4,13 @@ import { join } from 'path'
 import Quercia from '../quercia'
 import Manifest, { VendorChunk } from './manifest'
 
+const vendors: VendorChunk[] = [
+  'webpack-runtime',
+  'vendor',
+  'runtime',
+  'polyfills'
+]
+
 export default class ManifestPlugin implements Plugin {
   private quercia: Quercia
 
@@ -21,24 +28,7 @@ export default class ManifestPlugin implements Plugin {
       }
 
       for (const chunk of chunks) {
-        // handle pages chunks
-        if (chunk.name.startsWith('pages/')) {
-          const key = chunk.name.replace('pages/', '')
-          assets.pages[key] = join(
-            this.quercia.buildID,
-            'client',
-            chunk.name + '.js'
-          )
-          continue
-        }
-
         // handle normal chunks
-        const vendors: VendorChunk[] = [
-          'webpack-runtime',
-          'vendor',
-          'runtime',
-          'polyfills'
-        ]
         if (vendors.includes(chunk.name as VendorChunk)) {
           const name = chunk.name as VendorChunk
           assets.vendor[name] = join(
@@ -48,6 +38,33 @@ export default class ManifestPlugin implements Plugin {
           )
         }
       }
+
+      for (const [, e] of compilation.entrypoints.entries()) {
+        const entry = e as compilation.Chunk
+
+        // ignroe non-pages entries
+        if (!/pages\//.test(entry.name)) {
+          continue
+        }
+
+        const key = entry.name.replace('pages/', '')
+        assets.pages[key] = []
+        const depends: string[] = (entry as any).getFiles()
+
+        for (const dep of depends) {
+          if (vendors.includes(dep.replace('.js', '') as any)) {
+            continue
+          }
+
+          assets.pages[key].push(join(this.quercia.buildID, 'client', dep))
+        }
+      }
+
+      assets.vendor.polyfills = join(
+        this.quercia.buildID,
+        'polyfills',
+        'polyfills.js'
+      )
 
       this.quercia.tasks.builder.manifest = assets
     })

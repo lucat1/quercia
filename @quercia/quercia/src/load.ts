@@ -5,7 +5,7 @@ export interface PageData {
   loading: boolean
   page: string
   props: Object
-  script?: string
+  scripts?: string[]
 }
 
 export type RequestedPageData = Required<PageData>
@@ -68,7 +68,7 @@ export async function req(
   const data = parse(await req.text())
 
   // check if we recieved a string url. This is mandatory
-  invariant(data.script, "The response didn't include a script url")
+  invariant(data.scripts, "The response didn't include any scripts url")
 
   return data
 }

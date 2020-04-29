@@ -7,10 +7,6 @@ import { exists, readdir } from '../fs'
 
 import IStructure, { Paths, Pages } from './istructure'
 
-const resolve: (root: string, mod: string) => Promise<string> = promisify(
-  eresolve
-) as any
-
 export default class Structure extends Task implements IStructure {
   // only used during existance checking
   private _paths: Paths = {
@@ -60,6 +56,9 @@ export default class Structure extends Task implements IStructure {
 
     // set runtime separately cause it has to be resolved with `enhanced-resolve`
     try {
+      const resolve: (root: string, mod: string) => Promise<string> = promisify(
+        eresolve.create({ mainFields: ['module'] })
+      ) as any
       this.paths.runtime = await resolve(this.paths.root, '@quercia/runtime')
     } catch (err) {
       this.error(

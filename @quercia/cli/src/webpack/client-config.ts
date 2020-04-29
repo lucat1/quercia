@@ -1,4 +1,8 @@
-import { Configuration, HotModuleReplacementPlugin } from 'webpack'
+import {
+  Configuration,
+  HotModuleReplacementPlugin,
+  NormalModuleReplacementPlugin
+} from 'webpack'
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
 import eresolve from 'enhanced-resolve'
 import { promisify } from 'util'
@@ -22,9 +26,9 @@ export default async (base: Configuration): Promise<Configuration> => {
     '@quercia/cli/dist/webpack/page-loader'
   )
 
-  const polyfills = await resolve(
+  const noop = await resolve(
     Quercia.getInstance().tasks.structure.paths.root,
-    '@quercia/cli/dist/webpack/polyfills'
+    '@quercia/cli/dist/webpack/noop'
   )
 
   const entries = base.entry as T
@@ -60,15 +64,21 @@ export default async (base: Configuration): Promise<Configuration> => {
     }`
   }
 
-  entry['polyfills'] = polyfills
-
   return {
     ...base,
     entry,
     target: 'web',
     plugins: [
       ...(base.plugins || []),
-      new ManifestPlugin(Quercia.getInstance())
+      new ManifestPlugin(Quercia.getInstance()),
+      new NormalModuleReplacementPlugin(
+        /core-js/,
+        (resource: { context: string; request: string }) => {
+          if (!resource.context.endsWith('polyfill.js')) {
+            resource.request = noop
+          }
+        }
+      )
     ]
       .concat(mode === 'development' ? new HotModuleReplacementPlugin() : [])
       .concat(
@@ -101,6 +111,7 @@ export default async (base: Configuration): Promise<Configuration> => {
       ),
     resolve: {
       ...base.resolve,
+      mainFields: ['browser', 'module', 'main'],
       alias: {
         // prevent duplicate react versions
         // which causes issues with hooks (react >= 16.8)
@@ -134,7 +145,8 @@ export default async (base: Configuration): Promise<Configuration> => {
           vendor: {
             chunks: 'all',
             name: 'vendor',
-            test: /(?<!node_modules.*)[\\/]node_modules[\\/](react|react-dom|scheduler|prop-types|object-assign|preact|@quercia\/quercia|core-js|babel-plugin-transform-async-to-promises)[\\/]/,
+            //test: /(?<!node_modules.*)[\\/]node_modules[\\/](react|react-dom|scheduler|prop-types|object-assign|preact|@quercia\/(quercia|cli)|core-js|babel-plugin-transform-async-to-promises|react-hot-loader|@hot-loader|tiny-(invariant|warning))[\\/]/,
+            test: /(react|react-dom|scheduler|prop-types|object-assign|preact|@quercia\/(quercia|cli)|core-js|babel-plugin-transform-async-to-promises|react-hot-loader|@hot-loader|tiny-(invariant|warning))/,
             priority: 40,
             enforce: true
           },

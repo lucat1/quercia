@@ -67,10 +67,24 @@ async function routeTo(
     delete newData.redirect
   }
 
-  if (newData.script && !isLoaded(newData.page)) {
-    // TODO: bump progress
-    await reqScript(newData.script)
-  }
+  const scripts = newData.scripts || []
+
+  // load all the required scripts *in the right order*
+  await new Promise((res, rej) => {
+    let i = 0
+
+    const fn = (): any => {
+      if (i >= scripts.length) {
+        return res()
+      }
+
+      return reqScript(scripts[i++])
+        .then(fn)
+        .catch(rej)
+    }
+
+    fn()
+  })
 
   setData({
     ...newData,

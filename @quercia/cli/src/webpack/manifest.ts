@@ -1,6 +1,6 @@
 export default interface Manifest {
   pages: {
-    [key: string]: string
+    [key: string]: string[]
   }
 
   prerender: {

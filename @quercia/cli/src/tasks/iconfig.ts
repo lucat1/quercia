@@ -3,7 +3,7 @@ import { Configuration } from 'webpack'
 // the arguments used to call the function exported from the config file
 export interface ConfigurationArgument {
   config: Configuration
-  isServer: boolean
+  target: Target
   buildID: string
   mode: 'production' | 'development'
 }
@@ -23,3 +23,5 @@ export default interface IConfig {
   // the port is `-1` when we are in build mode or HMR is disabled
   hmr: number
 }
+
+export type Target = 'client' | 'server' | 'polyfills'

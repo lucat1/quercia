@@ -33,7 +33,8 @@ export default class Compile extends Task {
 
     const cfg = [
       this.quercia.tasks.config.client,
-      this.quercia.tasks.config.server
+      this.quercia.tasks.config.server,
+      this.quercia.tasks.config.polyfills
     ]
 
     this.compiler = webpack(cfg)
@@ -66,7 +67,7 @@ export default class Compile extends Task {
       this.quercia.flags.mode == 'production' ? 0 : 2
     )
 
-    // save the file in two pats so that ever after a recompile the manifest
+    // save the file in two paths so that ever after a recompile the manifest
     // is still available under the unique buildID based folder
     const paths = [
       join(this.quercia.tasks.structure.paths.root, '__quercia'),

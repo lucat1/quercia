@@ -30,9 +30,9 @@ var (
 
 // struct describing the `manifest.json`
 type manifest struct {
-	Pages     map[string]string `json:"pages"`
-	Vendor    map[string]string `json:"vendor"`
-	Prerender map[string]string `json:"prerender"`
+	Pages     map[string][]string `json:"pages"`
+	Vendor    map[string]string   `json:"vendor"`
+	Prerender map[string]string   `json:"prerender"`
 }
 
 // struct describing the data inside a template render
@@ -45,8 +45,8 @@ type renderData struct {
 type jsonRenderData struct {
 	renderData
 
-	Script   string `json:"script"`
-	Redirect string `json:"redirect"`
+	Scripts  []string `json:"scripts"`
+	Redirect string   `json:"redirect"`
 }
 
 // Props is the type for the data structure to give quercia renderer
@@ -124,6 +124,26 @@ func script(src string) string {
 	return `<script src="` + querciaPrefix + src + `"></script>`
 }
 
+// scripts generates multiple script imports
+func scripts(srcs []string) string {
+	res := ""
+	for _, src := range srcs {
+		res += script(src)
+	}
+
+	return res
+}
+
+// prefixes a slice of strings all with the same prefix
+func prefix(pref string, srcs []string) []string {
+	res := []string{}
+	for _, src := range srcs {
+		res = append(res, pref+src)
+	}
+
+	return res
+}
+
 // stringify turns a struct into a json string and handles marshaling(encoding)
 // errors gracefully
 func stringify(data interface{}) []byte {
@@ -147,7 +167,7 @@ func failOnUnkownPage(man manifest, page string) {
 	// if the page url does not exist we will panic
 	// this is not handled gracefully because it should
 	// be caught at development time and never happen in production
-	if man.Pages[page] == "" {
+	if len(man.Pages[page]) == 0 {
 		panic("The requested page `" + page + "` is not defined inside the manifest")
 	}
 }
@@ -189,21 +209,21 @@ func Render(w http.ResponseWriter, r *http.Request, page string, props interface
 	}
 
 	// begin building the scripts
-	scripts := data(rdata)
-	scripts += `<script nomodule src="` + querciaPrefix + polyfills + `"></script>`
-	scripts += script(webpack)
-	scripts += script(vendor)
+	_scripts := data(rdata)
+	_scripts += `<script nomodule src="` + querciaPrefix + polyfills + `"></script>`
+	_scripts += script(webpack)
+	_scripts += script(vendor)
 
 	// if we have a custom _app we should use it
-	if manifest.Pages["_app"] != "" {
-		scripts += script(manifest.Pages["_app"])
+	if len(manifest.Pages["_app"]) != 0 {
+		_scripts += scripts(manifest.Pages["_app"])
 	}
 
-	scripts += script(pageSrc)
-	scripts += script(runtime)
+	_scripts += scripts(pageSrc)
+	_scripts += script(runtime)
 
 	// replace head, prerender and scripts sections
-	template = strings.Replace(template, querciaScripts, scripts, 1)
+	template = strings.Replace(template, querciaScripts, _scripts, 1)
 
 	w.Header().Add("Content-Type", htmlMime)
 	w.Write([]byte(template))
@@ -221,7 +241,7 @@ func renderJSON(w http.ResponseWriter, r *http.Request, redirect string, page st
 			Page:  page,
 			Props: props,
 		},
-		Script:   querciaPrefix + manifest.Pages[page],
+		Scripts:  prefix(querciaPrefix, manifest.Pages[page]),
 		Redirect: redirect,
 	})
 

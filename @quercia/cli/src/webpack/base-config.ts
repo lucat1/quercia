@@ -4,9 +4,10 @@ import isCI from 'is-ci'
 import Terser from 'terser-webpack-plugin'
 
 import Quercia from '../quercia'
+import { Target } from '../tasks/iconfig'
 
 // config returns the default webpack configuration, one for each
-export default (isServer: boolean): Configuration => {
+export default (target: Target): Configuration => {
   const {
     buildID,
     flags: { mode, stats }
@@ -17,7 +18,7 @@ export default (isServer: boolean): Configuration => {
     paths: { runtime, root }
   } = Quercia.getInstance().tasks.structure
 
-  const out = join(root, '__quercia', buildID, isServer ? 'server' : 'client')
+  const out = join(root, '__quercia', buildID, target)
 
   return {
     mode,
@@ -35,8 +36,7 @@ export default (isServer: boolean): Configuration => {
     output: {
       filename: '[name].js',
       path: out,
-      publicPath:
-        '/__quercia/' + buildID + '/' + (isServer ? 'server' : 'client') + '/'
+      publicPath: '/__quercia/' + buildID + '/' + target + '/'
     },
     entry: {
       runtime,
@@ -53,6 +53,7 @@ export default (isServer: boolean): Configuration => {
           use: {
             loader: 'babel-loader',
             options: {
+              sourceType: 'unambiguous',
               presets: [
                 [
                   '@babel/preset-env',
@@ -62,9 +63,7 @@ export default (isServer: boolean): Configuration => {
                       '@babel/plugin-transform-typeof-symbol'
                     ],
                     useBuiltIns: 'usage',
-                    modules: 'auto',
                     corejs: 3,
-                    loose: true,
                     targets: {
                       browsers: ['last 2 versions', 'IE >= 9']
                     }
@@ -78,7 +77,7 @@ export default (isServer: boolean): Configuration => {
                   'transform-async-to-promises',
                   {
                     // share code between files (only on the client-side)
-                    externalHelpers: !isServer
+                    externalHelpers: target === 'client'
                   }
                 ]
               ].concat(mode === 'development' ? ['react-hot-loader/babel'] : [])
@@ -88,9 +87,9 @@ export default (isServer: boolean): Configuration => {
       ]
     },
     optimization: {
-      minimize: mode === 'production' && !isServer,
+      minimize: mode === 'production' && target !== 'server',
       minimizer:
-        mode === 'production' && !isServer
+        mode === 'production' && target !== 'server'
           ? [
               new Terser({
                 parallel: !isCI,

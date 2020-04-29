@@ -3,11 +3,12 @@ import getPort from 'get-port'
 
 import Task from '../task'
 import Structure from './structure'
-import IConfig, { Reducer, PReducer } from './iconfig'
+import IConfig, { Reducer, PReducer, Target } from './iconfig'
 
 import basecfg from '../webpack/base-config'
 import clientcfg from '../webpack/client-config'
 import servercfg from '../webpack/server-config'
+import polyfillscfg from '../webpack/polyfills-config'
 
 export default class Config extends Task implements IConfig {
   private structure: Structure = null as any
@@ -15,6 +16,7 @@ export default class Config extends Task implements IConfig {
 
   public client: Configuration = null as any
   public server: Configuration = null as any
+  public polyfills: Configuration = null as any
 
   public hmr: number = -1
 
@@ -42,21 +44,41 @@ export default class Config extends Task implements IConfig {
       }
     }
 
-    this.client = await this.must(false)
-    this.server = await this.must(true)
+    this.client = await this.must('client')
+    this.server = await this.must('server')
+    this.polyfills = await this.must('polyfills')
 
     this.success('tasks/config', 'generated webpack configuration')
   }
 
-  private async must(isServer: boolean): Promise<Configuration> {
-    const internal = isServer
-      ? await servercfg(basecfg(isServer))
-      : await clientcfg(basecfg(isServer))
+  private async must(target: Target): Promise<Configuration> {
+    const base = basecfg(target)
+    let internal: Configuration
+    switch (target) {
+      case 'server':
+        internal = await servercfg(base)
+        break
 
+      case 'client':
+        internal = await clientcfg(base)
+        break
+
+      case 'polyfills':
+        internal = await polyfillscfg(base)
+        break
+
+      default:
+        this.error(
+          'tasks/config',
+          'invalid configuration target (can only be: server, client, polyfills)'
+        )
+        internal = null as any
+    }
     let final: Configuration = null as any
+
     try {
       final = await this.rc({
-        isServer,
+        target,
         config: internal,
         buildID: this.quercia.buildID,
         mode: this.quercia.flags.mode

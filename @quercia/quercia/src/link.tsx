@@ -27,14 +27,15 @@ export function navigate(
 
 export const Link: React.FunctionComponent<LinkProps> = props => {
   const to = props.to
-  delete props.to
 
   const onClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     e.preventDefault()
     navigate(props.to, props.method)
   }
 
-  return <a {...props} onClick={onClick} href={to} />
+  const p = Object.assign({}, props, { to: undefined })
+
+  return <a {...p} onClick={onClick} href={to} />
 }
 
 export default Link
