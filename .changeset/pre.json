@@ -7,6 +7,7 @@
     "@quercia/runtime": "0.2.4"
   },
   "changesets": [
+    "breezy-toys-rest",
     "kind-carpets-shout",
     "metal-wombats-confess",
     "twenty-ways-protect"

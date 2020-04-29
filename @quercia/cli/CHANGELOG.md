@@ -1,5 +1,13 @@
 # @quercia/cli
 
+## 0.4.0-next.3
+
+### Patch Changes
+
+- [`2d75a47`](https://github.com/lucat1/quercia/commit/2d75a475b59fd48f6fc36f3ff4670d176bb7d889)
+  Thanks [@lucat1](https://github.com/lucat1)! - fix(cli): include object-assing
+  in all bundles with react
+
 ## 0.4.0-next.2
 
 ### Patch Changes
