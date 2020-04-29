@@ -1,6 +1,6 @@
 {
   "name": "@quercia/cli",
-  "version": "0.3.8",
+  "version": "0.4.0-next.0",
   "description": "The quercia cli",
   "license": "MIT",
   "repository": {
@@ -33,7 +33,7 @@
     "@babel/preset-react": "^7.9.4",
     "@babel/preset-typescript": "^7.9.0",
     "@hot-loader/react-dom": "^16.13.0",
-    "@quercia/runtime": "^0.2.4",
+    "@quercia/runtime": "^0.3.0-next.0",
     "astring": "^1.4.3",
     "babel-loader": "^8.1.0",
     "babel-plugin-transform-async-to-promises": "^0.8.15",

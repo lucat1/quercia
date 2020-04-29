@@ -1,5 +1,19 @@
 # @quercia/cli
 
+## 0.4.0-next.0
+
+### Minor Changes
+
+- [`4e68520`](https://github.com/lucat1/quercia/commit/4e68520cb1d420178bcac3f2b24d44d391fb0409)
+  Thanks [@lucat1](https://github.com/lucat1)! - perf(all): change webpack
+  optimization and properly load polyfills with babel
+
+### Patch Changes
+
+- Updated dependencies
+  [[`4e68520`](https://github.com/lucat1/quercia/commit/4e68520cb1d420178bcac3f2b24d44d391fb0409)]:
+  - @quercia/runtime@0.3.0-next.0
+
 ## 0.3.8
 
 ### Patch Changes

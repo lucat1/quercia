@@ -1,0 +1,12 @@
+{
+  "mode": "pre",
+  "tag": "next",
+  "initialVersions": {
+    "@quercia/cli": "0.3.8",
+    "@quercia/quercia": "0.1.9",
+    "@quercia/runtime": "0.2.4"
+  },
+  "changesets": [
+    "kind-carpets-shout"
+  ]
+}

@@ -1,5 +1,13 @@
 # @quercia/quercia
 
+## 0.2.0-next.0
+
+### Minor Changes
+
+- [`4e68520`](https://github.com/lucat1/quercia/commit/4e68520cb1d420178bcac3f2b24d44d391fb0409)
+  Thanks [@lucat1](https://github.com/lucat1)! - perf(all): change webpack
+  optimization and properly load polyfills with babel
+
 ## 0.1.9
 
 ### Patch Changes
