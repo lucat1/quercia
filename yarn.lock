@@ -1552,6 +1552,11 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-12.12.34.tgz#0a5d6ae5d22612f0cf5f10320e1fc5d2a745dcb8"
   integrity sha512-BneGN0J9ke24lBRn44hVHNeDlrXRYF+VRp0HbSUNnEZahXGAysHZIqnf/hER6aabdBgzM4YOV4jrR8gj4Zfi0g==
 
+"@types/object-assign@^4.0.30":
+  version "4.0.30"
+  resolved "https://registry.yarnpkg.com/@types/object-assign/-/object-assign-4.0.30.tgz#8949371d5a99f4381ee0f1df0a9b7a187e07e652"
+  integrity sha1-iUk3HVqZ9Dge4PHfCpt6GH4H5lI=
+
 "@types/parse-json@^4.0.0":
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/@types/parse-json/-/parse-json-4.0.0.tgz#2f8bb441434d163b35fb8ffdccd7138927ffb8c0"
@@ -3345,6 +3350,11 @@ core-js@^3.6.4:
   version "3.6.4"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.6.4.tgz#440a83536b458114b9cb2ac1580ba377dc470647"
   integrity sha512-4paDGScNgZP2IXXilaffL9X7968RuvwlkK3xWtZRVqgd8SYNiVKRJvkFd1aqqEuPfN7E68ZHEp9hDj6lHj4Hyw==
+
+core-js@^3.6.5:
+  version "3.6.5"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.6.5.tgz#7395dc273af37fb2e50e9bd3d9fe841285231d1a"
+  integrity sha512-vZVEEwZoIsI+vPEuoF9Iqf5H7/M3eeQqWlQnYa8FSKKePuYTf5MWnxb5SDAzCa60b3JBRS5g9b+Dq7b1y/RCrA==
 
 core-util-is@1.0.2, core-util-is@~1.0.0:
   version "1.0.2"
@@ -9624,6 +9634,11 @@ uid@^1.0.0:
   resolved "https://registry.yarnpkg.com/uid/-/uid-1.0.0.tgz#40a64108ebdf765b3945c286b77c83c168687170"
   integrity sha512-DYp36HDIRECMW0xmeyGSDSheURMbL7gy4DqINDUW5OSw7cot0pNRNvEtEji9nk1XVDZN/0lJ7myxacoTeU9oow==
 
+unfetch@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/unfetch/-/unfetch-4.1.0.tgz#6ec2dd0de887e58a4dee83a050ded80ffc4137db"
+  integrity sha512-crP/n3eAPUJxZXM9T80/yv0YhkTEx2K1D3h7D1AJM6fzsWZrxdyRuLN0JH/dkZh1LNH8LxCnBzoPFCPbb2iGpg==
+
 unicode-canonical-property-names-ecmascript@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/unicode-canonical-property-names-ecmascript/-/unicode-canonical-property-names-ecmascript-1.0.4.tgz#2619800c4c825800efdd8343af7dd9933cbe2818"
@@ -9775,6 +9790,11 @@ url-parse@^1.4.3:
   dependencies:
     querystringify "^2.1.1"
     requires-port "^1.0.0"
+
+url-polyfill@^1.1.8:
+  version "1.1.8"
+  resolved "https://registry.yarnpkg.com/url-polyfill/-/url-polyfill-1.1.8.tgz#21eb58ad61192f52b77dcac8ab5293ae7bc67060"
+  integrity sha512-Ey61F4FEqhcu1vHSOMmjl0Vd/RPRLEjMj402qszD/dhMBrVfoUsnIj8KSZo2yj+eIlxJGKFdnm6ES+7UzMgZ3Q==
 
 url@^0.11.0:
   version "0.11.0"

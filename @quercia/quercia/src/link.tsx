@@ -25,22 +25,16 @@ export function navigate(
   })
 }
 
-export const Link: React.FunctionComponent<LinkProps> = ({
-  to,
-  children,
-  method,
-  ...props
-}) => {
+export const Link: React.FunctionComponent<LinkProps> = props => {
+  const to = props.to
+  delete props.to
+
   const onClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     e.preventDefault()
-    navigate(to, method)
+    navigate(props.to, props.method)
   }
 
-  return (
-    <a {...props} onClick={onClick} href={to}>
-      {children}
-    </a>
-  )
+  return <a {...props} onClick={onClick} href={to} />
 }
 
 export default Link

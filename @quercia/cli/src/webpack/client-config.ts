@@ -3,6 +3,7 @@ import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
 import eresolve from 'enhanced-resolve'
 import { promisify } from 'util'
 import { sep } from 'path'
+import uid from 'uid'
 
 import ManifestPlugin from './manifest-plugin'
 import Quercia from '../quercia'
@@ -19,6 +20,11 @@ export default async (base: Configuration): Promise<Configuration> => {
   const loader = await resolve(
     Quercia.getInstance().tasks.structure.paths.root,
     '@quercia/cli/dist/webpack/page-loader'
+  )
+
+  const polyfills = await resolve(
+    Quercia.getInstance().tasks.structure.paths.root,
+    '@quercia/cli/dist/webpack/polyfills'
   )
 
   const entries = base.entry as T
@@ -53,6 +59,8 @@ export default async (base: Configuration): Promise<Configuration> => {
       mode === 'development'
     }`
   }
+
+  entry['polyfills'] = polyfills
 
   return {
     ...base,
@@ -114,14 +122,42 @@ export default async (base: Configuration): Promise<Configuration> => {
       },
       splitChunks: {
         chunks: 'all',
-        maxInitialRequests: 2,
         cacheGroups: {
-          runtime: {
-            test: /(node_modules|@quercia\/quercia)/,
+          default: false,
+          vendors: false,
+          polyfills: {
+            chunks: 'all',
+            name: 'polyfills',
+            test: /core-js|unfetch|url-polyfill|object-assign/,
+            priority: 50
+          },
+          vendor: {
+            chunks: 'all',
             name: 'vendor',
-            priority: -10
+            test: /(?<!node_modules.*)[\\/]node_modules[\\/](react|react-dom|scheduler|prop-types|object-assign|preact|@quercia\/quercia|core-js|babel-plugin-transform-async-to-promises)[\\/]/,
+            priority: 40,
+            enforce: true
+          },
+          lib: {
+            test: (module: { size: Function; identifier: Function }) =>
+              module.size() > 160000 &&
+              /node_modules[/\\]/.test(module.identifier()),
+
+            name: () => `lib-${uid(7)}`,
+            priority: 30,
+            minChunks: 1,
+            reuseExistingChunk: true
+          },
+          commons: { name: 'commons', minChunks: 4, priority: 20 },
+          shared: {
+            name: () => `shared-${uid(7)}`,
+            priority: 10,
+            minChunks: 2,
+            reuseExistingChunk: true
           }
-        }
+        },
+        maxInitialRequests: 25,
+        minSize: 20000
       }
     }
   }

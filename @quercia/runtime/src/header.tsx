@@ -19,7 +19,7 @@ const toDOM = ({ type, props }: React.ReactElement<any, string>) => {
   const el = document.createElement(type)
 
   // map props to attributes
-  for (const p in props) {
+  Object.keys(props || {}).map(p => {
     // ignore edge cases or unwanted props
     if (
       !props.hasOwnProperty(p) ||
@@ -27,11 +27,11 @@ const toDOM = ({ type, props }: React.ReactElement<any, string>) => {
       p === 'children' ||
       p === 'dangerouslySetInnerHTML'
     )
-      continue
+      return
 
     const attr = DOMAttributeNames[p] || p.toLowerCase()
     el.setAttribute(attr, props[p])
-  }
+  })
 
   // handle custom html code or children
   const { children, dangerouslySetInnerHTML } = props

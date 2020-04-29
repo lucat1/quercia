@@ -27,6 +27,7 @@
   "dependencies": {
     "@quercia/quercia": "0.1.9",
     "babel-plugin-transform-async-to-promises": "^0.8.15",
+    "core-js": "^3.6.5",
     "tiny-invariant": "^1.1.0",
     "tiny-warning": "^1.0.3"
   },

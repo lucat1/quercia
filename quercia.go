@@ -170,6 +170,7 @@ func Render(w http.ResponseWriter, r *http.Request, page string, props interface
 
 	// alias all required filds for easy access
 	// there are all urls to javascript files
+	polyfills := manifest.Vendor["polyfills"]
 	webpack := manifest.Vendor["webpack-runtime"]
 	vendor := manifest.Vendor["vendor"]
 	runtime := manifest.Vendor["runtime"]
@@ -189,6 +190,7 @@ func Render(w http.ResponseWriter, r *http.Request, page string, props interface
 
 	// begin building the scripts
 	scripts := data(rdata)
+	scripts += `<script nomodule src="` + querciaPrefix + polyfills + `"></script>`
 	scripts += script(webpack)
 	scripts += script(vendor)
 

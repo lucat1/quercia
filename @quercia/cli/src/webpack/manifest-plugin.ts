@@ -33,7 +33,12 @@ export default class ManifestPlugin implements Plugin {
         }
 
         // handle normal chunks
-        const vendors: VendorChunk[] = ['webpack-runtime', 'vendor', 'runtime']
+        const vendors: VendorChunk[] = [
+          'webpack-runtime',
+          'vendor',
+          'runtime',
+          'polyfills'
+        ]
         if (vendors.includes(chunk.name as VendorChunk)) {
           const name = chunk.name as VendorChunk
           assets.vendor[name] = join(

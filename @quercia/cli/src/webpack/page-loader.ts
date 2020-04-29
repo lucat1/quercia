@@ -9,7 +9,6 @@ interface Query {
 
 const pageLoader: loader.Loader = function () {
   const query = parseQuery(this.resourceQuery) as Query
-
   // add `exclude-loader` and `page-hot-loader` (only during dev mode)
   const pagePath = JSON.stringify(
     `${resolve(process.cwd(), '@quercia/cli/dist/webpack/exclude-loader')}${

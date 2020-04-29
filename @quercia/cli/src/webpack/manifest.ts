@@ -12,4 +12,4 @@ export default interface Manifest {
   }
 }
 
-export type VendorChunk = 'webpack-runtime' | 'vendor' | 'runtime'
+export type VendorChunk = 'webpack-runtime' | 'vendor' | 'runtime' | 'polyfills'

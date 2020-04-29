@@ -56,7 +56,19 @@ export default (isServer: boolean): Configuration => {
               presets: [
                 [
                   '@babel/preset-env',
-                  { exclude: ['@babel/plugin-transform-regenerator'] }
+                  {
+                    exclude: [
+                      '@babel/plugin-transform-regenerator',
+                      '@babel/plugin-transform-typeof-symbol'
+                    ],
+                    useBuiltIns: 'usage',
+                    modules: 'auto',
+                    corejs: 3,
+                    loose: true,
+                    targets: {
+                      browsers: ['last 2 versions', 'IE >= 9']
+                    }
+                  }
                 ],
                 '@babel/preset-typescript',
                 '@babel/preset-react'

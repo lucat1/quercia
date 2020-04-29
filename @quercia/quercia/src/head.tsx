@@ -27,10 +27,10 @@ const flatten = (prev: Children, curr: Child): Children => {
   if (curr.type === React.Fragment) {
     const children = React.Children.toArray(curr.props.children) as Children
 
-    return [...prev, ...children.reduce(flatten, [])]
+    return prev.concat(children.reduce(flatten, []))
   }
 
-  return [...prev, curr]
+  return prev.concat(curr)
 }
 
 const METATYPES = ['name', 'httpEquiv', 'charSet', 'itemProp']
@@ -67,8 +67,8 @@ function unique() {
         break
 
       case 'meta':
-        for (const metatype of METATYPES) {
-          if (!h.props.hasOwnProperty(metatype)) continue
+        METATYPES.map(metatype => {
+          if (!h.props.hasOwnProperty(metatype)) return
 
           if (metatype === 'charSet') {
             if (metaTypes.has(metatype)) {
@@ -86,7 +86,7 @@ function unique() {
               metaCategories[metatype] = categories
             }
           }
-        }
+        })
         break
     }
 
@@ -100,7 +100,7 @@ const emit = (fn: HeadUpdater) => {
   // manipulate the set to make it into a 1-level flat array only containing
   // string-based(the `type`) react elements to be rendered inside the document.head
   const result = Array.from(allChildren)
-    .reduce((prev, curr) => [...prev, ...curr], [] as Children)
+    .reduce((prev, curr) => prev.concat(curr), [] as Children)
     .reduce(flatten, [])
     // reverse so we check the uniqueness of the items from the last
     // and so inside `unique` we can ditch previous values as they'll
