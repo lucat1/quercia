@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { renderToStaticMarkup as toString } from 'react-dom/server'
+import escape from 'escape-html'
 import { join } from 'path'
 
 import { AppProps, DocumentProps } from '@quercia/runtime'
@@ -16,7 +17,7 @@ function handleError(err: Error, path: string): [number, string, string] {
     `<div>
     <h2>Error while prerendering page <code>${path}</code></h2>
     <code><pre>
-      ${err.stack}
+      ${escape((err.stack || err.message || err) as string)}
     </pre></code>
     <script>debugger</script>
   </div>`
