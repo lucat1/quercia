@@ -1,5 +1,13 @@
 # @quercia/cli
 
+## 0.4.0-next.1
+
+### Patch Changes
+
+- [`34aafd6`](https://github.com/lucat1/quercia/commit/34aafd6b4b7b6516da2a6d8536a37fae30f3d1a5)
+  Thanks [@lucat1](https://github.com/lucat1)! - fix(cli): escape errors during
+  prerender to be embedded in html
+
 ## 0.4.0-next.0
 
 ### Minor Changes
