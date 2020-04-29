@@ -1,5 +1,13 @@
 # @quercia/quercia
 
+## 0.2.0-next.1
+
+### Patch Changes
+
+- [`bace27d`](https://github.com/lucat1/quercia/commit/bace27d416923dcb7b91cc6a8aa760f363361af1)
+  Thanks [@lucat1](https://github.com/lucat1)! - feat(polyfills): build as a
+  separate config
+
 ## 0.2.0-next.0
 
 ### Minor Changes

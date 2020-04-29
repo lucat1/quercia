@@ -1,5 +1,16 @@
 # @quercia/cli
 
+## 0.4.0-next.2
+
+### Patch Changes
+
+- [`bace27d`](https://github.com/lucat1/quercia/commit/bace27d416923dcb7b91cc6a8aa760f363361af1)
+  Thanks [@lucat1](https://github.com/lucat1)! - feat(polyfills): build as a
+  separate config
+
+- Updated dependencies []:
+  - @quercia/runtime@0.2.5-next.1
+
 ## 0.4.0-next.1
 
 ### Patch Changes
