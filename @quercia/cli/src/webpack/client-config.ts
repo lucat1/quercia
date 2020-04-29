@@ -71,14 +71,7 @@ export default async (base: Configuration): Promise<Configuration> => {
     plugins: [
       ...(base.plugins || []),
       new ManifestPlugin(Quercia.getInstance()),
-      new NormalModuleReplacementPlugin(
-        /core-js/,
-        (resource: { context: string; request: string }) => {
-          if (!resource.context.endsWith('polyfill.js')) {
-            resource.request = noop
-          }
-        }
-      )
+      new NormalModuleReplacementPlugin(/core-js|unfetch|url-polyfill/, noop)
     ]
       .concat(mode === 'development' ? new HotModuleReplacementPlugin() : [])
       .concat(
@@ -136,12 +129,6 @@ export default async (base: Configuration): Promise<Configuration> => {
         cacheGroups: {
           default: false,
           vendors: false,
-          polyfills: {
-            chunks: 'all',
-            name: 'polyfills',
-            test: /core-js|unfetch|url-polyfill|object-assign/,
-            priority: 50
-          },
           vendor: {
             chunks: 'all',
             name: 'vendor',
