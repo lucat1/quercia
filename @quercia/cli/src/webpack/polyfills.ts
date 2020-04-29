@@ -1,6 +1,3 @@
-// Taken from:
-// https://github.com/zeit/next.js/blob/canary/packages/next-polyfill-nomodule/src/index.js
-
 import 'core-js/modules/es.array.index-of'
 import 'core-js/modules/es.array.map'
 import 'core-js/modules/es.array.slice'
