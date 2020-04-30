@@ -13,7 +13,7 @@ import ManifestPlugin from './manifest-plugin'
 import Quercia from '../quercia'
 
 const resolve: (root: string, mod: string) => Promise<string> = promisify(
-  eresolve
+  eresolve.create({ mainFields: ['module', 'main'] })
 ) as any
 
 interface T {
