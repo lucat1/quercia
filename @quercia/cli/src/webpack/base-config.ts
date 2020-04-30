@@ -43,13 +43,21 @@ export default (target: Target): Configuration => {
       ...pages
     },
     resolve: {
-      extensions: ['.js', '.jsx', '.mjs', '.json', '.ts', '.tsx']
+      extensions: ['.js', '.jsx', '.mjs', '.json', '.ts', '.tsx'],
+      mainFields: ['module', 'main']
     },
     module: {
       rules: [
         {
           test: /\.m?[t|j]sx?$/,
-          exclude: /node_modules/,
+          include: path => {
+            // absolutely always compile quercia modules which are written in modern js
+            if (/@quercia\/(quercia|runtime)/.test(path)) {
+              return true
+            }
+
+            return !/node_modules/.test(path)
+          },
           use: {
             loader: 'babel-loader',
             options: {
@@ -62,8 +70,6 @@ export default (target: Target): Configuration => {
                       '@babel/plugin-transform-regenerator',
                       '@babel/plugin-transform-typeof-symbol'
                     ],
-                    useBuiltIns: 'usage',
-                    corejs: 3,
                     targets: {
                       browsers: ['last 2 versions', 'IE >= 9']
                     }
