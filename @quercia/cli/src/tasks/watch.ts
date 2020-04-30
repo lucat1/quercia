@@ -58,7 +58,7 @@ export default class Watch extends Compile implements IWatch {
         this.success('tasks/watch', 'compiled the application')
 
         // avoid calling twice when the server library also gets recompiled
-        if (this._calls % 2 == 0) {
+        if (this._calls % 2 == 0 || this._calls == 1) {
           await this.quercia.hooks.watch.promise(this, stats)
           await this.afterBuild()
         }

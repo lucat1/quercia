@@ -1,5 +1,11 @@
 # @quercia/cli
 
+## 0.4.0-next.5
+
+### Patch Changes
+
+- fix(cli): prerender on firstime in dev mode
+
 ## 0.4.0-next.4
 
 ### Patch Changes
