@@ -22,7 +22,7 @@ export type UsePage<T extends Object = any> = () => [
   boolean
 ]
 
-export const usePrerender = () => {
+export const isPrerender = () => {
   return typeof window === 'undefined'
 }
 
@@ -30,7 +30,7 @@ export const usePrerender = () => {
 // and the props of the page. Should not be used by any external application
 export const usePage: UsePage = () => {
   // return empty values during prerender as we don't have access to the router
-  if (usePrerender()) {
+  if (isPrerender()) {
     return [() => null, {}, false]
   }
   const router = useRouter()

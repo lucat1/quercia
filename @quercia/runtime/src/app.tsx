@@ -15,7 +15,7 @@ if (process.env.NODE_ENV === 'development') {
 // Wrapper wraps around the App component and returns either the default
 // one or the custom one giving them the appropriate props
 export const Wrapper: React.FunctionComponent = () => {
-  const { 0: Component, 1: props, 2: prerender } = usePage()
+  const [Component, props, prerender] = usePage()
 
   let App: React.ElementType<AppProps> = DefaultApp
   if (isLoaded('_app')) {

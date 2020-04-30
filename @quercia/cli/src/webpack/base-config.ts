@@ -6,6 +6,9 @@ import Terser from 'terser-webpack-plugin'
 import Quercia from '../quercia'
 import { Target } from '../tasks/iconfig'
 
+import optimizeHooks from '../babel/optimize-hooks'
+import removeFuncs from '../babel/remove-funcs'
+
 // config returns the default webpack configuration, one for each
 export default (target: Target): Configuration => {
   const {
@@ -70,6 +73,7 @@ export default (target: Target): Configuration => {
                       '@babel/plugin-transform-regenerator',
                       '@babel/plugin-transform-typeof-symbol'
                     ],
+                    loose: true,
                     targets: {
                       browsers: ['last 2 versions', 'IE >= 9']
                     }
@@ -78,7 +82,7 @@ export default (target: Target): Configuration => {
                 '@babel/preset-typescript',
                 '@babel/preset-react'
               ],
-              plugins: [
+              plugins: ([
                 [
                   'transform-async-to-promises',
                   {
@@ -86,7 +90,11 @@ export default (target: Target): Configuration => {
                     externalHelpers: target === 'client'
                   }
                 ]
-              ].concat(mode === 'development' ? ['react-hot-loader/babel'] : [])
+              ] as any)
+                .concat(
+                  mode === 'development' ? ['react-hot-loader/babel'] : []
+                )
+                .concat(target !== 'server' ? [optimizeHooks, removeFuncs] : [])
             }
           }
         }
