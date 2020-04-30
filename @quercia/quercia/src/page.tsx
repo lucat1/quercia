@@ -22,15 +22,13 @@ export type UsePage<T extends Object = any> = () => [
   boolean
 ]
 
-export const isPrerender = () => {
-  return typeof window === 'undefined'
-}
+export const SSG = typeof window === 'undefined'
 
 // usePage is an hook used internally to get the page instance
 // and the props of the page. Should not be used by any external application
 export const usePage: UsePage = () => {
   // return empty values during prerender as we don't have access to the router
-  if (isPrerender()) {
+  if (SSG) {
     return [() => null, {}, false]
   }
   const router = useRouter()

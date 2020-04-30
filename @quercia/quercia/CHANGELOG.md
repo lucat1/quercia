@@ -1,5 +1,17 @@
 # @quercia/quercia
 
+## 0.2.0-next.3
+
+### Patch Changes
+
+- fix(quercia): fix published package with wrong exports
+
+## 0.2.0-next.2
+
+### Minor Changes
+
+- add babel plugins to exclude ssg calls and improve hooks destructing
+
 ## 0.2.0-next.1
 
 ### Patch Changes

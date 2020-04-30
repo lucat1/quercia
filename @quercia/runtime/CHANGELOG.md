@@ -1,5 +1,23 @@
 # @quercia/runtime
 
+## 0.2.5-next.3
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @quercia/quercia@0.2.0-next.3
+
+## 0.3.0-next.2
+
+### Minor Changes
+
+- add babel plugins to exclude ssg calls and improve hooks destructing
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @quercia/quercia@0.2.0-next.2
+
 ## 0.2.5-next.1
 
 ### Patch Changes
