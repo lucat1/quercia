@@ -91,10 +91,10 @@ export default (target: Target): Configuration => {
                   }
                 ]
               ] as any)
+                .concat(target !== 'server' ? [optimizeHooks, removeFuncs] : [])
                 .concat(
                   mode === 'development' ? ['react-hot-loader/babel'] : []
                 )
-                .concat(target !== 'server' ? [optimizeHooks, removeFuncs] : [])
             }
           }
         }
