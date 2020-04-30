@@ -120,6 +120,10 @@ export default class Prerender extends Task {
 
   // clears the node require cache
   public clear(path: string) {
+    if (!path.endsWith('.js')) {
+      path += '.js'
+    }
+
     if (require.cache[path]) {
       delete require.cache[path]
     }

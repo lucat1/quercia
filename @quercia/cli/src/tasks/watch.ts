@@ -9,6 +9,8 @@ export default class Watch extends Compile implements IWatch {
   public prev: string = ''
   public middleware: NextHandleFunction & EventStream = null as any
 
+  private _calls = 0
+
   public async execute() {
     await super.execute()
 
@@ -47,14 +49,19 @@ export default class Watch extends Compile implements IWatch {
           }
         }
 
+        this._calls++
+
         // prevent prerenders from beings called twice
         if (this.prev == stats.hash) return
         this.prev = stats.hash
 
         this.success('tasks/watch', 'compiled the application')
-        await this.quercia.hooks.watch.promise(this, stats)
 
-        await this.afterBuild()
+        // avoid calling twice when the server library also gets recompiled
+        if (this._calls % 2 == 0) {
+          await this.quercia.hooks.watch.promise(this, stats)
+          await this.afterBuild()
+        }
       }
     )
   }
