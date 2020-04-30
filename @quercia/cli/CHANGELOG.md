@@ -1,5 +1,13 @@
 # @quercia/cli
 
+## 0.4.0-next.4
+
+### Patch Changes
+
+- [`82cf3e1`](https://github.com/lucat1/quercia/commit/82cf3e134f76bf9792abb3b3401cb1c8c406026c)
+  Thanks [@lucat1](https://github.com/lucat1)! - fix(cli): properly update
+  prerender during dev mode and only execute once
+
 ## 0.4.0-next.3
 
 ### Patch Changes
