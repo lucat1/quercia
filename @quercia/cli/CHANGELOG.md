@@ -1,5 +1,13 @@
 # @quercia/cli
 
+## 0.4.0-next.11
+
+### Patch Changes
+
+- [`44aefb8`](https://github.com/lucat1/quercia/commit/44aefb812f2286caf670da8df30c455035815c03)
+  Thanks [@lucat1](https://github.com/lucat1)! - fix(cli): add hmr only in watch
+  mode
+
 ## 0.4.0-next.10
 
 ### Patch Changes
