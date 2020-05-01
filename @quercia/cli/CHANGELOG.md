@@ -1,5 +1,13 @@
 # @quercia/cli
 
+## 0.4.0-next.10
+
+### Patch Changes
+
+- [`114c8cd`](https://github.com/lucat1/quercia/commit/114c8cd0f30bdbb1cec53463578b557cbb915b0e)
+  Thanks [@lucat1](https://github.com/lucat1)! - fix(cli): restrict
+  react-hot-loader inclusion
+
 ## 0.4.0-next.9
 
 ### Patch Changes
