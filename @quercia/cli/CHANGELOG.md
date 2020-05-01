@@ -1,5 +1,13 @@
 # @quercia/cli
 
+## 0.4.0-next.9
+
+### Patch Changes
+
+- [`fa25e53`](https://github.com/lucat1/quercia/commit/fa25e5343c8b54cec99189e4db909cbdee080aff)
+  Thanks [@lucat1](https://github.com/lucat1)! - feat(cli): improve webpack
+  split chunk config
+
 ## 0.4.0-next.8
 
 ### Patch Changes
