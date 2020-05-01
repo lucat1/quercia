@@ -14,6 +14,7 @@ import replaceSSG from '../babel/replace-ssg'
 export default (target: Target): Configuration => {
   const {
     buildID,
+    command,
     flags: { mode, stats }
   } = Quercia.getInstance()
 
@@ -95,7 +96,11 @@ export default (target: Target): Configuration => {
               ] as any)
                 .concat(target !== 'server' ? [optimizeHooks, removeFuncs] : [])
                 .concat(
-                  mode === 'development' ? ['react-hot-loader/babel'] : []
+                  mode === 'development' &&
+                    target === 'client' &&
+                    command === 'watch'
+                    ? ['react-hot-loader/babel']
+                    : []
                 )
             }
           }
