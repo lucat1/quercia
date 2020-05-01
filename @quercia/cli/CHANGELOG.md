@@ -1,5 +1,13 @@
 # @quercia/cli
 
+## 0.4.0-next.8
+
+### Patch Changes
+
+- [`03f7a6b`](https://github.com/lucat1/quercia/commit/03f7a6b0dfb3dac641023940dd2ed79069bfb178)
+  Thanks [@lucat1](https://github.com/lucat1)! - feat(cli): improved babel
+  optmization, removes ssg-only code with conditional ifs
+
 ## 0.3.9-next.7
 
 ### Patch Changes
