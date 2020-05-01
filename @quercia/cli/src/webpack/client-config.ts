@@ -132,14 +132,13 @@ export default async (base: Configuration): Promise<Configuration> => {
           vendor: {
             chunks: 'all',
             name: 'vendor',
-            //test: /(?<!node_modules.*)[\\/]node_modules[\\/](react|react-dom|scheduler|prop-types|object-assign|preact|@quercia\/(quercia|cli)|core-js|babel-plugin-transform-async-to-promises|react-hot-loader|@hot-loader|tiny-(invariant|warning))[\\/]/,
-            test: /(react|react-dom|scheduler|prop-types|object-assign|preact|@quercia\/(quercia|cli)|core-js|babel-plugin-transform-async-to-promises|react-hot-loader|@hot-loader|tiny-(invariant|warning))/,
+            test: /(?<!node_modules.*)[\\/]node_modules[\\/](react|react-dom|scheduler|prop-types|object-assign|preact|@quercia\/(quercia|cli)|core-js|babel-plugin-transform-async-to-promises|react-hot-loader|@hot-loader|tiny-(invariant|warning))[\\/]/,
             priority: 40,
             enforce: true
           },
           lib: {
             test: (module: { size: Function; identifier: Function }) =>
-              module.size() > 160000 &&
+              module.size() > 1000 &&
               /node_modules[/\\]/.test(module.identifier()),
 
             name: () => `lib-${uid(7)}`,
