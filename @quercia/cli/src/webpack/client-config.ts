@@ -37,6 +37,7 @@ export default async (base: Configuration): Promise<Configuration> => {
   const {
     tasks: { config, structure },
     flags: { mode, typecheck },
+    command,
     logger
   } = Quercia.getInstance()
 
@@ -60,7 +61,7 @@ export default async (base: Configuration): Promise<Configuration> => {
 
     const pageName = key.replace('pages' + sep, '')
     entry[key] = `${loader}!${entries[key]}?name=${pageName}&dev=${
-      mode === 'development'
+      mode === 'development' && command === 'watch'
     }`
   }
 
@@ -73,7 +74,11 @@ export default async (base: Configuration): Promise<Configuration> => {
       new ManifestPlugin(Quercia.getInstance()),
       new NormalModuleReplacementPlugin(/core-js|unfetch|url-polyfill/, noop)
     ]
-      .concat(mode === 'development' ? new HotModuleReplacementPlugin() : [])
+      .concat(
+        mode === 'development' && command === 'watch'
+          ? new HotModuleReplacementPlugin()
+          : []
+      )
       .concat(
         structure.paths.tsconfig && typecheck
           ? new ForkTsCheckerWebpackPlugin({
