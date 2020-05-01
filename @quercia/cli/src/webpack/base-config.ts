@@ -8,6 +8,7 @@ import { Target } from '../tasks/iconfig'
 
 import optimizeHooks from '../babel/optimize-hooks'
 import removeFuncs from '../babel/remove-funcs'
+import replaceSSG from '../babel/replace-ssg'
 
 // config returns the default webpack configuration, one for each
 export default (target: Target): Configuration => {
@@ -79,8 +80,8 @@ export default (target: Target): Configuration => {
                     }
                   }
                 ],
-                '@babel/preset-typescript',
-                '@babel/preset-react'
+                '@babel/preset-react',
+                '@babel/preset-typescript'
               ],
               plugins: ([
                 [
@@ -89,7 +90,8 @@ export default (target: Target): Configuration => {
                     // share code between files (only on the client-side)
                     externalHelpers: target === 'client'
                   }
-                ]
+                ],
+                [replaceSSG, { value: target === 'server' }]
               ] as any)
                 .concat(target !== 'server' ? [optimizeHooks, removeFuncs] : [])
                 .concat(
