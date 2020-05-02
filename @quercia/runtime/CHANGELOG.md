@@ -1,5 +1,14 @@
 # @quercia/runtime
 
+## 0.3.0-next.4
+
+### Patch Changes
+
+- build(all): removed tiny-(warning|invariant) and fixed dev mode vendor chunk
+
+- Updated dependencies []:
+  - @quercia/quercia@0.2.0-next.4
+
 ## 0.2.5-next.3
 
 ### Patch Changes

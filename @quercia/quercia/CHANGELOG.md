@@ -1,5 +1,11 @@
 # @quercia/quercia
 
+## 0.2.0-next.4
+
+### Patch Changes
+
+- build(all): removed tiny-(warning|invariant) and fixed dev mode vendor chunk
+
 ## 0.2.0-next.3
 
 ### Patch Changes
