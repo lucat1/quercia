@@ -1,5 +1,4 @@
-import * as types from '@babel/types'
-import traverse, { Visitor } from '@babel/traverse'
+import { PluginObj, types, traverse } from '@babel/core'
 
 const REMOVE = ['getInitialProps']
 
@@ -7,7 +6,7 @@ export default function ({
   types: t
 }: {
   types: typeof types
-}): { visitor: Visitor<{}>; name: string } {
+}): PluginObj<any> {
   return {
     name: 'remove-funcs',
     visitor: {

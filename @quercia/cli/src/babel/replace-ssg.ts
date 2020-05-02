@@ -1,32 +1,21 @@
-import * as types from '@babel/types'
-import { Visitor, NodePath } from '@babel/traverse'
+import { PluginObj, types } from '@babel/core'
 
 export interface Options {
   value: boolean
 }
 
-interface Ctx {
-  cache: Map<string, string[]>
-}
-
-interface Plugin {
-  name: string
-  visitor: Visitor<Ctx>
-
-  pre(this: Ctx): void
-}
-
-export default function ({ types: t }: { types: typeof types }): Plugin {
+export default function ({
+  types: t
+}: {
+  types: typeof types
+}): PluginObj<any> {
   return {
     name: 'replace-ssg',
     pre() {
       this.cache = new Map<string, string[]>()
     },
     visitor: {
-      ImportDeclaration(
-        path: NodePath<types.ImportDeclaration>,
-        { filename }: { filename: string }
-      ) {
+      ImportDeclaration(path, { filename }) {
         // ignore other modules
         if (path.node.source.value !== '@quercia/quercia') return
 
@@ -47,10 +36,7 @@ export default function ({ types: t }: { types: typeof types }): Plugin {
           }
         }
       },
-      Identifier(
-        path: NodePath<types.Identifier>,
-        { filename, opts }: { filename: string; opts: Options }
-      ) {
+      Identifier(path, { filename, opts }) {
         // return if we don't have the required import in this file
         if (!this.cache.has(filename)) return
         const names = this.cache.get(filename) as string[]
@@ -69,6 +55,6 @@ export default function ({ types: t }: { types: typeof types }): Plugin {
         // we can proceed with the replacement
         path.replaceWith(t.booleanLiteral(opts.value))
       }
-    } as any
+    }
   }
 }

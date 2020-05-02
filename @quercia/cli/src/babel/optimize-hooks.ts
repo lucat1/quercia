@@ -1,5 +1,4 @@
-import * as types from '@babel/types'
-import traverse, { Visitor } from '@babel/traverse'
+import { PluginObj, types, traverse } from '@babel/core'
 
 // taken from:
 // https://github.com/developit/babel-plugin-optimize-hook-destructuring/blob/29c84a7523645bd381b71ab668fd624068a876d4/index.js
@@ -13,14 +12,13 @@ const isBuiltInHook = /^use(Callback|Context|DebugValue|Effect|ImperativeHandle|
 
 const notEmpty = <T>(value: T | null): value is T => value !== null
 
+const libs = ['react', 'preact/hooks', '@quercia/quercia']
+
 export default function ({
   types: t
 }: {
   types: typeof types
-}): { visitor: Visitor<{}>; name: string } {
-  // if specified, options.lib is a list of libraries that provide hook functions
-  const libs = ['react', 'preact/hooks', '@quercia/quercia']
-
+}): PluginObj<any> {
   return {
     name: 'optimize-hooks',
     visitor: {
