@@ -1,6 +1,3 @@
-import invariant from 'tiny-invariant'
-import warning from 'tiny-warning'
-
 export interface PageData {
   loading: boolean
   page: string
@@ -18,19 +15,14 @@ export function isLoaded(page: string) {
   return window.__P && typeof window.__P[page] === 'function'
 }
 
-let parsed = false
-
 // loads and parses the initial script element for render data
 export function loadScript(): PageData {
-  warning(!parsed, "Called `parseScript` more than once. Shouldn't happen")
-
   const element = document.querySelector('script#__QUERCIA_DATA__')
-  invariant(
-    element,
-    `Couldn't find an element with selector: 'script#__QUERCIA_DATA__'`
-  )
+  if (element == null) {
+    console.error(`Couldn't find 'script#__QUERCIA_DATA__'`)
+  }
 
-  return parse(element.innerHTML)
+  return parse((element as Element).innerHTML)
 }
 
 // parses the json input and pretty-prints errors during development
@@ -68,7 +60,9 @@ export async function req(
   const data = parse(await req.text())
 
   // check if we recieved a string url. This is mandatory
-  invariant(data.scripts, "The response didn't include any scripts url")
+  if (!data.scripts) {
+    console.error("The response didn't include any scripts url")
+  }
 
   return data
 }

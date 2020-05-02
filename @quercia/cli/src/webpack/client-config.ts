@@ -36,8 +36,7 @@ export default async (base: Configuration): Promise<Configuration> => {
 
   const {
     tasks: { config, structure },
-    flags: { mode, typecheck },
-    command,
+    flags: { typecheck },
     logger
   } = Quercia.getInstance()
 
@@ -61,7 +60,7 @@ export default async (base: Configuration): Promise<Configuration> => {
 
     const pageName = key.replace('pages' + sep, '')
     entry[key] = `${loader}!${entries[key]}?name=${pageName}&dev=${
-      mode === 'development' && command === 'watch'
+      config.hmr != -1
     }`
   }
 
@@ -74,11 +73,7 @@ export default async (base: Configuration): Promise<Configuration> => {
       new ManifestPlugin(Quercia.getInstance()),
       new NormalModuleReplacementPlugin(/core-js|unfetch|url-polyfill/, noop)
     ]
-      .concat(
-        mode === 'development' && command === 'watch'
-          ? new HotModuleReplacementPlugin()
-          : []
-      )
+      .concat(config.hmr != -1 ? new HotModuleReplacementPlugin() : [])
       .concat(
         structure.paths.tsconfig && typecheck
           ? new ForkTsCheckerWebpackPlugin({
@@ -117,7 +112,7 @@ export default async (base: Configuration): Promise<Configuration> => {
         'react-dom': await resolve(
           process.cwd(),
           // use `@hot-loader/react-dom` during development to improve hot reloading
-          mode === 'development' ? '@hot-loader/react-dom' : 'react-dom'
+          config.hmr != -1 ? '@hot-loader/react-dom' : 'react-dom'
         ),
         '@quercia/quercia': await resolve(process.cwd(), '@quercia/quercia'),
         '@quercia/runtime': await resolve(process.cwd(), '@quercia/runtime')
@@ -137,7 +132,7 @@ export default async (base: Configuration): Promise<Configuration> => {
           vendor: {
             chunks: 'all',
             name: 'vendor',
-            test: /(?<!node_modules.*)[\\/]node_modules[\\/](react|react-dom|scheduler|prop-types|object-assign|preact|@quercia\/(quercia|cli)|core-js|babel-plugin-transform-async-to-promises|react-hot-loader|@hot-loader|tiny-(invariant|warning))[\\/]/,
+            test: /(?<!node_modules.*)[\\/]node_modules[\\/](react|react-dom|scheduler|prop-types|object-assign|preact|@quercia\/(quercia|cli)|core-js|babel-plugin-transform-async-to-promises|react-hot-loader|@hot-loader|html-entities)[\\/]/,
             priority: 40,
             enforce: true
           },

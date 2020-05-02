@@ -1,11 +1,14 @@
 import * as React from 'react'
-import invariant from 'tiny-invariant'
 
 const msg =
   'should only be used inside `_document`, and therefore only rendered in the backend'
 
 export const QuerciaHead: React.FunctionComponent = ({ children }) => {
-  invariant(typeof window == 'undefined', `<QuerciaHead> ${msg}`)
+  if (process.env.NODE_ENV === 'development') {
+    if (typeof window !== 'undefined') {
+      console.error(`<QuerciaHead> ${msg}`)
+    }
+  }
 
   return (
     <head data-count='__QUERCIA__HEAD__COUNT__'>
@@ -16,13 +19,21 @@ export const QuerciaHead: React.FunctionComponent = ({ children }) => {
 }
 
 export const QuerciaMount: React.FunctionComponent = _ => {
-  invariant(typeof window == 'undefined', `<QuerciaMount> ${msg}`)
+  if (process.env.NODE_ENV === 'development') {
+    if (typeof window !== 'undefined') {
+      console.error(`<QuerciaMount> ${msg}`)
+    }
+  }
 
   return <div id='__quercia'>__QUERCIA_PRERENDER__</div>
 }
 
 export const QuerciaScripts: React.FunctionComponent = _ => {
-  invariant(typeof window == 'undefined', `<QuerciaScripts> ${msg}`)
+  if (process.env.NODE_ENV === 'development') {
+    if (typeof window !== 'undefined') {
+      console.error(`<QuerciaScripts> ${msg}`)
+    }
+  }
 
   return <>__QUERCIA__SCRIPTS__</>
 }

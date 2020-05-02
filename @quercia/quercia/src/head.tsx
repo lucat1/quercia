@@ -1,5 +1,4 @@
 import * as React from 'react'
-import invariant from 'tiny-invariant'
 
 type Child = Exclude<React.ReactElement, boolean | null | undefined>
 type Children = Child[]
@@ -8,9 +7,11 @@ export type HeadElement = React.ReactElement<any, string>
 export type HeadState = HeadElement[]
 export type HeadUpdater = (elements: HeadState) => void
 
-export const HeadContext = React.createContext<HeadUpdater>(() =>
-  invariant(false, 'Rendered <Head /> outside of its provider')
-)
+export const HeadContext = React.createContext<HeadUpdater>(() => {
+  if (process.env.NODE_ENV === 'development') {
+    console.error('Rendered <Head /> outside of its provider. Ignoring it')
+  }
+})
 
 const allChildren = new Set<Children>()
 

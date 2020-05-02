@@ -1,13 +1,13 @@
 import * as React from 'react'
-import warning from 'tiny-warning'
 
 import { useRouter } from './router'
 
 const Empty: React.FunctionComponent = () => {
-  warning(
-    false,
-    'The <Empty /> component should never render, you might be facing a network error'
-  )
+  if (process.env.NODE_ENV === 'development') {
+    console.warn(
+      'The <Empty /> component should never render, you might be facing a network error'
+    )
+  }
 
   return null
 }
