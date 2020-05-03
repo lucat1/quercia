@@ -1,5 +1,13 @@
 # @quercia/quercia
 
+## 0.2.0-next.5
+
+### Patch Changes
+
+- [`d1b6935`](https://github.com/lucat1/quercia/commit/d1b6935c46636ac100d98597a63af32cbf6a03c4)
+  Thanks [@lucat1](https://github.com/lucat1)! - fix(quercia): don't load pages
+  multiple times. Simplify syntax for smaller bundles
+
 ## 0.2.0-next.4
 
 ### Patch Changes

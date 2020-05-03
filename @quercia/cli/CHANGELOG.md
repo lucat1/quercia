@@ -1,5 +1,15 @@
 # @quercia/cli
 
+## 0.4.0-next.13
+
+### Patch Changes
+
+- [`f55920f`](https://github.com/lucat1/quercia/commit/f55920f860bf76c5b2e827f62184f1c8b4a51698)
+  Thanks [@lucat1](https://github.com/lucat1)! - feat(cli): remove Quercia\*
+  exports from runtime as they are not used on the client side
+- Updated dependencies []:
+  - @quercia/runtime@0.2.5-next.5
+
 ## 0.4.0-next.12
 
 ### Patch Changes
