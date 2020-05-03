@@ -7,7 +7,7 @@ import Watch from './tasks/watch'
 import Compile from './tasks/compile'
 import Prerender from './tasks/prerender'
 
-import Logger from './logger'
+import Logger from '@quercia/logger'
 
 export default class Task {
   protected quercia: Quercia

@@ -1,7 +1,5 @@
 import * as kleur from 'kleur'
 
-import Quercia from './quercia'
-
 const isSupported =
   process.platform !== 'win32' ||
   process.env.CI ||
@@ -37,12 +35,12 @@ const colors: { [K in keyof Symbols]: keyof kleur.Kleur } = {
 }
 
 export default class Logger {
-  private quercia: Quercia
+  private _debug: boolean
   public symbols = isSupported ? main : fallbacks
   public colors = colors
 
-  constructor(quercia: Quercia) {
-    this.quercia = quercia
+  constructor({ debug }: { debug: boolean }) {
+    this._debug = debug
   }
 
   public prettyError(
@@ -63,7 +61,7 @@ export default class Logger {
 
   private print(level: keyof Symbols, from: string, ...extra: any[]) {
     if (level === 'debug') {
-      if (this.quercia.flags.debug) {
+      if (this._debug) {
         console.log('** DEBUG **', `[${from}]`, extra)
       }
       return
@@ -72,16 +70,14 @@ export default class Logger {
     // print `from` during debug mode
     console.log(
       kleur[this.colors[level]](
-        `${this.symbols[level]} ${level}${
-          this.quercia.flags.debug ? `(${from})` : ''
-        }`
+        `${this.symbols[level]} ${level}${this._debug ? `(${from})` : ''}`
       ),
       ...extra
     )
   }
 
   public debug(from: string, ...extra: any[]) {
-    if (!this.quercia.flags.debug) {
+    if (!this._debug) {
       return
     }
 
@@ -102,6 +98,6 @@ export default class Logger {
 
   public error(from: string, ...extra: any[]) {
     this.print('error', from, ...extra)
-    this.quercia.exit(1)
+    process.exit(1)
   }
 }

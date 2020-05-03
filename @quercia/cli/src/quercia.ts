@@ -5,7 +5,7 @@ import Structure from './tasks/structure'
 import Config from './tasks/config'
 import Prerender from './tasks/prerender'
 
-import Logger from './logger'
+import Logger from '@quercia/logger'
 import { Tasks } from 'task'
 
 export interface Args {
@@ -42,6 +42,14 @@ export default class Quercia {
     this.command = command
     this.args = args
     this.flags = flags
+
+    this.logger = new Logger({ debug: flags.debug })
+    this.tasks = {
+      structure: new Structure(this),
+      config: new Config(this),
+      builder: null as any,
+      prerender: new Prerender(this)
+    }
   }
 
   public hooks = {
@@ -80,15 +88,9 @@ export default class Quercia {
     manifest: new AsyncSeriesHook(['quercia'])
   }
 
-  public logger = new Logger(this)
+  public tasks: Tasks
+  public logger: Logger
   public buildID = uid(5)
-
-  public tasks: Tasks = {
-    structure: new Structure(this),
-    config: new Config(this),
-    builder: null as any,
-    prerender: new Prerender(this)
-  }
 
   public exit(code: number) {
     process.exit(code)

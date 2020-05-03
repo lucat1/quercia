@@ -1,0 +1,25 @@
+{
+  "name": "@quercia/logger",
+  "version": "0.0.1",
+  "description": "The quercia shared logger",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lucat1/quercia.git",
+    "directory": "@quercia/logger"
+  },
+  "author": "LucaT",
+  "bugs": "https://github.com/lucat1/quercia/issues",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc -w --preserveWatchOutput",
+    "prepack": "tsc"
+  },
+  "files": [
+    "/dist"
+  ],
+  "dependencies": {
+    "kleur": "^3.0.3"
+  }
+}
