@@ -7,7 +7,7 @@ import Quercia from '../quercia'
 import { Target } from '../tasks/iconfig'
 
 import optimizeHooks from '../babel/optimize-hooks'
-import removeFuncs from '../babel/remove-funcs'
+import removeExports from '../babel/remove-exports'
 import replaceSSG from '../babel/replace-ssg'
 
 // config returns the default webpack configuration, one for each
@@ -56,7 +56,7 @@ export default (target: Target): Configuration => {
         {
           test: /\.m?[t|j]sx?$/,
           include: path => {
-            // absolutely always compile quercia modules which are written in modern js
+            // always compile quercia modules which are written in modern js
             if (/@quercia\/(quercia|runtime)/.test(path)) {
               return true
             }
@@ -94,7 +94,9 @@ export default (target: Target): Configuration => {
                 ],
                 [replaceSSG, { value: target === 'server' }]
               ] as any)
-                .concat(target !== 'server' ? [optimizeHooks, removeFuncs] : [])
+                .concat(
+                  target !== 'server' ? [optimizeHooks, removeExports] : []
+                )
                 .concat(
                   mode === 'development' &&
                     target === 'client' &&
