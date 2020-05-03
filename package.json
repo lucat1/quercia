@@ -12,7 +12,7 @@
     "docs:build": "vuepress build docs",
     "docs:dev": "vuepress dev docs",
     "fix": "manypkg fix",
-    "postinstall": "manypkg check && preconstruct validate && preconstruct dev",
+    "postinstall": "manypkg check && preconstruct validate && preconstruct build",
     "pretty": "prettier --write *.json */*.{ts,json} @quercia/**/*.{ts,json} @quercia/**/**/*.{ts,json}"
   },
   "dependencies": {

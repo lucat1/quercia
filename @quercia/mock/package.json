@@ -1,0 +1,31 @@
+{
+  "name": "@quercia/mock",
+  "version": "0.0.1",
+  "description": "The quercia mocking library, for rendering pages programmatically",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lucat1/quercia.git",
+    "directory": "@quercia/mock"
+  },
+  "author": "LucaT",
+  "bugs": "https://github.com/lucat1/quercia/issues",
+  "main": "dist/index.js",
+  "bin": {
+    "qmock": "./bin/run"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc -w --preserveWatchOutput",
+    "prepack": "tsc"
+  },
+  "files": [
+    "/bin",
+    "/dist"
+  ],
+  "dependencies": {
+    "@quercia/logger": "0.0.1",
+    "@types/trouter": "^3.1.0",
+    "polka": "^1.0.0-next.11"
+  }
+}

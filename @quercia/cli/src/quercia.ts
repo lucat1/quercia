@@ -43,7 +43,7 @@ export default class Quercia {
     this.args = args
     this.flags = flags
 
-    this.logger = new Logger({ debug: flags.debug })
+    this.logger = new Logger(flags.debug)
     this.tasks = {
       structure: new Structure(this),
       config: new Config(this),

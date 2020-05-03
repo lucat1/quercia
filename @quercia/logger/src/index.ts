@@ -39,7 +39,7 @@ export default class Logger {
   public symbols = isSupported ? main : fallbacks
   public colors = colors
 
-  constructor({ debug }: { debug: boolean }) {
+  constructor(debug: boolean) {
     this._debug = debug
   }
 

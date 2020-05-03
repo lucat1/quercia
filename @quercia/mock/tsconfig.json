@@ -1,0 +1,17 @@
+{
+  "extends": "../../tsconfig.shared.json",
+  "include": ["src/**/*", "types"],
+  "compilerOptions": {
+    "importHelpers": false,
+    "module": "commonjs",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "target": "es2017",
+    "types": ["node"],
+    "lib": ["ES2019.Array"],
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "tsBuildInfoFile": "dist/tsconfig.tsbuildinfo"
+  }
+}
