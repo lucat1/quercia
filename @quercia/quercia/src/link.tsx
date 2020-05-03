@@ -33,9 +33,14 @@ export const Link: React.FunctionComponent<LinkProps> = props => {
     navigate(props.to, props.method)
   }
 
-  const p = Object.assign({}, props, { to: undefined })
+  const _props = Object.assign(
+    {},
+    props,
+    { to: undefined },
+    { onClick, href: to }
+  )
 
-  return <a {...p} onClick={onClick} href={to} />
+  return React.createElement('a', _props)
 }
 
 export default Link

@@ -32,9 +32,10 @@ export default function mitt(): MittEmitter {
       }
     },
 
-    emit(type: string, ...evts: any[]) {
+    emit(type: string) {
+      const evts = Array.prototype.slice.call(arguments, 1)
       ;(all[type] || []).slice().map((MittHandler: MittHandler) => {
-        MittHandler(...evts)
+        MittHandler.call(this, evts)
       })
     }
   }

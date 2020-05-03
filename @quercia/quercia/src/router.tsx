@@ -49,47 +49,41 @@ async function routeTo(
   history[navigation.type + 'State'](null, '', navigation.url)
 
   // tell the router that we are loading a new page
-  setData({
-    ...data,
-    loading: true
-  })
+  setData(Object.assign({}, data, { loading: true }))
 
   const newData: PageData & { redirect?: string } = await req(
     navigation.url,
     navigation.method,
     navigation.options
   )
-  // TODO: bump progress
 
   if (newData.redirect) {
-    // TODO: bump progress
     history.replaceState(null, '', newData.redirect)
     delete newData.redirect
   }
 
-  const scripts = newData.scripts || []
+  if (!isLoaded(newData.page)) {
+    const scripts = newData.scripts || []
 
-  // load all the required scripts *in the right order*
-  await new Promise((res, rej) => {
-    let i = 0
+    // load all the required scripts *in the right order*
+    await new Promise((res, rej) => {
+      let i = 0
 
-    const fn = (): any => {
-      if (i >= scripts.length) {
-        return res()
+      const fn = (): any => {
+        if (i >= scripts.length) {
+          return res()
+        }
+
+        return reqScript(scripts[i++])
+          .then(fn)
+          .catch(rej)
       }
 
-      return reqScript(scripts[i++])
-        .then(fn)
-        .catch(rej)
-    }
+      fn()
+    })
+  }
 
-    fn()
-  })
-
-  setData({
-    ...newData,
-    loading: false
-  })
+  setData(Object.assign({}, newData, { loading: false }))
 }
 
 export const Router: React.FunctionComponent = ({ children }) => {
