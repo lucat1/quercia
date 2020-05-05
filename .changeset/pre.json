@@ -4,7 +4,9 @@
   "initialVersions": {
     "@quercia/cli": "0.3.8",
     "@quercia/quercia": "0.1.9",
-    "@quercia/runtime": "0.2.4"
+    "@quercia/runtime": "0.2.4",
+    "@quercia/logger": "0.0.1",
+    "@quercia/mock": "0.0.1"
   },
   "changesets": [
     "breezy-toys-rest",
@@ -16,10 +18,12 @@
     "mighty-rice-watch",
     "plenty-actors-sleep",
     "shiny-masks-own",
+    "silly-teachers-enjoy",
     "small-turkeys-laugh",
     "stale-humans-appear",
     "tame-eagles-guess",
     "twenty-ways-protect",
+    "violet-ravens-jam",
     "wicked-masks-promise",
     "witty-schools-stare"
   ]

@@ -1,5 +1,11 @@
 # @quercia/cli
 
+## 0.4.0-next.14
+
+### Patch Changes
+
+- feat(cli): split logging into a separate package
+
 ## 0.4.0-next.13
 
 ### Patch Changes

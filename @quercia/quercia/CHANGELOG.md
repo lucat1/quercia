@@ -1,5 +1,12 @@
 # @quercia/quercia
 
+## 0.2.0-next.6
+
+### Patch Changes
+
+- [`81d491e`](https://github.com/lucat1/quercia/commit/81d491e68ba5db9a682866302ab8c1591108ddd1)
+  Thanks [@lucat1](https://github.com/lucat1)! - fix(quercia): fix event handler
+
 ## 0.2.0-next.5
 
 ### Patch Changes

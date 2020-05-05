@@ -1,6 +1,7 @@
 {
   "name": "@quercia/mock",
   "version": "0.0.1",
+  "private": true,
   "description": "The quercia mocking library, for rendering pages programmatically",
   "license": "MIT",
   "repository": {
