@@ -15,27 +15,26 @@ export type MittHandler<T = any> = (...evts: T[]) => void
 export type MittEmitter = {
   on(type: string, MittHandler: MittHandler): void
   off(type: string, MittHandler: MittHandler): void
-  emit(type: string, ...evts: any[]): void
+  emit(type: string, evts: any): void
 }
 
 export default function mitt(): MittEmitter {
   const all: { [s: string]: MittHandler[] } = Object.create(null)
 
   return {
-    on(type: string, MittHandler: MittHandler) {
-      ;(all[type] || (all[type] = [])).push(MittHandler)
+    on(type: string, handler: MittHandler) {
+      ;(all[type] || (all[type] = [])).push(handler)
     },
 
-    off(type: string, MittHandler: MittHandler) {
+    off(type: string, handler: MittHandler) {
       if (all[type]) {
-        all[type].splice(all[type].indexOf(MittHandler) >>> 0, 1)
+        all[type].splice(all[type].indexOf(handler) >>> 0, 1)
       }
     },
 
-    emit(type: string) {
-      const evts = Array.prototype.slice.call(arguments, 1)
-      ;(all[type] || []).slice().map((MittHandler: MittHandler) => {
-        MittHandler.call(this, evts)
+    emit(type: string, evt: any) {
+      ;(all[type] || []).slice().map(handler => {
+        handler(evt)
       })
     }
   }
