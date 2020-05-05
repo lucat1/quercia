@@ -1,5 +1,13 @@
 # @quercia/cli
 
+## 0.4.0-next.15
+
+### Patch Changes
+
+- [`c68575f`](https://github.com/lucat1/quercia/commit/c68575f224ec538391f28cb49bed27148cbbddea)
+  Thanks [@lucat1](https://github.com/lucat1)! - fix(cli): dont bundle
+  \_document in the client app
+
 ## 0.4.0-next.14
 
 ### Patch Changes
