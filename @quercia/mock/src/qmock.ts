@@ -1,5 +1,6 @@
 import { join, isAbsolute, sep, extname } from 'path'
 import polka from 'polka'
+import serve from 'serve-static'
 
 import Logger from '@quercia/logger'
 
@@ -11,7 +12,13 @@ import makeHandler from './handler'
 export default class QMock {
   private root: string
   private mocks: string
+  public quercia: string
+  private static instance: QMock
   private static logger: Logger
+
+  public static getInstance() {
+    return this.instance
+  }
 
   public static getLogger() {
     return this.logger
@@ -23,9 +30,11 @@ export default class QMock {
   private error: Logger['error']
 
   constructor({ src }: Args, { debug }: Flags) {
+    QMock.instance = this
     // compute the root folder of the projects
     this.root = isAbsolute(src) ? src : join(process.cwd(), src)
     this.mocks = join(this.root, 'mocks')
+    this.quercia = join(this.root, '__quercia')
     QMock.logger = new Logger(debug)
 
     // alias logger methods
@@ -42,6 +51,13 @@ export default class QMock {
       this.error(
         'qmock',
         'the `mocks` folder does not exist. please check your src argument'
+      )
+    }
+
+    if (!(await exists(this.quercia))) {
+      this.error(
+        'qmock',
+        'the `__quercia` folder does not exist. please check your src argument'
       )
     }
 
@@ -64,7 +80,9 @@ export default class QMock {
       'route' + (routes.length !== 1 ? 's' : '')
     )
 
-    const server = polka().use(middleware)
+    const server = polka()
+      .use(middleware)
+      .use(serve(this.quercia) as any)
     for (const route of routes) {
       this.debug('qmock/server', 'registered route', route)
       server.get(route, makeHandler(mocks[routes.indexOf(route)]) as any)

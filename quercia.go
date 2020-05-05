@@ -222,7 +222,7 @@ func Render(w http.ResponseWriter, r *http.Request, page string, props interface
 	_scripts += scripts(pageSrc)
 	_scripts += script(runtime)
 
-	// replace head, prerender and scripts sections
+	// replace scripts sections
 	template = strings.Replace(template, querciaScripts, _scripts, 1)
 
 	w.Header().Add("Content-Type", htmlMime)

@@ -1,6 +1,8 @@
 import { extname } from 'path'
 import { RequestHandler, Request, Response } from 'polka'
+
 import QMock from './qmock'
+import render from './render'
 
 export default function handle(file: string) {
   return async function (req, res) {
@@ -10,11 +12,11 @@ export default function handle(file: string) {
     }
 
     const ext = extname(file)
+    let json: { page: string } = { page: 'null' }
     switch (ext) {
       case '.json':
         try {
-          const mod = require(file)
-          res.end(JSON.stringify(mod))
+          json = require(file)
         } catch (err) {
           QMock.getLogger().warning(
             'handler',
@@ -22,6 +24,7 @@ export default function handle(file: string) {
             QMock.getLogger().prettyError('warning', err)
           )
           res.end('internal error. Check your console')
+          return
         }
         break
 
@@ -59,12 +62,23 @@ export default function handle(file: string) {
 
         const result = await fn(req, res)
         if (result && !res.writableEnded) {
-          res.end(typeof result === 'object' ? JSON.stringify(result) : result)
+          json = typeof result === 'object' ? result : JSON.parse(result)
         }
         break
 
       default:
         res.end('invalid file extension `' + ext + '`')
+    }
+
+    try {
+      res.end(await render(json.page, JSON.stringify(json)))
+    } catch (e) {
+      QMock.getLogger().warning(
+        'render',
+        'error while rendering:\n',
+        QMock.getLogger().prettyError('warning', e)
+      )
+      res.end('Error while rendering. please check the console')
     }
   } as RequestHandler<Request>
 }
