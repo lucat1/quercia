@@ -1,5 +1,33 @@
 # @quercia/runtime
 
+## 0.3.0
+
+### Minor Changes
+
+- [`4e68520`](https://github.com/lucat1/quercia/commit/4e68520cb1d420178bcac3f2b24d44d391fb0409)
+  Thanks [@lucat1](https://github.com/lucat1)! - perf(all): change webpack
+  optimization and properly load polyfills with babel
+
+* [`4bd612e`](https://github.com/lucat1/quercia/commit/4bd612e207bfe93730b5cd9d1c1e2c3ed8d2da5d)
+  Thanks [@lucat1](https://github.com/lucat1)! - add babel plugins to exclude
+  ssg calls and improve hooks destructing
+
+### Patch Changes
+
+- [`65fa14b`](https://github.com/lucat1/quercia/commit/65fa14b6c5c742f8994f30fee439075f5d0f8b21)
+  Thanks [@lucat1](https://github.com/lucat1)! - build(all): removed
+  tiny-(warning|invariant) and fixed dev mode vendor chunk
+
+- Updated dependencies
+  [[`65fa14b`](https://github.com/lucat1/quercia/commit/65fa14b6c5c742f8994f30fee439075f5d0f8b21),
+  [`4bd612e`](https://github.com/lucat1/quercia/commit/4bd612e207bfe93730b5cd9d1c1e2c3ed8d2da5d),
+  [`4e68520`](https://github.com/lucat1/quercia/commit/4e68520cb1d420178bcac3f2b24d44d391fb0409),
+  [`4bd612e`](https://github.com/lucat1/quercia/commit/4bd612e207bfe93730b5cd9d1c1e2c3ed8d2da5d),
+  [`81d491e`](https://github.com/lucat1/quercia/commit/81d491e68ba5db9a682866302ab8c1591108ddd1),
+  [`d1b6935`](https://github.com/lucat1/quercia/commit/d1b6935c46636ac100d98597a63af32cbf6a03c4),
+  [`bace27d`](https://github.com/lucat1/quercia/commit/bace27d416923dcb7b91cc6a8aa760f363361af1)]:
+  - @quercia/quercia@0.2.0
+
 ## 0.2.5-next.6
 
 ### Patch Changes

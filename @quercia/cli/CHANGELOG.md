@@ -1,5 +1,78 @@
 # @quercia/cli
 
+## 0.4.0
+
+### Minor Changes
+
+- [`4e68520`](https://github.com/lucat1/quercia/commit/4e68520cb1d420178bcac3f2b24d44d391fb0409)
+  Thanks [@lucat1](https://github.com/lucat1)! - perf(all): change webpack
+  optimization and properly load polyfills with babel
+
+* [`4bd612e`](https://github.com/lucat1/quercia/commit/4bd612e207bfe93730b5cd9d1c1e2c3ed8d2da5d)
+  Thanks [@lucat1](https://github.com/lucat1)! - add babel plugins to exclude
+  ssg calls and improve hooks destructing
+
+### Patch Changes
+
+- [`2d75a47`](https://github.com/lucat1/quercia/commit/2d75a475b59fd48f6fc36f3ff4670d176bb7d889)
+  Thanks [@lucat1](https://github.com/lucat1)! - fix(cli): include object-assing
+  in all bundles with react
+
+* [`65fa14b`](https://github.com/lucat1/quercia/commit/65fa14b6c5c742f8994f30fee439075f5d0f8b21)
+  Thanks [@lucat1](https://github.com/lucat1)! - build(all): removed
+  tiny-(warning|invariant) and fixed dev mode vendor chunk
+
+- [`f55920f`](https://github.com/lucat1/quercia/commit/f55920f860bf76c5b2e827f62184f1c8b4a51698)
+  Thanks [@lucat1](https://github.com/lucat1)! - feat(cli): remove Quercia\*
+  exports from runtime as they are not used on the client side
+
+* [`34aafd6`](https://github.com/lucat1/quercia/commit/34aafd6b4b7b6516da2a6d8536a37fae30f3d1a5)
+  Thanks [@lucat1](https://github.com/lucat1)! - fix(cli): escape errors during
+  prerender to be embedded in html
+
+- [`82cf3e1`](https://github.com/lucat1/quercia/commit/82cf3e134f76bf9792abb3b3401cb1c8c406026c)
+  Thanks [@lucat1](https://github.com/lucat1)! - fix(cli): properly update
+  prerender during dev mode and only execute once
+
+* [`c68575f`](https://github.com/lucat1/quercia/commit/c68575f224ec538391f28cb49bed27148cbbddea)
+  Thanks [@lucat1](https://github.com/lucat1)! - fix(cli): dont bundle
+  \_document in the client app
+
+- [`fa25e53`](https://github.com/lucat1/quercia/commit/fa25e5343c8b54cec99189e4db909cbdee080aff)
+  Thanks [@lucat1](https://github.com/lucat1)! - feat(cli): improve webpack
+  split chunk config
+
+* [`44aefb8`](https://github.com/lucat1/quercia/commit/44aefb812f2286caf670da8df30c455035815c03)
+  Thanks [@lucat1](https://github.com/lucat1)! - fix(cli): add hmr only in watch
+  mode
+
+- [`03f7a6b`](https://github.com/lucat1/quercia/commit/03f7a6b0dfb3dac641023940dd2ed79069bfb178)
+  Thanks [@lucat1](https://github.com/lucat1)! - feat(cli): improved babel
+  optmization, removes ssg-only code with conditional ifs
+
+* [`bace27d`](https://github.com/lucat1/quercia/commit/bace27d416923dcb7b91cc6a8aa760f363361af1)
+  Thanks [@lucat1](https://github.com/lucat1)! - feat(polyfills): build as a
+  separate config
+
+- [`745f3d6`](https://github.com/lucat1/quercia/commit/745f3d61dafde97e400013a6e1675b2ab2e075a5)
+  Thanks [@lucat1](https://github.com/lucat1)! - feat(cli): split logging into a
+  separate package
+
+* [`114c8cd`](https://github.com/lucat1/quercia/commit/114c8cd0f30bdbb1cec53463578b557cbb915b0e)
+  Thanks [@lucat1](https://github.com/lucat1)! - fix(cli): restrict
+  react-hot-loader inclusion
+
+- [`9f11770`](https://github.com/lucat1/quercia/commit/9f11770b30e3be84cc57133a0f54f6c91b132cc9)
+  Thanks [@lucat1](https://github.com/lucat1)! - fix(cli): prerender on firstime
+  in dev mode
+
+- Updated dependencies
+  [[`65fa14b`](https://github.com/lucat1/quercia/commit/65fa14b6c5c742f8994f30fee439075f5d0f8b21),
+  [`4e68520`](https://github.com/lucat1/quercia/commit/4e68520cb1d420178bcac3f2b24d44d391fb0409),
+  [`4bd612e`](https://github.com/lucat1/quercia/commit/4bd612e207bfe93730b5cd9d1c1e2c3ed8d2da5d)]:
+  - @quercia/runtime@0.3.0
+  - @quercia/logger@0.0.2
+
 ## 0.4.0-next.15
 
 ### Patch Changes
