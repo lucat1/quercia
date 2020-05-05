@@ -18,7 +18,7 @@
 
 <a href="https://unsplash.com/photos/tLSu12Rv1jQ"><img  src="https://images.unsplash.com/photo-1568654792529-d6f9f8a1c231?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" align="right" alt="An oakwood tree"  width="400px"></a>
 
-`quercia` is a javascript framework based on the [`react`](https://reactjs.org)
+`quercia` is a javascript framework based on the [react](https://reactjs.org)
 view library inspired by other popular options like `nextjs`. The aim of the
 project is to enable the amazing DX of these aforementioned tools while using a
 non-javascript backend, such as Go, Ruby or PHP.
@@ -44,6 +44,15 @@ non-javascript backend, such as Go, Ruby or PHP.
 > if you'd like to create a backend for your language of choice you can follow
 > the guides in the `internal` section in our docs, or join our Discord server
 > and get some help there!
+
+#### quick start
+If you want to get a quercia app up and running go ahead and clone one of our examples with [degit](https://github.com/Rich-Harris/degit).
+
+```sh
+$ npx degit lucat1/quercia-examples/basic # or `basic-ts` or `with-preact`
+```
+
+These examples don't require any backend code, as they use the `@quercia/mock` library to serve the application from sample data defined in the `mocks` folders. This way even front-end developers, whithout any knowledge of the backend code, can develop a quercia application. You can learn more about the mocking system in the docs.
 
 #### setup
 
