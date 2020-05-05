@@ -48,13 +48,12 @@ export default async (base: Configuration): Promise<Configuration> => {
   }
 
   for (const key in entries) {
-    // ignore the runtime and _document chunks
-    if (key == '_document') continue
+    // ignore the _document chunks
+    if (key == 'pages/_document') continue
 
     if (key == 'runtime') {
       // enable the `webpack-hot-middleware` during development
       entry[key] = hmr != '' ? ([hmr, entries[key]] as any) : entries[key]
-
       continue
     }
 
