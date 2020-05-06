@@ -25,7 +25,7 @@ const (
 var (
 	// the http directory used to fetch the manifest.json file
 	// can be set using SetDir (has to be most of the times)
-	dir = http.Dir("." + querciaPrefix)
+	dir http.FileSystem = http.Dir("." + querciaPrefix)
 )
 
 // struct describing the `manifest.json`
@@ -57,11 +57,11 @@ type Props map[string]interface{}
 
 // SetDir sets the directory the quercia renderer will
 // use to fetch the data for assets urls (aka rendering)
-func SetDir(d http.Dir) {
+func SetDir(d http.FileSystem) {
 	dir = d
 }
 
-// readFile reads a file using from the `http.Dir` at the requested path
+// readFile reads a file using from the `http.FileSystem` at the requested path
 // this helper is used in lots of places, among with loadManfiest, loadTemplate, loadPrerender
 func readFile(path string) ([]byte, error) {
 	file, err := dir.Open(path)
