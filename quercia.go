@@ -64,7 +64,7 @@ func SetDir(d http.FileSystem) {
 // readFile reads a file using from the `http.FileSystem` at the requested path
 // this helper is used in lots of places, among with loadManfiest, loadTemplate, loadPrerender
 func readFile(path string) ([]byte, error) {
-	file, err := dir.Open(path)
+	file, err := dir.Open("/" + path)
 	if err != nil {
 		return nil, err
 	}
