@@ -10,7 +10,7 @@
       alt="@quercia/runtime size" />
   </a>
   <!-- Discord chat -->
-  <a href="https://discord.gg/TvDTzK">
+  <a href="https://discord.gg/CBZKbf">
     <img src="https://img.shields.io/discord/702086867776045166"
       alt="Discord chat" />
   </a>
@@ -46,13 +46,19 @@ non-javascript backend, such as Go, Ruby or PHP.
 > and get some help there!
 
 #### quick start
-If you want to get a quercia app up and running go ahead and clone one of our examples with [degit](https://github.com/Rich-Harris/degit).
+
+If you want to get a quercia app up and running go ahead and clone one of our
+examples with [degit](https://github.com/Rich-Harris/degit).
 
 ```sh
 $ npx degit lucat1/quercia-examples/basic # or `basic-ts` or `with-preact`
 ```
 
-These examples don't require any backend code, as they use the `@quercia/mock` library to serve the application from sample data defined in the `mocks` folders. This way even front-end developers, whithout any knowledge of the backend code, can develop a quercia application. You can learn more about the mocking system in the docs.
+These examples don't require any backend code, as they use the `@quercia/mock`
+library to serve the application from sample data defined in the `mocks`
+folders. This way even front-end developers, whithout any knowledge of the
+backend code, can develop a quercia application. You can learn more about the
+mocking system in the docs.
 
 #### setup
 
