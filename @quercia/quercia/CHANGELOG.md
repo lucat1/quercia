@@ -1,5 +1,11 @@
 # @quercia/quercia
 
+## 0.2.1
+
+### Patch Changes
+
+- feat(quercia): support raw HTTP redirects
+
 ## 0.2.0
 
 ### Minor Changes
