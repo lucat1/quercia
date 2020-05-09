@@ -45,10 +45,18 @@ export async function req(
   const headers = Object.assign({}, (options && options.headers) || {}, {
     'X-Quercia': '1'
   })
-  const opts = Object.assign({}, options || {}, { method, headers })
+  const opts = Object.assign({}, options || { redirect: 'follow' }, {
+    method,
+    headers
+  })
   const req = await fetch(url, opts)
 
   const data = parse(await req.text())
+
+  // hard redirect, update the url at least and hope everything goes well
+  if (req.redirected) {
+    history.replaceState(null, '', req.url)
+  }
 
   // check if we recieved a string url. This is mandatory
   if (process.env.NODE_ENV === 'development') {
