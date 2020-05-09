@@ -260,12 +260,10 @@ func renderJSON(w http.ResponseWriter, r *http.Request, redirect string, page st
 // or pass `""`(an empty string) as the `page` parameter ex. `quercia.Redirect(w, r, "/test", "", nil)`
 func Redirect(w http.ResponseWriter, r *http.Request, url string, page string, props interface{}) {
 	// redirect if the request is not json-based
-	if r.Header.Get(querciaHeader) == "" {
+	if r.Header.Get(querciaHeader) == "" || page == "" {
 		http.Redirect(w, r, url, http.StatusTemporaryRedirect)
 		return
 	}
 
-	if page != "" {
-		renderJSON(w, r, url, page, props)
-	}
+	renderJSON(w, r, url, page, props)
 }
