@@ -1,5 +1,12 @@
 # @quercia/runtime
 
+## 0.3.2
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @quercia/quercia@0.2.2
+
 ## 0.3.1
 
 ### Patch Changes

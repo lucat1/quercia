@@ -1,5 +1,11 @@
 # @quercia/quercia
 
+## 0.2.2
+
+### Patch Changes
+
+- fix: prevent loading scripts multiple times
+
 ## 0.2.1
 
 ### Patch Changes
