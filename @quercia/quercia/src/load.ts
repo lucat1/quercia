@@ -76,6 +76,10 @@ export function isLoaded(page: string) {
 
 // loads a script at the given url
 export function reqScript(src: string): Promise<void> {
+  if (document.querySelector(`script[src="${src}"]`) != null) {
+    return Promise.resolve()
+  }
+
   return new Promise((res, rej) => {
     const script = document.createElement('script')
     script.src = src
