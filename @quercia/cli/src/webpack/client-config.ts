@@ -66,6 +66,10 @@ export default async (base: Configuration): Promise<Configuration> => {
   return {
     ...base,
     entry,
+    output: {
+      ...base.output,
+      filename: '[name].[contenthash:8].js'
+    },
     target: 'web',
     plugins: [
       ...(base.plugins || []),

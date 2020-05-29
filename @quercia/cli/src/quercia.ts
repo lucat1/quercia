@@ -1,5 +1,4 @@
 import { AsyncParallelHook, AsyncSeriesHook } from 'tapable'
-import uid from 'uid'
 
 import Structure from './tasks/structure'
 import Config from './tasks/config'
@@ -90,7 +89,6 @@ export default class Quercia {
 
   public tasks: Tasks
   public logger: Logger
-  public buildID = uid(5)
 
   public exit(code: number) {
     process.exit(code)

@@ -43,15 +43,11 @@ export default class Prerender extends Task {
   public async execute() {
     this.debug('tasks/prerender', 'Prerendering all pages')
 
-    const root = join(
-      this.quercia.tasks.structure.paths.root,
-      '__quercia',
-      this.quercia.buildID
-    )
-    // the `server` webpack output folder (ex. __quercia/<id>/server)
+    const root = join(this.quercia.tasks.structure.paths.root, '__quercia')
+    // the `server` webpack output folder (ex. __quercia/erver)
     this.input = join(root, 'server')
 
-    // the `prerender` output folder (ex. __quercia/<id>/prerender)
+    // the `prerender` output folder (ex. __quercia/prerender)
     this.output = join(root, 'prerender')
     await mkdirp(this.output)
 
@@ -98,7 +94,6 @@ export default class Prerender extends Task {
       await fs.writeFile(destination, output)
 
       this.quercia.tasks.builder.manifest.prerender[page] = join(
-        this.quercia.buildID,
         'prerender',
         page + '.html'
       )

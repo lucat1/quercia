@@ -4,7 +4,6 @@ import { Configuration } from 'webpack'
 export interface ConfigurationArgument {
   config: Configuration
   target: Target
-  buildID: string
   mode: 'production' | 'development'
 }
 

@@ -80,7 +80,6 @@ export default class Config extends Task implements IConfig {
       final = await this.rc({
         target,
         config: internal,
-        buildID: this.quercia.buildID,
         mode: this.quercia.flags.mode
       })
     } catch (err) {

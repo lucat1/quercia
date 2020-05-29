@@ -31,11 +31,7 @@ export default class ManifestPlugin implements Plugin {
         // handle normal chunks
         if (vendors.includes(chunk.name as VendorChunk)) {
           const name = chunk.name as VendorChunk
-          assets.vendor[name] = join(
-            this.quercia.buildID,
-            'client',
-            chunk.name + '.js'
-          )
+          assets.vendor[name] = join('client', chunk.files[0])
         }
       }
 
@@ -52,20 +48,15 @@ export default class ManifestPlugin implements Plugin {
         const depends: string[] = (entry as any).getFiles()
 
         for (const dep of depends) {
-          if (vendors.includes(dep.replace('.js', '') as any)) {
+          if (Object.values(assets.vendor).some(value => value.includes(dep))) {
             continue
           }
 
-          assets.pages[key].push(join(this.quercia.buildID, 'client', dep))
+          assets.pages[key].push(join('client', dep))
         }
       }
 
-      assets.vendor.polyfills = join(
-        this.quercia.buildID,
-        'polyfills',
-        'polyfills.js'
-      )
-
+      assets.vendor.polyfills = join('polyfills', 'polyfills.js')
       this.quercia.tasks.builder.manifest = assets
     })
   }

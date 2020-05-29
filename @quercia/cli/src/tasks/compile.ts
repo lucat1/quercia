@@ -67,20 +67,8 @@ export default class Compile extends Task {
       this.quercia.flags.mode == 'production' ? 0 : 2
     )
 
-    // save the file in two paths so that ever after a recompile the manifest
-    // is still available under the unique buildID based folder
-    const paths = [
-      join(this.quercia.tasks.structure.paths.root, '__quercia'),
-      join(
-        this.quercia.tasks.structure.paths.root,
-        '__quercia',
-        this.quercia.buildID
-      )
-    ]
-
-    for (const path of paths) {
-      await fs.writeFile(join(path, 'manifest.json'), data)
-    }
+    const path = join(this.quercia.tasks.structure.paths.root, '__quercia')
+    await fs.writeFile(join(path, 'manifest.json'), data)
 
     this.success('tasks/compile', 'wrote manifest files')
   }

@@ -13,7 +13,6 @@ import replaceSSG from '../babel/replace-ssg'
 // config returns the default webpack configuration, one for each
 export default (target: Target): Configuration => {
   const {
-    buildID,
     command,
     flags: { mode, stats }
   } = Quercia.getInstance()
@@ -23,7 +22,7 @@ export default (target: Target): Configuration => {
     paths: { runtime, root }
   } = Quercia.getInstance().tasks.structure
 
-  const out = join(root, '__quercia', buildID, target)
+  const out = join(root, '__quercia', target)
 
   return {
     mode,
@@ -41,7 +40,7 @@ export default (target: Target): Configuration => {
     output: {
       filename: '[name].js',
       path: out,
-      publicPath: '/__quercia/' + buildID + '/' + target + '/'
+      publicPath: '/__quercia/' + target + '/'
     },
     entry: {
       runtime,
