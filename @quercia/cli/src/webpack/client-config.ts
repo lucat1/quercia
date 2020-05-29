@@ -164,7 +164,7 @@ export default async (base: Configuration): Promise<Configuration> => {
           },
           lib: {
             test: (module: { size: Function; identifier: Function }) =>
-              module.size() > 15000 /* 15kb */ &&
+              module.size() > 100000 /* 100kb */ &&
               /node_modules[/\\]/.test(module.identifier()),
 
             name: name('lib-'),
@@ -172,7 +172,11 @@ export default async (base: Configuration): Promise<Configuration> => {
             minChunks: 1,
             reuseExistingChunk: true
           },
-          commons: { name: 'commons', minChunks: 4, priority: 20 },
+          commons: {
+            name: 'commons',
+            minChunks: Object.keys(structure.pages).length,
+            priority: 20
+          },
           shared: {
             name: name('shared-'),
             priority: 10,
