@@ -1,5 +1,11 @@
 # @quercia/cli
 
+## 0.4.1
+
+### Patch Changes
+
+- feat(cli): swap out buildID for chunk hashes
+
 ## 0.4.0
 
 ### Minor Changes
