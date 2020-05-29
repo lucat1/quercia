@@ -174,7 +174,7 @@ export default async (base: Configuration): Promise<Configuration> => {
           },
           commons: {
             name: 'commons',
-            minChunks: Object.keys(structure.pages).length,
+            minChunks: Object.keys(structure.pages).length / 2,
             priority: 20
           },
           shared: {
