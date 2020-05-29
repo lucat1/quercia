@@ -1,5 +1,11 @@
 # @quercia/cli
 
+## 0.5.2
+
+### Patch Changes
+
+- fix: improve chunk splitting
+
 ## 0.5.1
 
 ### Patch Changes
