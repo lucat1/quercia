@@ -7,7 +7,7 @@ import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
 import eresolve from 'enhanced-resolve'
 import { promisify } from 'util'
 import { sep } from 'path'
-import uid from 'uid'
+import { createHash } from 'crypto'
 
 import ManifestPlugin from './manifest-plugin'
 import Quercia from '../quercia'
@@ -61,6 +61,28 @@ export default async (base: Configuration): Promise<Configuration> => {
     entry[key] = `${loader}!${entries[key]}?name=${pageName}&dev=${
       config.hmr != -1
     }`
+  }
+
+  // function used to generate names based on reproducible hashes of content
+  const name = (base: string) => (module: {
+    type: string
+    libIdent?: Function
+  }): string => {
+    if (!module.libIdent) {
+      logger.error(
+        'webpack/client-config',
+        'invalid output module type(lib): `' + module.type + '`'
+      )
+      return ''
+    }
+
+    return (
+      base +
+      createHash('sha1')
+        .update(module.libIdent({ context: structure.paths.root }))
+        .digest('hex')
+        .substr(0, 8)
+    )
   }
 
   return {
@@ -145,14 +167,14 @@ export default async (base: Configuration): Promise<Configuration> => {
               module.size() > 1000 &&
               /node_modules[/\\]/.test(module.identifier()),
 
-            name: () => `lib-${uid(7)}`,
+            name: name('lib-'),
             priority: 30,
             minChunks: 1,
             reuseExistingChunk: true
           },
           commons: { name: 'commons', minChunks: 4, priority: 20 },
           shared: {
-            name: () => `shared-${uid(7)}`,
+            name: name('shared-'),
             priority: 10,
             minChunks: 2,
             reuseExistingChunk: true
