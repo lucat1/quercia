@@ -164,7 +164,7 @@ export default async (base: Configuration): Promise<Configuration> => {
           },
           lib: {
             test: (module: { size: Function; identifier: Function }) =>
-              module.size() > 1000 &&
+              module.size() > 15000 /* 15kb */ &&
               /node_modules[/\\]/.test(module.identifier()),
 
             name: name('lib-'),
