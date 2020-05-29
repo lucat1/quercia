@@ -68,7 +68,8 @@ export default async (base: Configuration): Promise<Configuration> => {
     entry,
     output: {
       ...base.output,
-      filename: '[name].[contenthash:8].js'
+      filename:
+        config.hmr != -1 ? '[name].[hash].js' : '[name].[contenthash:8].js'
     },
     target: 'web',
     plugins: [

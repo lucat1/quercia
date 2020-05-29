@@ -55,9 +55,7 @@ export default class Compile extends Task {
     await this.quercia.hooks.manifest.promise(this)
   }
 
-  // writes the manifest into two files(to preven deletion upon recompile)
-  // - `__quercia/<id>/manifest.json`
-  // - `__quercia/manifest.json`
+  // writes the manifest to `__quercia/manifest.json`
   public async writeManfiest() {
     this.debug('tasks/compile', 'Writing manifest files')
 

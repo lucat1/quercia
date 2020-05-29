@@ -30,6 +30,9 @@ export default class ManifestPlugin implements Plugin {
       for (const chunk of chunks) {
         // handle normal chunks
         if (vendors.includes(chunk.name as VendorChunk)) {
+          // ignore empty chunks
+          if (chunk.files.length === 0) return
+
           const name = chunk.name as VendorChunk
           assets.vendor[name] = join('client', chunk.files[0])
         }

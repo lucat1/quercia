@@ -25,15 +25,16 @@ export default class Watch extends Compile implements IWatch {
     ;(this.compiler as any).watch(
       null,
       async (err: Error, stats: MultiStats) => {
-        for (const stat of stats.stats) {
-          if (err) {
-            this.error(
-              'tasks/watch',
-              'while running webpack in watch mode:\n' +
-                this.logger.prettyError('error', err)
-            )
-          }
+        if (err) {
+          this.error(
+            'tasks/watch',
+            'while running webpack in watch mode:\n' +
+              this.logger.prettyError('error', err)
+          )
+        }
 
+        let shouldStop = false
+        for (const stat of stats.stats) {
           if (stat.hasErrors()) {
             for (const err of stat.compilation.errors) {
               const index = stat.compilation.errors.indexOf(err) + 1
@@ -45,8 +46,14 @@ export default class Watch extends Compile implements IWatch {
               )
             }
 
-            return
+            shouldStop = true
           }
+        }
+
+        // don't execute further if we have any errors
+        if (shouldStop) {
+          this.success('tasks/watch', 'errors while compiling')
+          return
         }
 
         this._calls++

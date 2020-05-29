@@ -11,15 +11,15 @@ export default class Build extends Compile {
 
     this.stats = await new Promise<MultiStats>(res => {
       ;(this.compiler as any).run((err: Error, stats: MultiStats) => {
-        for (const stat of stats.stats) {
-          if (err) {
-            this.error(
-              'tasks/build',
-              'while running webpack in build mode:\n' +
-                this.logger.prettyError('error', err)
-            )
-          }
+        if (err) {
+          this.error(
+            'tasks/build',
+            'while running webpack in build mode:\n' +
+              this.logger.prettyError('error', err)
+          )
+        }
 
+        for (const stat of stats.stats) {
           if (stat.hasErrors()) {
             for (const err of stat.compilation.errors) {
               const index = stat.compilation.errors.indexOf(err) + 1
