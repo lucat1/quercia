@@ -1,5 +1,11 @@
 # @quercia/cli
 
+## 0.5.1
+
+### Patch Changes
+
+- fix: increase lib target threshold
+
 ## 0.5.0
 
 ### Minor Changes
