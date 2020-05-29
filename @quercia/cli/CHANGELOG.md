@@ -1,5 +1,11 @@
 # @quercia/cli
 
+## 0.5.0
+
+### Minor Changes
+
+- feat: reproducible chunk hashes on libs/shared modules
+
 ## 0.4.1
 
 ### Patch Changes
