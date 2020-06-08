@@ -1,5 +1,11 @@
 # @quercia/cli
 
+## 0.5.4
+
+### Patch Changes
+
+- chore: bump dependecy to fix security vulnerability
+
 ## 0.5.3
 
 ### Patch Changes
