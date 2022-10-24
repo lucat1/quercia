@@ -10,8 +10,8 @@
   },
   "author": "LucaT",
   "bugs": "https://github.com/lucat1/quercia/issues",
-  "main": "dist/runtime.cjs.js",
-  "module": "dist/runtime.esm.js",
+  "main": "dist/quercia-runtime.cjs.js",
+  "module": "dist/quercia-runtime.esm.js",
   "engines": {
     "node": ">=10"
   },
@@ -20,18 +20,18 @@
     "src"
   ],
   "peerDependencies": {
-    "react": ">=16",
-    "react-dom": ">=16",
+    "react": ">=18",
+    "react-dom": ">=18",
     "react-hot-loader": "^4.12.20"
   },
   "dependencies": {
     "@quercia/quercia": "0.2.2"
   },
   "devDependencies": {
-    "@types/react": "^16.9.25",
-    "@types/react-dom": "16.9.5",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
+    "@types/react": "^18.0.21",
+    "@types/react-dom": "^18.0.6",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-hot-loader": "^4.12.20"
   },
   "typings": "dist/runtime.cjs.d.ts"

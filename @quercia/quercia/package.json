@@ -10,8 +10,8 @@
   },
   "author": "LucaT",
   "bugs": "https://github.com/lucat1/quercia/issues",
-  "main": "dist/quercia.cjs.js",
-  "module": "dist/quercia.esm.js",
+  "main": "dist/quercia-quercia.cjs.js",
+  "module": "dist/quercia-quercia.esm.js",
   "engines": {
     "node": ">=10"
   },
@@ -25,10 +25,10 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@types/react": "^16.9.25",
-    "@types/react-dom": "16.9.5",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "@types/react": "^18.0.21",
+    "@types/react-dom": "^18.0.6",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "typings": "dist/quercia.cjs.d.ts"
 }
