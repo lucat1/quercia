@@ -32,8 +32,8 @@ export default (target: Target): Configuration => {
     parallelism: stats ? 1 : undefined,
     stats: stats
       ? {
-          modules: true
-        }
+        modules: true
+      }
       : undefined,
 
     devtool: mode == 'development' ? 'inline-source-map' : false,
@@ -100,7 +100,7 @@ export default (target: Target): Configuration => {
                   mode === 'development' &&
                     target === 'client' &&
                     command === 'watch'
-                    ? ['react-hot-loader/babel']
+                    ? ['react-refresh/babel']
                     : []
                 )
             }
@@ -113,27 +113,26 @@ export default (target: Target): Configuration => {
       minimizer:
         mode === 'production' && target !== 'server'
           ? [
-              new Terser({
-                parallel: !isCI,
-                cache: true,
-                extractComments: {
-                  condition: /^\**!|@preserve|@license|@cc_on/i,
-                  filename: () => 'LICENSE.txt',
-                  banner: file => {
-                    return `LICENSE(s) at ${file.replace(
-                      join(root, '__quercia', ''),
-                      ''
-                    )}`
-                  }
-                },
-                terserOptions: {
-                  compress: true,
-                  output: {
-                    comments: false
-                  }
+            new Terser({
+              parallel: !isCI,
+              extractComments: {
+                condition: /^\**!|@preserve|@license|@cc_on/i,
+                filename: () => 'LICENSE.txt',
+                banner: file => {
+                  return `LICENSE(s) at ${file.replace(
+                    join(root, '__quercia', ''),
+                    ''
+                  )}`
                 }
-              })
-            ]
+              },
+              terserOptions: {
+                compress: true,
+                output: {
+                  comments: false
+                }
+              }
+            })
+          ]
           : []
     }
   }

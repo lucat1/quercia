@@ -1,4 +1,3 @@
-import { hot } from 'react-hot-loader/root'
 import * as React from 'react'
 import { render } from 'react-dom'
 
@@ -18,10 +17,5 @@ let Root: React.FunctionComponent = () => (
 )
 
 if (typeof window !== 'undefined') {
-  if (process.env.NODE_ENV === 'development') {
-    Root = hot(Root)
-    Root.displayName = 'hot(Root)'
-  }
-
   render(<Root />, document.getElementById('__quercia'))
 }

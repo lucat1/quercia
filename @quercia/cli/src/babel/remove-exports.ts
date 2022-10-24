@@ -1,4 +1,4 @@
-import { PluginObj, types, traverse, NodePath } from '@babel/core'
+import { PluginObj, types, NodePath } from '@babel/core'
 
 const REMOVE = [
   'getInitialProps',
@@ -7,7 +7,7 @@ const REMOVE = [
   'QuerciaScripts'
 ]
 
-export default function ({
+export default function({
   types: t
 }: {
   types: typeof types
@@ -16,7 +16,7 @@ export default function ({
     name: 'remove-funcs',
     visitor: {
       Program(path) {
-        traverse(path.node, {
+        path.traverse({
           ExportNamedDeclaration(path) {
             // ignore exports without declarations
             if (

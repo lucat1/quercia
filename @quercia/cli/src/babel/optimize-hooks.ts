@@ -1,4 +1,4 @@
-import { PluginObj, types, traverse } from '@babel/core'
+import { PluginObj, types } from '@babel/core'
 
 // taken from:
 // https://github.com/developit/babel-plugin-optimize-hook-destructuring/blob/29c84a7523645bd381b71ab668fd624068a876d4/index.js
@@ -14,7 +14,7 @@ const notEmpty = <T>(value: T | null): value is T => value !== null
 
 const libs = ['react', 'preact/hooks', '@quercia/quercia']
 
-export default function ({
+export default function({
   types: t
 }: {
   types: typeof types
@@ -23,7 +23,7 @@ export default function ({
     name: 'optimize-hooks',
     visitor: {
       Program(path) {
-        traverse(path.node, {
+        path.traverse({
           CallExpression(path) {
             // ignore calls outside of variable declarations
             if (!t.isVariableDeclarator(path.parent)) return

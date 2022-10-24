@@ -33,8 +33,8 @@ export default class Compile extends Task {
 
     const cfg = [
       this.quercia.tasks.config.client,
-      this.quercia.tasks.config.server,
-      this.quercia.tasks.config.polyfills
+      // this.quercia.tasks.config.server,
+      // this.quercia.tasks.config.polyfills
     ]
 
     this.compiler = webpack(cfg)
@@ -42,6 +42,7 @@ export default class Compile extends Task {
 
   // holds repetitive calls that happen after the build has been successful
   public async afterBuild() {
+    console.log("afterBuild")
     await this.quercia.hooks.beforePrerender.promise(this.quercia)
 
     await this.quercia.tasks.prerender.execute()

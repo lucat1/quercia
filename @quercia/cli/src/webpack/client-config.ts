@@ -4,6 +4,7 @@ import {
   NormalModuleReplacementPlugin
 } from 'webpack'
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
+import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin'
 import eresolve from 'enhanced-resolve'
 import { promisify } from 'util'
 import { sep } from 'path'
@@ -35,8 +36,9 @@ export default async (base: Configuration): Promise<Configuration> => {
   const entry: T = {}
 
   const {
+    command,
     tasks: { config, structure },
-    flags: { typecheck },
+    flags: { mode, typecheck },
     logger
   } = Quercia.getInstance()
 
@@ -60,7 +62,7 @@ export default async (base: Configuration): Promise<Configuration> => {
     const pageName = key.replace('pages' + sep, '')
     entry[key] = `${loader}!${entries[key]}?name=${pageName}&dev=${
       config.hmr != -1
-    }`
+      }`
   }
 
   // function used to generate names based on reproducible hashes of content
@@ -99,33 +101,31 @@ export default async (base: Configuration): Promise<Configuration> => {
       new ManifestPlugin(Quercia.getInstance()),
       new NormalModuleReplacementPlugin(/core-js|unfetch|url-polyfill/, noop)
     ]
-      .concat(config.hmr != -1 ? new HotModuleReplacementPlugin() : [])
+      .concat(config.hmr != -1 ? [new HotModuleReplacementPlugin(), new ReactRefreshWebpackPlugin({ overlay: { sockIntegration: 'whm' } })] : [])
       .concat(
         structure.paths.tsconfig && typecheck
           ? new ForkTsCheckerWebpackPlugin({
-              tsconfig: structure.paths.tsconfig,
-              logger: {
-                info: (...args) =>
-                  logger.info('webpack/ts-type-checker', ...args),
-                error: err => {
-                  // only fail during builds (keep alive during watch)
-                  // if the hmr is enabled we are clearly in watch mode
-                  const level = config.hmr ? 'warning' : 'error'
+            typescript: {
+              configFile: structure.paths.tsconfig
+            },
+            async: command == 'watch',
+            devServer: command == 'watch' && mode == 'development',
+            logger: {
+              log: message =>
+                logger.info('webpack/ts-type-checker', message),
+              error: err => {
+                // only fail during builds (keep alive during watch)
+                // if the hmr is enabled we are clearly in watch mode
+                const level = config.hmr ? 'warning' : 'error'
 
-                  logger[level](
-                    'webpack/ts-type-checker(error)',
-                    'type error from `ts-checker`\n' +
-                      logger.prettyError(level, new TypeError(err))
-                  )
-                },
-                warn: err =>
-                  logger.warning(
-                    'webpack/ts-type-checker',
-                    'type warning from `ts-checker`\n' +
-                      logger.prettyError('warning', new TypeError(err))
-                  )
-              }
-            })
+                logger[level](
+                  'webpack/ts-type-checker(error)',
+                  'type error from `ts-checker`\n' +
+                  logger.prettyError(level, new TypeError(err))
+                )
+              },
+            }
+          })
           : []
       ),
     resolve: {
@@ -135,11 +135,7 @@ export default async (base: Configuration): Promise<Configuration> => {
         // prevent duplicate react versions
         // which causes issues with hooks (react >= 16.8)
         'react': await resolve(process.cwd(), 'react'),
-        'react-dom': await resolve(
-          process.cwd(),
-          // use `@hot-loader/react-dom` during development to improve hot reloading
-          config.hmr != -1 ? '@hot-loader/react-dom' : 'react-dom'
-        ),
+        'react-dom': await resolve(process.cwd(), 'react-dom'),
         '@quercia/quercia': await resolve(process.cwd(), '@quercia/quercia'),
         '@quercia/runtime': await resolve(process.cwd(), '@quercia/runtime')
       }
@@ -158,7 +154,7 @@ export default async (base: Configuration): Promise<Configuration> => {
           vendor: {
             chunks: 'all',
             name: 'vendor',
-            test: /(?<!node_modules.*)[\\/]node_modules[\\/](react|react-dom|scheduler|prop-types|object-assign|preact|@quercia\/(quercia|cli)|core-js|babel-plugin-transform-async-to-promises|react-hot-loader|@hot-loader|html-entities)[\\/]/,
+            test: /(?<!node_modules.*)[\\/]node_modules[\\/](react|react-dom|scheduler|prop-types|object-assign|preact|@quercia\/(quercia|cli)|core-js|babel-plugin-transform-async-to-promises|html-entities)[\\/]/,
             priority: 40,
             enforce: true
           },
@@ -174,7 +170,7 @@ export default async (base: Configuration): Promise<Configuration> => {
           },
           commons: {
             name: 'commons',
-            minChunks: Object.keys(structure.pages).length / 2,
+            minChunks: Math.max(Math.ceil(Object.keys(structure.pages).length / 2), 1),
             priority: 20
           },
           shared: {
